@@ -268,6 +268,7 @@ class Form(QObject):
             self.ca_drip_edit.setEnabled(True)
             self.ca_a_pitch_gbox.setEnabled(True)
             self.ca_c_pitch_gbox.setEnabled(True)
+
     def st_endcuts(self):
         if self.st_eco_radio.isChecked() and (self.st_endcut1_radio.isChecked() or self.st_endcut3_radio.isChecked()):
             if self.st_thick_combo.itemData(self.st_thick_combo.currentIndex()) == '6"':
