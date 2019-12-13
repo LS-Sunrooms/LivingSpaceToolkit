@@ -72,9 +72,9 @@ class StudioCalcs:
         :return: class <CommonCalcs.CommonCalcs>
         """
         b_wall_height = max_h - max(self.awall, self.cwall) * math.tan(pitch) - \
-                        Cc.angled_thickness(pitch=pitch, thickness=self.panel_thickness)
+                        Cc.angled(pitch=pitch, thickness=self.panel_thickness)
         soffit = b_wall_height - self.overhang * math.tan(pitch)
-        peak = max_h - Cc.angled_thickness(pitch=pitch, thickness=self.panel_thickness)
+        peak = max_h - Cc.angled(pitch=pitch, thickness=self.panel_thickness)
         common = Cc.CommonCalcs(wall_length=self.bwall, side_wall_length=self.side_wall, pitch=pitch, soffit=soffit,
                                 overhang=self.overhang, tabwidget=self.tabwidget, thickness=self.panel_thickness,
                                 endcut=self.endcut, peak=peak, max_h=max_h, wall_height=b_wall_height)

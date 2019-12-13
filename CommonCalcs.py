@@ -208,3 +208,12 @@ def pitch_estimate(number):
     :return: float
     """
     return round(number * 2) / 2
+
+
+def sixteenth(number):
+    """
+    Rounds number to nearest 16th.
+    :param number: float
+    :return: float
+    """
+    return round(number * 16) / 16

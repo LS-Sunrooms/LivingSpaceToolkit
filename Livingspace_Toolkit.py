@@ -199,8 +199,6 @@ class Form(QObject):
         self.st_overhang_edit.setEnabled(True)
         self.st_roof_gbox.setEnabled(True)
         self.st_thick_combo.setEnabled(True)
-        # self.st_panel_gbox.setEnabled(True)
-        # self.st_width_combo.setEnabled(True)
         self.st_endcut_gbox.setEnabled(True)
         if self.st_scenario1_radio.isChecked():
             self.st_pitch_gbox.setEnabled(True)
@@ -232,8 +230,6 @@ class Form(QObject):
         self.ca_overhang_edit.setEnabled(True)
         self.ca_roof_gbox.setEnabled(True)
         self.ca_thick_combo.setEnabled(True)
-        # self.ca_panel_gbox.setEnabled(True)
-        # self.ca_width_combo.setEnabled(True)
         self.ca_endcut_gbox.setEnabled(True)
         if self.ca_scenario1_radio.isChecked():
             self.ca_a_pitch_gbox.setEnabled(True)
@@ -387,11 +383,11 @@ class Form(QObject):
             self.ca_thick_combo.addItem('6"', userData='6"')
 
     def common_results(self, common):
-        peak = Eu(Cc.assume_units(str(common.peak), '"'), u_type='length')
+        peak = Eu(Cc.assume_units(str(Cc.sixteenth(common.peak)), '"'), u_type='length')
         panel_length = Eu(Cc.assume_units(str(common.panel_length()[0]), '"'), u_type='length')
         max_panel_length = common.panel_length()[1]
-        soffit_height = Eu(Cc.assume_units(str(common.soffit), '"'), u_type='length')
-        drip_edge = Eu(Cc.assume_units(str(common.drip_edge()), '"'), u_type='length')
+        soffit_height = Eu(Cc.assume_units(str(Cc.sixteenth(common.soffit)), '"'), u_type='length')
+        drip_edge = Eu(Cc.assume_units(str(Cc.sixteenth(common.drip_edge())), '"'), u_type='length')
         roof_area = math.ceil(common.roof_panels()[0]) / 144
         hang_rail = Eu(Cc.assume_units(str(common.hang_rail()[0]), '"'), u_type='length')
         max_hang_rail_length = common.hang_rail()[1]
@@ -399,22 +395,22 @@ class Form(QObject):
         fascia_sides = Eu(Cc.assume_units(str(common.fascia()[1]), '"'), u_type='length')
         max_fascia_length = common.fascia()[2]
         roof_panels = common.roof_panels()[1]
-        max_height = Eu(Cc.assume_units(str(common.max_h), '"'), u_type='length')
+        max_height = Eu(Cc.assume_units(str(Cc.sixteenth(common.max_h)), '"'), u_type='length')
         overhang_ = Eu(Cc.assume_units(str(common.overhang), '"'), u_type='length')
         side_overhang = Eu(Cc.assume_units(str(common.roof_panels()[2]), '"'), u_type='length')
         armstrong = common.armstrong_panels()
         overhang_error = common.roof_panels()[3]
-        b_wall_height_ = Eu(Cc.assume_units(str(common.wall_height), '"'), u_type='length')
+        wall_height_ = Eu(Cc.assume_units(str(Cc.sixteenth(common.wall_height)), '"'), u_type='length')
         common_results = {'pitch': common.pitch, 'peak': peak.simplified('in'), 'panel length':
             panel_length.simplified('in'), 'max panel length': max_panel_length,
                           'soffit height': soffit_height.simplified('in'), 'drip edge': drip_edge.simplified('in'),
                           'roof area': roof_area, 'hang rail': hang_rail.simplified('in'),
-                          'max hang rail length': max_hang_rail_length, 'fascia b wall': fascia_b_wall.simplified('in'),
+                          'max hang rail length': max_hang_rail_length, 'fascia wall': fascia_b_wall.simplified('in'),
                           'fascia sides': fascia_sides.simplified('in'), 'max fascia length': max_fascia_length,
                           'roof panels': roof_panels, 'max height': max_height.simplified('in'),
                           'overhang': overhang_.simplified('in'), 'side overhang': side_overhang.simplified('in'),
-                          'armstrong': armstrong, 'bwallheight': b_wall_height_.simplified('in'),
-                          'sidewall': b_wall_height_.simplified('in'), 'overhang error': overhang_error}
+                          'armstrong': armstrong, 'wallheight': wall_height_.simplified('in'),
+                          'sidewall': wall_height_.simplified('in'), 'overhang error': overhang_error}
         return common_results
 
     @property
@@ -464,10 +460,108 @@ class Form(QObject):
             pitch = Cc.pitch_input(pitch_input)
             soffit = Eu(Cc.assume_units(self.st_soffit_edit.text(), '"'), u_type='length')
             common = studio.soffit_height_pitch(pitch, soffit.base)
+        elif self.st_scenario6_radio.isChecked():
+            pass
+        elif self.st_scenario7_radio.isChecked():
+            pass
         return self.common_results(common)
 
+    @property
     def ca_scenario_calc(self):
-        pass
+        overhang = Eu(Cc.assume_units(self.ca_overhang_edit.text(), '"'), u_type='length')
+        awall = Eu(Cc.assume_units(self.ca_awall_edit.text(), '"'), u_type='length')
+        bwall = Eu(Cc.assume_units(self.ca_bwall_edit.text(), '"'), u_type='length')
+        cwall = Eu(Cc.assume_units(self.ca_cwall_edit.text(), '"'), u_type='length')
+        panel_thickness = Eu(self.ca_thick_combo.itemData(self.ca_thick_combo.currentIndex()), u_type='length')
+        if self.ca_endcut1_radio.isChecked():
+            endcut = 'uncut'
+        elif self.ca_endcut2_radio.isChecked():
+            endcut = 'plum_T_B'
+        elif self.ca_endcut3_radio.isChecked():
+            endcut = 'plum_T'
+        catherdral = CatherdralCalcs.CathedralCalcs(overhang.base, awall.base, bwall.base, cwall.base,
+                                                    panel_thickness.base, endcut)
+        if self.ca_scenario1_radio.isChecked():
+            if self.ca_a_ratio_radio.isChecked():
+                a_pitch_input = Eu(Cc.assume_units(self.ca_a_pitch_edit.text(), '"'), u_type='length')
+            elif self.ca_a_angle_radio.isChecked():
+                a_pitch_input = Eu(Cc.assume_units(self.ca_a_pitch_edit.text(), 'deg'), u_type='angle')
+            if self.ca_c_ratio_radio.isChecked():
+                c_pitch_input = Eu(Cc.assume_units(self.ca_c_pitch_edit.text(), '"'), u_type='length')
+            elif self.ca_a_angle_radio.isChecked():
+                c_pitch_input = Eu(Cc.assume_units(self.ca_c_pitch_edit.text(), 'deg'), u_type='angle')
+            a_pitch = Cc.pitch_input(a_pitch_input)
+            c_pitch = Cc.pitch_input(c_pitch_input)
+            a_wall_height = Eu(Cc.assume_units(self.ca_awallheight_edit.text(), '"'), u_type='length')
+            c_wall_height = Eu(Cc.assume_units(self.ca_cwallheight_edit.text(), '"'), u_type='length')
+            common = catherdral.wall_height_pitch(a_pitch=a_pitch, c_pitch=c_pitch, a_wall_height=a_wall_height.base,
+                                                  c_wall_height=c_wall_height.base)
+        elif self.ca_scenario2_radio.isChecked():
+            a_wall_height = Eu(Cc.assume_units(self.ca_awallheight_edit.text(), '"'), u_type='length')
+            c_wall_height = Eu(Cc.assume_units(self.ca_cwallheight_edit.text(), '"'), u_type='length')
+            peak = Eu(Cc.assume_units(self.ca_peak_edit.text(), '"'), u_type='length')
+            common = catherdral.wall_height_peak_height(a_wall_height=a_wall_height.base,
+                                                        c_wall_height=c_wall_height.base, peak=peak.base)
+        elif self.ca_scenario3_radio.isChecked():
+            if self.ca_a_ratio_radio.isChecked():
+                a_pitch_input = Eu(Cc.assume_units(self.ca_a_pitch_edit.text(), '"'), u_type='length')
+            elif self.ca_a_angle_radio.isChecked():
+                a_pitch_input = Eu(Cc.assume_units(self.ca_a_pitch_edit.text(), 'deg'), u_type='angle')
+            if self.ca_c_ratio_radio.isChecked():
+                c_pitch_input = Eu(Cc.assume_units(self.ca_c_pitch_edit.text(), '"'), u_type='length')
+            elif self.ca_a_angle_radio.isChecked():
+                c_pitch_input = Eu(Cc.assume_units(self.ca_c_pitch_edit.text(), 'deg'), u_type='angle')
+            a_pitch = Cc.pitch_input(a_pitch_input)
+            c_pitch = Cc.pitch_input(c_pitch_input)
+            max_h = Eu(Cc.assume_units(self.ca_max_edit.text(), '"'), u_type='length')
+            common = catherdral.max_height_pitch(max_h=max_h.base, a_pitch=a_pitch, c_pitch=c_pitch)
+        elif self.ca_scenario4_radio.isChecked():
+            a_soffit = Eu(Cc.assume_units(self.ca_a_soffit_edit.text(), '"'), u_type='length')
+            c_soffit = Eu(Cc.assume_units(self.ca_c_soffit_edit.text(), '"'), u_type='length')
+            peak = Eu(Cc.assume_units(self.ca_peak_edit.text(), '"'), u_type='length')
+            common = catherdral.soffit_height_peak_height(a_soffit=a_soffit.base, c_soffit=c_soffit.base,
+                                                          peak=peak.base)
+        elif self.ca_scenario5_radio.isChecked():
+            if self.ca_a_ratio_radio.isChecked():
+                a_pitch_input = Eu(Cc.assume_units(self.ca_a_pitch_edit.text(), '"'), u_type='length')
+            elif self.ca_a_angle_radio.isChecked():
+                a_pitch_input = Eu(Cc.assume_units(self.ca_a_pitch_edit.text(), 'deg'), u_type='angle')
+            if self.ca_c_ratio_radio.isChecked():
+                c_pitch_input = Eu(Cc.assume_units(self.ca_c_pitch_edit.text(), '"'), u_type='length')
+            elif self.ca_a_angle_radio.isChecked():
+                c_pitch_input = Eu(Cc.assume_units(self.ca_c_pitch_edit.text(), 'deg'), u_type='angle')
+            a_pitch = Cc.pitch_input(a_pitch_input)
+            c_pitch = Cc.pitch_input(c_pitch_input)
+            a_soffit = Eu(Cc.assume_units(self.ca_a_soffit_edit.text(), '"'), u_type='length')
+            c_soffit = Eu(Cc.assume_units(self.ca_c_soffit_edit.text(), '"'), u_type='length')
+            common = catherdral.soffit_height_pitch(a_pitch=a_pitch, c_pitch=c_pitch, a_soffit=a_soffit.base,
+                                                    c_soffit=c_soffit.base)
+        elif self.ca_scenario6_radio.isChecked():
+            pass
+        elif self.ca_scenario7_radio.isChecked():
+            pass
+        a_results = self.common_results(common[0])
+        c_results = self.common_results(common[1])
+        results = {'a pitch': a_results['pitch'], 'c pitch': c_results['pitch'], 'peak': a_results['peak'],
+                   'a panel length': c_results['panel length'], 'c panel length': c_results['panel length'],
+                   'a max panel length': a_results['max panel length'], 'c max panel length':
+                       c_results['max panel length'], 'a soffit height': a_results['soffit height'],
+                   'c soffit height': c_results['soffit height'], 'a drip edge': a_results['drip edge'],
+                   'c drip edge': c_results['drip edge'], 'a roof area': a_results['roof area'], 'c roof area':
+                       c_results['roof area'], 'a hang rail': a_results['hang rail'], 'c hang rail':
+                       c_results['hang rail'], 'max hang rail length a': a_results['max hang rail length'],
+                   'max hang rail length c': c_results['max hang rail length'], 'fascia a wall':
+                       a_results['fascia wall'], 'fascia c wall': c_results['fascia wall'], 'fascia a side':
+                       a_results['fascia sides'], 'fascia c side': c_results['fascia sides'], 'max fascia length a':
+                   a_results['max fascia length'], 'max fascia length c': c_results['max fascia length'],
+                   'a roof panels': a_results['roof panels'], 'c roof panels': c_results['roof panels'], 'max height':
+                       a_results['max height'], 'a overhang': a_results['overhang'], 'c overhang':
+                       c_results['overhang'], 'a side overhang': a_results['side overhang'], 'c side overhang':
+                       c_results['side overhang'], 'a armstrong': a_results['armstrong'], 'c armstrong':
+                       c_results['armstrong'], 'awallheight': a_results['wallheight'], 'cwallheight':
+                       c_results['wallheight'], 'sidewall': a_results['sidewall'], 'a overhang error':
+                       a_results['overhang error'], 'c overhang error': c_results['overhang error']}
+        return results
 
     def st_results_message(self, results):
         roof_total = results['roof area']
@@ -477,7 +571,7 @@ class Form(QObject):
         self.st_results.append('The drip edge is at {} in.'.format(results['drip edge']))
         self.st_results.append('The maximum height is {} in.'.format(results['max height']))
         self.st_results.append('The A and C Wall heights are {} in.'.format(results['sidewall']))
-        self.st_results.append('The B Wall height is {} in.'.format(results['bwallheight']))
+        self.st_results.append('The B Wall height is {} in.'.format(results['wallheight']))
         self.st_results.append('This configuration will need {} roof panels.'.format(results['roof panels']))
         self.st_results.append('The length of each panel should be {} in.'.format(results['panel length']))
         if results['max panel length'] is True:
@@ -504,7 +598,7 @@ class Form(QObject):
                 self.st_results.append('Their original length was more than 216" so they were cut in half.')
             else:
                 self.st_results.append('There is 1 piece of Fascia at {} in. for the B wall.'
-                                       .format(results['fascia b wall']))
+                                       .format(results['fascia wall']))
             if results['max fascia length'][1] is True:
                 self.st_results.append('There are 2 pieces of Fascia for the A and C walls. Both are at {} in. for each'
                                        ' wall'.format(results['fascia sides']))
@@ -516,9 +610,9 @@ class Form(QObject):
     def ca_results_message(self, results):
         roof_total = (results['a roof area'] + results['c roof area'])
         self.ca_results.append('The A side pitch is: {}/12.'
-                               .format(self.pitch_estimate(12 * math.tan(results['a pitch']))))
+                               .format(Cc.pitch_estimate(12 * math.tan(results['a pitch']))))
         self.ca_results.append('The C side pitch is: {}/12.'
-                               .format(self.pitch_estimate(12 * math.tan(results['c pitch']))))
+                               .format(Cc.pitch_estimate(12 * math.tan(results['c pitch']))))
         self.ca_results.append('The peak height is {}.'.format(results['peak']))
         self.ca_results.append('The A Wall height is {}.'.format(results['awallheight']))
         self.ca_results.append('The C Wall height is {}.'.format(results['cwallheight']))
@@ -551,11 +645,11 @@ class Form(QObject):
         # self.ca_results.clear()
         # self.ca_results.append('The overhang on the sides are too long and need to be cut!')
         if results['max hang rail length a'] is True:
-            self.ca_results.append('There are 2 pairs of hang rails at {} in. each on the A wall.'
+            self.ca_results.append('There are 2 pairs of hang rails at {}. each on the A wall.'
                                    .format(results['a hang rail']))
             self.ca_results.append('They were divided in half because the original length was longer than 216".')
         else:
-            self.ca_results.append('There is 1 pair of hang rails at {} in. on the A wall'
+            self.ca_results.append('There is 1 pair of hang rails at {}. on the A wall'
                                    .format(results['a hang rail']))
         if results['max hang rail length c'] is True:
             self.ca_results.append('There are 2 pairs of hang rails at {} in. each on the C wall.'
@@ -631,27 +725,27 @@ class Form(QObject):
         if self.ca_scenario1_radio.isChecked():
             self.ca_results.append('*===================*')
             self.ca_results.append('Given wall height and pitch...')
-            results = self.ca_scenario_calc()
+            results = self.ca_scenario_calc
             self.ca_results_message(results)
         elif self.ca_scenario2_radio.isChecked():
             self.ca_results.append('*===================*')
             self.ca_results.append('Given wall height and peak height...')
-            results = self.ca_scenario_calc()
+            results = self.ca_scenario_calc
             self.ca_results_message(results)
         elif self.ca_scenario3_radio.isChecked():
             self.ca_results.append('*===================*')
             self.ca_results.append('Given max height and pitch...')
-            results = self.ca_scenario_calc()
+            results = self.ca_scenario_calc
             self.ca_results_message(results)
         elif self.ca_scenario4_radio.isChecked():
             self.ca_results.append('*===================*')
             self.ca_results.append('Given soffit heights and peak height...')
-            results = self.ca_scenario_calc()
+            results = self.ca_scenario_calc
             self.ca_results_message(results)
         elif self.ca_scenario5_radio.isChecked():
             self.ca_results.append('*===================*')
             self.ca_results.append('Given soffit heights and pitch...')
-            results = self.ca_scenario_calc()
+            results = self.ca_scenario_calc
             self.ca_results_message(results)
         else:
             QMessageBox.about(self.window, 'Select a Scenario!', 'No scenarios selected!')

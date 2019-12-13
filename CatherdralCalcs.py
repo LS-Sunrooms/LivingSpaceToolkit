@@ -111,11 +111,13 @@ class CathedralCalcs:
         common = [None, None]
         peak = (self.bwall * math.sin(a_pitch) * math.sin(c_pitch)) / math.sin(math.pi - a_pitch - c_pitch)
         # Fenevision sets the peak height for cathedrals at the base of the post that sits in the center.
-        f_peak = max_h - max(Cc.angled(a_pitch, self.panel_thickness), Cc.angled(c_pitch, self.panel_thickness)) +\
+        f_peak = max_h - max(Cc.angled(a_pitch, self.panel_thickness), Cc.angled(c_pitch, self.panel_thickness)) -\
                  (self.post_width * math.sin(a_pitch) * math.sin(c_pitch)) / math.sin(math.pi - a_pitch - c_pitch)
         a_side_wall = peak / math.tan(a_pitch)
         c_side_wall = peak / math.tan(c_pitch)
-        a_wall_height = f_peak - peak
+        # a_wall_height = f_peak - peak
+        a_wall_height = max_h - max(Cc.angled(a_pitch, self.panel_thickness), Cc.angled(c_pitch, self.panel_thickness))\
+            - (self.bwall*math.sin(a_pitch)*math.sin(c_pitch)) / math.sin(math.pi - a_pitch - c_pitch)
         c_wall_height = a_wall_height
         a_soffit = a_wall_height - self.overhang * math.tan(a_pitch)
         c_soffit = c_wall_height - self.overhang * math.tan(c_pitch)

@@ -84,9 +84,9 @@ class EngineeringUnits:
             inches = number[1]
             fract = Fraction(math.ceil(number[0] * 16) / 16).limit_denominator(16)
             if fract.numerator == 0:
-                simple = str(int(inches)) + "\""
+                simple = str(int(inches)) + " in"
             else:
-                simple = str(float(inches + fract.numerator/fract.denominator)) + "\""
+                simple = str(float(inches + fract.numerator/fract.denominator)) + " in"
         return simple
 
     def __str__(self):
