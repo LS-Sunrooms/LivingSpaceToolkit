@@ -136,6 +136,7 @@ class CathedralCalcs:
         """
         This method is designed for Scenario 4: Soffit Height and Peak Height. The heights must be in inches. It returns
         a tuple with common calculations for each side of a studio roof. The length is in inches and pitch in radians.
+        This assumes the peak height given is the Fenevision peak height.
         :param a_soffit: float
         :param c_soffit: float
         :param peak: float
@@ -145,14 +146,13 @@ class CathedralCalcs:
         soffit = max(a_soffit, c_soffit)
         a_side_wall = self.bwall / 2
         c_side_wall = self.bwall / 2
-        a_pitch = math.atan((peak - soffit) / (a_side_wall + self.overhang))
-        c_pitch = math.atan((peak - soffit) / (c_side_wall + self.overhang))
+        a_pitch = math.atan((peak - soffit) / (a_side_wall + self.overhang - self.post_width/2))
+        c_pitch = math.atan((peak - soffit) / (c_side_wall + self.overhang - self.post_width/2))
         a_wall_height = soffit + self.overhang * math.tan(a_pitch)
         c_wall_height = soffit + self.overhang * math.tan(c_pitch)
-        a_max_h = peak + Cc.angled(a_pitch, self.panel_thickness) + \
-                  (self.post_width * math.sin(a_pitch)) / math.sin(math.pi - a_pitch - c_pitch)
-        c_max_h = peak + Cc.angled(c_pitch, self.panel_thickness) + \
-                  (self.post_width * math.sin(a_pitch)) / math.sin(math.pi - a_pitch - c_pitch)
+        h = (self.post_width * math.sin(a_pitch)*math.sin(c_pitch)) / math.sin(math.pi - a_pitch - c_pitch)
+        a_max_h = peak + Cc.angled(a_pitch, self.panel_thickness) + h
+        c_max_h = peak + Cc.angled(c_pitch, self.panel_thickness) + h
         max_h = max(a_max_h, c_max_h)
         common[0] = Cc.CommonCalcs(wall_length=self.wall_length, side_wall_length=a_side_wall, pitch=a_pitch,
                                    soffit=soffit, overhang=self.overhang, tabwidget=self.tabwidget,

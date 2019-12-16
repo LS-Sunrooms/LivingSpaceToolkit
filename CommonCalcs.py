@@ -217,3 +217,12 @@ def sixteenth(number):
     :return: float
     """
     return round(number * 16) / 16
+
+
+def estimate_drip_from_peak(peak, estimate_pitch, wall_length, side_wall_length, overhang, thickness, tab, endcut):
+    wall_height = peak - wall_length * math.tan(estimate_pitch)
+    soffit = wall_height - overhang * math.tan(estimate_pitch)
+    max_h = peak + angled(estimate_pitch, thickness)
+    estimate_drip = CommonCalcs(wall_length, side_wall_length, estimate_pitch, soffit, overhang, tab, thickness, endcut,
+                                peak, max_h, wall_height)
+    return estimate_drip.drip_edge()

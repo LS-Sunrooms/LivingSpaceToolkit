@@ -158,7 +158,8 @@ class Form(QObject):
 
     def studio_form_control(self):
         self.st_pitch_gbox.setEnabled(False)
-        self.st_fascia.setEnabled(False)
+        self.st_endcuts()
+        # self.st_fascia.setEnabled(False)
         self.st_overhang_edit.setEnabled(False)
         self.st_roof_gbox.setEnabled(False)
         self.st_thick_combo.setEnabled(False)
@@ -175,7 +176,8 @@ class Form(QObject):
     def cathedral_form_control(self):
         self.ca_a_pitch_gbox.setEnabled(False)
         self.ca_c_pitch_gbox.setEnabled(False)
-        self.ca_fascia.setEnabled(False)
+        self.ca_endcuts()
+        # self.ca_fascia.setEnabled(False)
         self.ca_overhang_edit.setEnabled(False)
         self.ca_roof_gbox.setEnabled(False)
         self.ca_thick_combo.setEnabled(False)
@@ -461,7 +463,9 @@ class Form(QObject):
             soffit = Eu(Cc.assume_units(self.st_soffit_edit.text(), '"'), u_type='length')
             common = studio.soffit_height_pitch(pitch, soffit.base)
         elif self.st_scenario6_radio.isChecked():
-            pass
+            peak = Eu(Cc.assume_units(self.st_peak_edit.text(), '"'), u_type='length')
+            drip_edge = Eu(Cc.assume_units(self.st_drip_edit.text(), '"'), u_type='length')
+            common = studio.drip_edge_peak_height(drip_edge.base, peak.base)
         elif self.st_scenario7_radio.isChecked():
             pass
         return self.common_results(common)
@@ -566,20 +570,20 @@ class Form(QObject):
     def st_results_message(self, results):
         roof_total = results['roof area']
         self.st_results.append('The pitch is: {}/12.'.format(Cc.pitch_estimate(12 * math.tan(results['pitch']))))
-        self.st_results.append('The peak height is {} in.'.format(results['peak']))
-        self.st_results.append('The soffit height is {} in.'.format(results['soffit height']))
-        self.st_results.append('The drip edge is at {} in.'.format(results['drip edge']))
-        self.st_results.append('The maximum height is {} in.'.format(results['max height']))
-        self.st_results.append('The A and C Wall heights are {} in.'.format(results['sidewall']))
-        self.st_results.append('The B Wall height is {} in.'.format(results['wallheight']))
+        self.st_results.append('The peak height is {}.'.format(results['peak']))
+        self.st_results.append('The soffit height is {}.'.format(results['soffit height']))
+        self.st_results.append('The drip edge is at {}.'.format(results['drip edge']))
+        self.st_results.append('The maximum height is {}.'.format(results['max height']))
+        self.st_results.append('The A and C Wall heights are {}.'.format(results['sidewall']))
+        self.st_results.append('The B Wall height is {}.'.format(results['wallheight']))
         self.st_results.append('This configuration will need {} roof panels.'.format(results['roof panels']))
-        self.st_results.append('The length of each panel should be {} in.'.format(results['panel length']))
+        self.st_results.append('The length of each panel should be {}.'.format(results['panel length']))
         if results['max panel length'] is True:
             self.st_results.append('These panels were divided in half because they were more than 24ft.')
         self.st_results.append('The roof sq. ft. is {}ft^2.'.format(roof_total))
         self.st_results.append('You will need {} boxes of Armstrong Ceiling Panels.'.format(results['armstrong']))
-        self.st_results.append('The overhang on B Wall is {} in.'.format(results['overhang']))
-        self.st_results.append('The overhang on A and C Walls are {} in.'.format(results['side overhang']))
+        self.st_results.append('The overhang on B Wall is {}.'.format(results['overhang']))
+        self.st_results.append('The overhang on A and C Walls are {}.'.format(results['side overhang']))
         if results['overhang error'][0] is True:
             # self.st_results.clear()
             self.st_results.append('The overhang on the sides are TOO SHORT!')
@@ -587,24 +591,24 @@ class Form(QObject):
         # self.st_results.clear()
         # self.st_results.append('The overhang on the sides are too long and need to be cut!')
         if results['max hang rail length'] is True:
-            self.st_results.append('There are 2 pairs of hang rails at {} in. each.'.format(results['hang rail']))
+            self.st_results.append('There are 2 pairs of hang rails at {}. each.'.format(results['hang rail']))
             self.st_results.append('They were divided in half because the original length was longer than 216".')
         else:
-            self.st_results.append('There is 1 pair of hang rails at {} in. each.'.format(results['hang rail']))
+            self.st_results.append('There is 1 pair of hang rails at {}. each.'.format(results['hang rail']))
         if self.st_fascia.isChecked():
             if results['max fascia length'][0] is True:
-                self.st_results.append('There are 2 pieces of Fascia at {} in. each for the B wall'
+                self.st_results.append('There are 2 pieces of Fascia at {}. each for the B wall'
                                        .format(results['fascia b wall']))
                 self.st_results.append('Their original length was more than 216" so they were cut in half.')
             else:
-                self.st_results.append('There is 1 piece of Fascia at {} in. for the B wall.'
+                self.st_results.append('There is 1 piece of Fascia at {}. for the B wall.'
                                        .format(results['fascia wall']))
             if results['max fascia length'][1] is True:
-                self.st_results.append('There are 2 pieces of Fascia for the A and C walls. Both are at {} in. for each'
+                self.st_results.append('There are 2 pieces of Fascia for the A and C walls. Both are at {}. for each'
                                        ' wall'.format(results['fascia sides']))
                 self.st_results.append('Their original length was more than 216".')
             else:
-                self.st_results.append('There is one piece of Fascia at {} in. for the A Wall and one piece at {} in. '
+                self.st_results.append('There is one piece of Fascia at {}. for the A Wall and one piece at {} in. '
                                        'for the C wall.'.format(results['fascia sides'], results['fascia sides']))
 
     def ca_results_message(self, results):
@@ -716,6 +720,11 @@ class Form(QObject):
             self.st_results.append('Given soffit heights and pitch...')
             results = self.st_scenario_calc
             self.st_results_message(results)
+        elif self.st_scenario6_radio.isChecked():
+            self.st_results.append('*===================*')
+            self.st_results.append('Given drip edge and peak height...')
+            results = self.st_scenario_calc
+            self.st_results_message(results)
         else:
             QMessageBox.about(self.window, 'Select a Scenario!', 'No scenarios selected!')
 
@@ -745,6 +754,11 @@ class Form(QObject):
         elif self.ca_scenario5_radio.isChecked():
             self.ca_results.append('*===================*')
             self.ca_results.append('Given soffit heights and pitch...')
+            results = self.ca_scenario_calc
+            self.ca_results_message(results)
+        elif self.ca_scenario6_radio.isChecked():
+            self.ca_results.append('*===================*')
+            self.ca_results.append('Given drip edge and peak height...')
             results = self.ca_scenario_calc
             self.ca_results_message(results)
         else:

@@ -112,8 +112,33 @@ class StudioCalcs:
                                 endcut=self.endcut, peak=peak, max_h=max_h, wall_height=b_wall_height)
         return common
 
-    def drip_edge_peak_height(self):
-        pass
+    def drip_edge_peak_height(self, drip_edge, peak):
+        tol = 0.001
+        diff = 1000
+        incr = 0.1
+        pitch = 0.0
+        while diff > tol:
+            old_diff = diff
+            old_pitch = pitch
+            pitch += incr
+            drip_est = Cc.estimate_drip_from_peak(peak=peak, estimate_pitch=pitch, wall_length=self.bwall,
+                                                  side_wall_length=self.side_wall, overhang=self.overhang,
+                                                  thickness=self.panel_thickness, tab=self.tabwidget,
+                                                  endcut=self.endcut)
+            diff = abs(drip_edge - drip_est)
+            if pitch > 12:
+                break
+            if abs(diff - old_diff) > 0.01:
+                pitch = old_pitch
+                incr /= 10
+        b_wall_height = peak - self.side_wall * math.tan(pitch)
+        soffit = b_wall_height - self.overhang * math.tan(pitch)
+        # common = self.soffit_height_peak_height(peak, soffit)
+        max_h = peak + Cc.angled(pitch, self.panel_thickness)
+        common = Cc.CommonCalcs(wall_length=self.bwall, side_wall_length=self.side_wall, pitch=pitch, soffit=soffit,
+                                overhang=self.overhang, tabwidget=self.tabwidget, thickness=self.panel_thickness,
+                                endcut=self.endcut, peak=peak, max_h=max_h, wall_height=b_wall_height)
+        return common
 
     def drip_edge_pitch(self):
         pass
