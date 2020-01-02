@@ -717,7 +717,7 @@ class Form(QObject):
                                .format(Cc.pitch_estimate(12 * math.tan(results['c pitch']))))
         self.ca_results.append('The peak height is {}.'.format(results['peak']))
         self.ca_results.append('The A Wall height is {}.'.format(results['awallheight']))
-        self.ca_results.append('The B Wall height is {}.'.format(results['sidewall']))
+        # self.ca_results.append('The B Wall height is {}.'.format(results['sidewall']))
         self.ca_results.append('The C Wall height is {}.'.format(results['cwallheight']))
         self.ca_results.append('The A side soffit height is {}.'.format(results['a soffit height']))
         self.ca_results.append('The C side soffit height is {}.'.format(results['c soffit height']))
@@ -734,8 +734,8 @@ class Form(QObject):
             self.ca_results.append('The C side panels were divided in half because they were more than 24ft.')
         self.ca_results.append('The total number of roof panels is {}.'.format(int(results['a roof panels'] +
                                                                                results['c roof panels'])))
-        if results['a split panels'] is True or results['c split panels'] is True:
-            self.ca_results.append('One of the panels should be split in half on site!!!')
+        # if results['a split panels'] is True or results['c split panels'] is True:
+        #     self.ca_results.append('One of the panels should be split in half on site!!!')
         self.ca_results.append('The Total roof sq. ft. is {} ft^2.'.format(roof_total))
         self.ca_results.append('You will need {} boxes of Armstrong Ceiling Panels.'
                                .format(results['a armstrong'] + (results['c armstrong'])))
@@ -753,14 +753,14 @@ class Form(QObject):
                                    .format(results['a hang rail']))
             self.ca_results.append('They were divided in half because the original length was longer than 216".')
         else:
-            self.ca_results.append('There is 1 pair of hang rails at {}. on the A wall'
+            self.ca_results.append('There is 1 pair of hang rails at {} on the A wall'
                                    .format(results['a hang rail']))
         if results['max hang rail length c'] is True:
-            self.ca_results.append('There are 2 pairs of hang rails at {} in. each on the C wall.'
+            self.ca_results.append('There are 2 pairs of hang rails at {} each on the C wall.'
                                    .format(results['c hang rail']))
             self.ca_results.append('They were divided in half because the original length was longer than 216".')
         else:
-            self.ca_results.append('There is 1 pair of hang rails at {} in. on the C wall'
+            self.ca_results.append('There is 1 pair of hang rails at {} on the C wall'
                                    .format(results['c hang rail']))
         if self.ca_fascia.isChecked():
             if results['max fascia length a'][0] is True:
@@ -768,28 +768,28 @@ class Form(QObject):
                                        .format(results['fascia a wall']))
                 self.ca_results.append('Their original length was more than 216 in. so they were cut in half.')
             else:
-                self.ca_results.append('There is 1 pieces of Fascia at {} in. for the A wall'
+                self.ca_results.append('There is 1 pieces of Fascia at {} for the A wall'
                                        .format(results['fascia a wall']))
             if results['max fascia length c'][0] is True:
-                self.ca_results.append('There are 2 pieces of Fascia at {} in. each for the C wall'
+                self.ca_results.append('There are 2 pieces of Fascia at {} each for the C wall'
                                        .format(results['fascia c wall']))
                 self.ca_results.append('Their original length was more than 216 in. so they were cut in half.')
             else:
-                self.ca_results.append('There is 1 pieces of Fascia at {} in. for the C wall'
+                self.ca_results.append('There is 1 pieces of Fascia at {} for the C wall'
                                        .format(results['fascia c wall']))
             if results['max fascia length a'][1] is True:
                 self.ca_results.append('There are 2 pieces of Fascia for the A side B Wall. Both are at {} in. each'
                                        .format(results['fascia a side']))
                 self.ca_results.append('Their original length was more than 216 in.')
             else:
-                self.ca_results.append('There is 1 pieces of Fascia for the A side B Wall at {} in.'
+                self.ca_results.append('There is 1 pieces of Fascia for the A side B Wall at {}'
                                        .format(results['fascia a side']))
             if results['max fascia length c'][1] is True:
-                self.ca_results.append('There are 2 pieces of Fascia for the C side B Wall. Both are at {} in. each'
+                self.ca_results.append('There are 2 pieces of Fascia for the C side B Wall. Both are at {} each'
                                        .format(results['fascia c side']))
                 self.ca_results.append('Their original length was more than 216 in.')
             else:
-                self.ca_results.append('There is 1 pieces of Fascia for the C side B Wall at {} in.'
+                self.ca_results.append('There is 1 pieces of Fascia for the C side B Wall at {}'
                                        .format(results['fascia c side']))
 
     def input_errors(self, box_name):

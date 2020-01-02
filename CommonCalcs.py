@@ -166,7 +166,7 @@ class CommonCalcs:
         """
         rake_length = self.side_wall_length / math.cos(self.pitch)
         armstrong_area = rake_length * self.wall_length / 144  # To get area in sq. ft.
-        return math.ceil((armstrong_area / 29) + (armstrong_area / 29) * 0.1)
+        return math.ceil((armstrong_area + (armstrong_area * 0.1)) / 29)
 
 
 def angled(pitch, thickness):
