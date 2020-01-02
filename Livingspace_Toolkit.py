@@ -701,7 +701,7 @@ class Form(QObject):
                                        ' wall'.format(results['fascia sides']))
                 self.st_results.append('Their original length was more than 216 in.')
             else:
-                self.st_results.append('There is one piece of Fascia at {}. for the A Wall and one piece at {} in. '
+                self.st_results.append('There is one piece of Fascia at {}. for the A Wall and one piece at {} '
                                        'for the C wall.'.format(results['fascia sides'], results['fascia sides']))
 
     def ca_results_message(self, results):
