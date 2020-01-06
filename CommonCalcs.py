@@ -61,18 +61,24 @@ class CommonCalcs:
         :return: [float, bool]
         """
         max_panel_length = False
-        if self.endcut == 'plum_T':
+        panel_tolerance = False
+        if self.endcut == 'uncut':
+            p_length = (self.side_wall_length + self.overhang) / math.cos(self.pitch)
+        else:
             p_bottom = (self.side_wall_length + self.overhang) / (math.cos(self.pitch))
             p_top = (self.side_wall_length + self.overhang + self.panel_thickness * math.sin(
                 self.pitch)) / math.cos(self.pitch)
             p_length = max(p_bottom, p_top)
+        if p_length % 12 <= 1:  # This checks to see if the panel length is a maximum 1 inch past the nearest foot
+            panel_tolerance = True
+            # Returns panel length (in inches) rounded down to nearest foot and adds the 1 inch tolerance
+            panel_length = math.floor(p_length / 12) * 12 + 1
         else:
-            p_length = (self.side_wall_length + self.overhang) / math.cos(self.pitch)
-        panel_length = math.ceil(p_length / 12) * 12  # Returns panel length (in inches) rounded up to nearest foot
+            panel_length = math.ceil(p_length / 12) * 12  # Returns panel length (in inches) rounded up to nearest foot
         if panel_length > 288:
             max_panel_length = True
             panel_length /= 2
-        return [panel_length, max_panel_length]
+        return [panel_length, max_panel_length, panel_tolerance]
 
     def roof_panels(self):
         """
@@ -112,7 +118,7 @@ class CommonCalcs:
                 minmax_overhang[1] = True
             else:
                 side_overhang = self.side_overhang
-        panel_length, max_panel_length = self.panel_length()
+        panel_length, max_panel_length = self.panel_length()[0:2]
         if max_panel_length is True:
             roof_area = math.ceil(panel_length * 2 * roof_panels * 32)
         else:

@@ -460,6 +460,7 @@ class Form(QObject):
         overhang_error = common.roof_panels()[3]
         wall_height_ = Eu(Cc.assume_units(str(Cc.sixteenth(common.wall_height)), '"'), u_type='length')
         split = common.roof_panels()[4]
+        tol = common.panel_length()[2]
         common_results = {'pitch': common.pitch, 'peak': peak.simplified('in'), 'panel length':
             panel_length.simplified('in'), 'max panel length': max_panel_length,
                           'soffit height': soffit_height.simplified('in'), 'drip edge': drip_edge.simplified('in'),
@@ -470,7 +471,7 @@ class Form(QObject):
                           'overhang': overhang_.simplified('in'), 'side overhang': side_overhang.simplified('in'),
                           'armstrong': armstrong, 'wallheight': wall_height_.simplified('in'),
                           'sidewall': wall_height_.simplified('in'), 'overhang error': overhang_error,
-                          'split panels': split}
+                          'split panels': split, 'panel tolerance': tol}
         return common_results
 
     @property
@@ -652,7 +653,8 @@ class Form(QObject):
                        c_results['armstrong'], 'awallheight': a_results['wallheight'], 'cwallheight':
                        c_results['wallheight'], 'sidewall': a_results['sidewall'], 'a overhang error':
                        a_results['overhang error'], 'c overhang error': c_results['overhang error'], 'a split panels':
-                   a_results['split panels'], 'c split panels': c_results['split panels']}
+                   a_results['split panels'], 'c split panels': c_results['split panels'], 'a panel tolerance':
+                       a_results['panel tolerance'], 'c panel tolerance': c_results['panel tolerance']}
         return results
 
     def st_results_message(self, results):
@@ -671,6 +673,9 @@ class Form(QObject):
         self.st_results.append('The B Wall height is {}.'.format(results['wallheight']))
         self.st_results.append('This configuration will need {} roof panels.'.format(results['roof panels']))
         self.st_results.append('The length of each panel should be {}.'.format(results['panel length']))
+        if results['panel tolerance'] is True:
+            self.st_results.append("These panels are 1 in. beyond the nearest foot! They should be within the "
+                                   "manufacturer's solerance.")
         if results['max panel length'] is True:
             self.st_results.append('These panels were divided in half because they were more than 24ft.')
         self.st_results.append('The roof sq. ft. is {} ft^2.'.format(roof_total))
@@ -726,10 +731,16 @@ class Form(QObject):
         self.ca_results.append('The maximum height is {}.'.format(results['max height']))
         self.ca_results.append('This configuration will need {} A side roof panels.'.format(results['a roof panels']))
         self.ca_results.append('The length of each A side panel should be {}.'.format(results['a panel length']))
+        if results['a panel tolerance'] is True:
+            self.ca_results.append("The A side panels are 1 in. beyond the nearest foot! They should be within the "
+                                   "manufacturer's solerance.")
         if results['a max panel length'] is True:
             self.ca_results.append('The A side panels were divided in half because they were more than 24ft.')
         self.ca_results.append('This configuration will need {} C side roof panels.'.format(results['c roof panels']))
         self.ca_results.append('The length of each C side panel should be {}.'.format(results['c panel length']))
+        if results['c panel tolerance'] is True:
+            self.ca_results.append("The C side panels are 1 in. beyond the nearest foot! They should be within the "
+                                   "manufacturer's solerance.")
         if results['c max panel length'] is True:
             self.ca_results.append('The C side panels were divided in half because they were more than 24ft.')
         self.ca_results.append('The total number of roof panels is {}.'.format(int(results['a roof panels'] +
