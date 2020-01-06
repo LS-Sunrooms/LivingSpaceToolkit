@@ -675,7 +675,7 @@ class Form(QObject):
         self.st_results.append('The length of each panel should be {}.'.format(results['panel length']))
         if results['panel tolerance'] is True:
             self.st_results.append("These panels are 1 in. beyond the nearest foot! They should be within the "
-                                   "manufacturer's solerance.")
+                                   "manufacturer's tolerance.")
         if results['max panel length'] is True:
             self.st_results.append('These panels were divided in half because they were more than 24ft.')
         self.st_results.append('The roof sq. ft. is {} ft^2.'.format(roof_total))
@@ -733,14 +733,14 @@ class Form(QObject):
         self.ca_results.append('The length of each A side panel should be {}.'.format(results['a panel length']))
         if results['a panel tolerance'] is True:
             self.ca_results.append("The A side panels are 1 in. beyond the nearest foot! They should be within the "
-                                   "manufacturer's solerance.")
+                                   "manufacturer's tolerance.")
         if results['a max panel length'] is True:
             self.ca_results.append('The A side panels were divided in half because they were more than 24ft.')
         self.ca_results.append('This configuration will need {} C side roof panels.'.format(results['c roof panels']))
         self.ca_results.append('The length of each C side panel should be {}.'.format(results['c panel length']))
         if results['c panel tolerance'] is True:
             self.ca_results.append("The C side panels are 1 in. beyond the nearest foot! They should be within the "
-                                   "manufacturer's solerance.")
+                                   "manufacturer's tolerance.")
         if results['c max panel length'] is True:
             self.ca_results.append('The C side panels were divided in half because they were more than 24ft.')
         self.ca_results.append('The total number of roof panels is {}.'.format(int(results['a roof panels'] +
