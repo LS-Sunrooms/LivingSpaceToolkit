@@ -734,7 +734,6 @@ class Form(QObject):
         self.ca_results.append('The length of each A side panel should be {}.'.format(results['a panel length']))
         # CORRECTION 7/8/2020: Will remove this manufacturer's tolerance note
         # if results['a panel tolerance'] is True:
-
             # self.ca_results.append("The A side panels are 1 in. beyond the nearest foot! They should be within the "
             #                        "manufacturer's tolerance.")
         if results['a max panel length'] is True:

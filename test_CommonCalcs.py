@@ -10,7 +10,7 @@ class MyTestCase(unittest.TestCase):
 
     def test_panel_length(self):
         # Checks panel length
-        self.assertAlmostEqual(self.Common.panel_length()[0], 108)
+        self.assertEqual(self.Common.panel_length()[0], 108)
 
 
 if __name__ == '__main__':
