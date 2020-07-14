@@ -18,6 +18,7 @@ import UI_rc
 from Units import EngineeringUnits as Eu
 import LivingspaceToolkitClass as LSTKC
 from math import tan
+import logging
 import re
 
 list_ = re.compile(r'\'|ft|feet|\"|in')
@@ -499,6 +500,7 @@ class Form(QObject):
             drip_edge = Eu(LSTKC.assume_units(self.st_drip_edit.text(), '"'), u_type='length')
             self.studio.drip_edge_pitch(drip_edge.base, pitch)
         self.studio.calculate_sunroom()
+        logger.info("Studio Sunroom pitch is {}.".format(self.studio.pitch))
 
     def ca_scenario_calc(self):
         """
@@ -960,6 +962,14 @@ class Form(QObject):
 
 
 if __name__ == '__main__':
+    # Set up logger
+    logger = logging.getLogger(__name__)
+    logger.setLevel(logging.DEBUG)
+    formatter = logging.Formatter('%(asctime)s:[%(name)s]:[%(levelname)s]: %(message)s')
+    file_handler = logging.FileHandler('LS Toolkit.log')
+    file_handler.setFormatter(formatter)
+    logger.addHandler(file_handler)
+
     # Define function to import external files when using PyInstaller.
     def resource_path(relative_path):
         """ Get absolute path to resource, works for dev and for PyInstaller """

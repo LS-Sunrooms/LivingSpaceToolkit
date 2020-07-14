@@ -3,6 +3,14 @@
 import re
 import math
 from fractions import Fraction
+import logging
+
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.DEBUG)
+formatter = logging.Formatter('%(asctime)s:[%(name)s]:[%(levelname)s]: %(message)s')
+file_handler = logging.FileHandler('LS Toolkit.log')
+file_handler.setFormatter(formatter)
+logger.addHandler(file_handler)
 
 unit_type = ['angle', 'length']
 
@@ -28,6 +36,7 @@ class EngineeringUnits:
             raise LookupError("The unit type selected is not available.")
         else:
             self.u_type = u_type
+        logger.info('Measurment is {}'.format(self.measurement))
         degrees = re.compile(r'(\d*\.?\d*)deg')
         feet = re.compile(r'(\d*\s*)[\'|ft|fe+t]')
         inches = re.compile(r'\"|in')

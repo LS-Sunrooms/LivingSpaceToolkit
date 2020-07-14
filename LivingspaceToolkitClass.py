@@ -5,7 +5,14 @@ from math import sin, cos, tan, atan, atan2, pi
 from math import floor as m_floor
 from math import ceil as m_ceil
 from re import compile as re_compile
+import logging
 
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.DEBUG)
+formatter = logging.Formatter('%(asctime)s:[%(name)s]:[%(levelname)s]: %(message)s')
+file_handler = logging.FileHandler('LS Toolkit.log')
+file_handler.setFormatter(formatter)
+logger.addHandler(file_handler)
 _units = re_compile(r'\'|ft|feet|\"|in')
 end_cuts = ['uncut', 'plum_T_B', 'plum_T']
 
@@ -200,6 +207,7 @@ class Studio(Sunroom):
         self.hang_rail_dict = None
         self.fascia_dict = None
         self.armstrong_panels = None
+        logger.info("Studio Sunroom created.")
 
     def _calculate_roof_panels(self, soffit_wall, panel_length_dict):
         minmax_overhang = [False, False]
@@ -373,6 +381,7 @@ class Cathedral(Sunroom):
         self.c_fascia_dict = None
         self.a_armstrong_panels = None
         self.c_armstrong_panels = None
+        logger.info("Cathedral Sunroom created.")
 
     def _calculate_roof_panels(self, soffit_wall, panel_length_dict):
         minmax_overhang = [False, False]
