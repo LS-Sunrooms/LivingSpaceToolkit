@@ -492,8 +492,8 @@ class Cathedral(Sunroom):
         # Fenevision sets the peak height for cathedrals at the base of the post that sits in the center.
         self.f_peak = self.max_h - max(angled(self.a_pitch, self.thickness), angled(self.c_pitch, self.thickness)) - \
                       (self.post_width * sin(self.a_pitch) * sin(self.c_pitch)) / sin(pi - self.a_pitch - self.c_pitch)
-        # a_side_wall = self.peak / tan(self.a_pitch)
-        # c_side_wall = self.peak / tan(self.c_pitch)
+        self.a_pitched_wall = self.peak / tan(self.a_pitch)
+        self.c_pitched_wall = self.peak / tan(self.c_pitch)
         # a_wall_height = self.f_peak - self.peak
         self.a_unpitched_wall_h = max_h - max(angled(self.a_pitch, self.thickness),
                                               angled(self.c_pitch, self.thickness)) \
@@ -533,10 +533,8 @@ class Cathedral(Sunroom):
         self.c_unpitched_wall_h = self.a_soffit + self.overhang * tan(self.c_pitch)
         self.peak = (self.bwall * sin(self.a_pitch) * sin(self.c_pitch)) / sin(pi - self.a_pitch - self.c_pitch) + \
                     max(self.a_unpitched_wall_h, self.c_unpitched_wall_h)
-        self.a_unpitched_wall_l = (self.peak - max(self.a_unpitched_wall_h, self.c_unpitched_wall_h)) / tan(
-            self.a_pitch)
-        self.c_unpitched_wall_l = (self.peak - max(self.a_unpitched_wall_h, self.c_unpitched_wall_h)) / tan(
-            self.c_pitch)
+        self.a_pitched_wall = (self.peak - max(self.a_unpitched_wall_h, self.c_unpitched_wall_h)) / tan(self.a_pitch)
+        self.c_pitched_wall = (self.peak - max(self.a_unpitched_wall_h, self.c_unpitched_wall_h)) / tan(self.c_pitch)
         # Fenevision sets the peak height for cathedrals at the base of the post that sits in the center.
         self.f_peak = self.peak - (self.post_width * sin(self.a_pitch) * sin(self.c_pitch)) / \
                       sin(pi - self.a_pitch - self.c_pitch)
