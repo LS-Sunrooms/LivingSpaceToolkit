@@ -327,6 +327,7 @@ class Studio(Sunroom):
         self.unpitched_wall = peak - self.pitched_wall * tan(self.pitch)
         self.soffit = self.unpitched_wall - self.overhang * tan(self.pitch)
         self.max_h = self.peak + angled(self.pitch, self.thickness)
+        self.drip_edge = self.calculate_drip_edge(self.soffit, self.pitch)
 
     # Scenario 7
     def drip_edge_pitch(self, drip_edge, pitch):
@@ -336,6 +337,7 @@ class Studio(Sunroom):
         self.unpitched_wall = self.soffit + self.overhang * tan(pitch)
         self.peak = self.unpitched_wall + self.pitched_wall * tan(pitch)
         self.max_h = self.peak + angled(self.pitch, self.thickness)
+        self.drip_edge = self.calculate_drip_edge(self.soffit, self.pitch)
 
 
 # noinspection SpellCheckingInspection

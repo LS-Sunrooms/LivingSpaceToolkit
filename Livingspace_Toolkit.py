@@ -659,23 +659,22 @@ class Form(QObject):
                        a_results['panel tolerance'], 'c panel tolerance': c_results['panel tolerance']}
         return results
 
-    def st_results_message(self, results):
+    def st_results_message(self):
         """
         This method displays all the results to the st_text_browser object.
-        :param results: dict
         :return:
         """
         self.st_results.append('The pitch is: {}/12.'
                                .format(LSTKC.pitch_estimate(12 * math.tan(self.studio.pitch))))
-        self.st_results.append('The peak height is {}.'.format(LSTKC.sixteenth(self.studio.peak)))
-        self.st_results.append('The soffit height is {}.'.format(LSTKC.sixteenth(self.studio.soffit)))
-        self.st_results.append('The drip edge is at {}.'.format(LSTKC.sixteenth(self.studio.drip_edge)))
-        self.st_results.append('The maximum height is {}.'.format(LSTKC.sixteenth(self.studio.max_h)))
-        self.st_results.append('The A and C Wall heights are {}.'.format(LSTKC.sixteenth(self.studio.pitched_wall)))
-        self.st_results.append('The B Wall height is {}.'.format(LSTKC.sixteenth(self.studio.unpitched_wall)))
+        self.st_results.append('The peak height is {} in.'.format(LSTKC.sixteenth(self.studio.peak)))
+        self.st_results.append('The soffit height is {} in.'.format(LSTKC.sixteenth(self.studio.soffit)))
+        self.st_results.append('The drip edge is at {} in.'.format(LSTKC.sixteenth(self.studio.drip_edge)))
+        self.st_results.append('The maximum height is {} in.'.format(LSTKC.sixteenth(self.studio.max_h)))
+        self.st_results.append('The A and C Wall heights are {} in.'.format(LSTKC.sixteenth(self.studio.unpitched_wall)))
+        self.st_results.append('The B Wall height is {} in.'.format(LSTKC.sixteenth(self.studio.unpitched_wall)))
         self.st_results.append('This configuration will need {} roof panels.'
                                .format(self.studio.roof_panel_dict['Roof Panels']))
-        self.st_results.append('The length of each panel should be {}.'
+        self.st_results.append('The length of each panel should be {} in.'
                                .format(self.studio.panel_length_dict['Panel Length']))
         # CORRECTION 7/8/2020: Will remove this manufacturer's tolerance note
         # if results['panel tolerance'] is True:
@@ -686,8 +685,8 @@ class Form(QObject):
         self.st_results.append('The roof sq. ft. is {} ft^2.'.format(self.studio.roof_panel_dict['Roof Area'] / 144))
         self.st_results.append('You will need {} boxes of Armstrong Ceiling Panels.'
                                .format(self.studio.armstrong_panels))
-        self.st_results.append('The overhang on B Wall is {}.'.format(self.studio.overhang))
-        self.st_results.append('The overhang on A and C Walls are {}.'
+        self.st_results.append('The overhang on B Wall is {} in.'.format(self.studio.overhang))
+        self.st_results.append('The overhang on A and C Walls are {} in.'
                                .format(self.studio.roof_panel_dict['Side Overhang']))
         if self.studio.roof_panel_dict['Overhang Short Check'] is True:
             # self.st_results.clear()
@@ -696,26 +695,26 @@ class Form(QObject):
         # self.st_results.clear()
         # self.st_results.append('The overhang on the sides are too long and need to be cut!')
         if self.studio.hang_rail_dict['Hang Rail Check'] is True:
-            self.st_results.append('There are 2 pairs of hang rails at {}. each.'
+            self.st_results.append('There are 2 pairs of hang rails at {} in. each.'
                                    .format(self.studio.hang_rail_dict['Hang Rail']))
             self.st_results.append('They were divided in half because the original length was longer than 216 in.')
         else:
-            self.st_results.append('There is 1 pair of hang rails at {}. each.'
+            self.st_results.append('There is 1 pair of hang rails at {} in. each.'
                                    .format(self.studio.hang_rail_dict['Hang Rail']))
         if self.st_fascia.isChecked():
             if self.studio.fascia_dict['Fascia Check'][0] is True:
-                self.st_results.append('There are 2 pieces of Fascia at {}. each for the B wall'
+                self.st_results.append('There are 2 pieces of Fascia at {} in. each for the B wall'
                                        .format(self.studio.fascia_dict['Wall Fascia']))
                 self.st_results.append('Their original length was more than 216 in. so they were cut in half.')
             else:
-                self.st_results.append('There is 1 piece of Fascia at {}. for the B wall.'
+                self.st_results.append('There is 1 piece of Fascia at {} in. for the B wall.'
                                        .format(self.studio.fascia_dict['Wall Fascia']))
             if self.studio.fascia_dict['Fascia Check'][1] is True:
-                self.st_results.append('There are 2 pieces of Fascia for the A and C walls. Both are at {}. for each'
+                self.st_results.append('There are 2 pieces of Fascia for the A and C walls. Both are at {} in. for each'
                                        ' wall'.format(self.studio.fascia_dict['Side Fascia']))
                 self.st_results.append('Their original length was more than 216 in.')
             else:
-                self.st_results.append('There is one piece of Fascia at {}. for the A Wall and one piece at {} '
+                self.st_results.append('There is one piece of Fascia at {} in. for the A Wall and one piece at {} '
                                        'for the C wall.'.format(self.studio.fascia_dict['Side Fascia'],
                                                                 self.studio.fascia_dict['Side Fascia']))
 
@@ -868,7 +867,7 @@ class Form(QObject):
                 self.st_results.append('*===================*')
                 self.st_results.append('Given B wall height and pitch...')
                 results = self.st_scenario_calc
-                self.st_results_message(results)
+                self.st_results_message()
         elif self.st_scenario2_radio.isChecked():
             if self.st_peak_edit.text() == '':
                 self.input_errors('Peak Height')
@@ -878,7 +877,7 @@ class Form(QObject):
                 self.st_results.append('*===================*')
                 self.st_results.append('Given wall height and peak height...')
                 results = self.st_scenario_calc
-                self.st_results_message(results)
+                self.st_results_message()
         elif self.st_scenario3_radio.isChecked():
             if self.st_pitch_edit.text() == '':
                 self.input_errors('pitch')
@@ -888,7 +887,7 @@ class Form(QObject):
                 self.st_results.append('*===================*')
                 self.st_results.append('Given max height and pitch...')
                 results = self.st_scenario_calc
-                self.st_results_message(results)
+                self.st_results_message()
         elif self.st_scenario4_radio.isChecked():
             if self.st_soffit_edit.text() == '':
                 self.input_errors('Soffit Height')
@@ -898,7 +897,7 @@ class Form(QObject):
                 self.st_results.append('*===================*')
                 self.st_results.append('Given soffit heights and peak height...')
                 results = self.st_scenario_calc
-                self.st_results_message(results)
+                self.st_results_message()
         elif self.st_scenario5_radio.isChecked():
             if self.st_pitch_edit.text() == '':
                 self.input_errors('pitch')
@@ -908,7 +907,7 @@ class Form(QObject):
                 self.st_results.append('*===================*')
                 self.st_results.append('Given soffit heights and pitch...')
                 results = self.st_scenario_calc
-                self.st_results_message(results)
+                self.st_results_message()
         elif self.st_scenario6_radio.isChecked():
             if self.st_drip_edit.text() == '':
                 self.input_errors('Drip Edge Height')
@@ -918,7 +917,7 @@ class Form(QObject):
                 self.st_results.append('*===================*')
                 self.st_results.append('Given drip edge and peak height...')
                 results = self.st_scenario_calc
-                self.st_results_message(results)
+                self.st_results_message()
         elif self.st_scenario7_radio.isChecked():
             if self.st_pitch_edit.text() == '':
                 self.input_errors('pitch')
@@ -928,7 +927,7 @@ class Form(QObject):
                 self.st_results.append('*===================*')
                 self.st_results.append('Given drip edge and pitch...')
                 results = self.st_scenario_calc
-                self.st_results_message(results)
+                self.st_results_message()
         else:
             QMessageBox.about(self.window, 'Select a Scenario!', 'No scenarios selected!')
 

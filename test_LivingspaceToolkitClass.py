@@ -166,7 +166,7 @@ def test_studio_scenario7(studio_setup):
     studio_setup[1].drip_edge_pitch(101.125, pitch)
     assert pitch_estimate(tan(studio_setup[0].pitch) * 12) == 5.0
     assert sixteenth(studio_setup[0].peak) == 165.0
-    assert sixteenth(studio_setup[0].drip_edge) == 101.125
+    assert sixteenth(studio_setup[0].drip_edge) == 99.5
     assert sixteenth(studio_setup[1].drip_edge) == 101.125
     assert sixteenth(studio_setup[0].max_h) == 176.125
     assert sixteenth(studio_setup[1].max_h) == 176.125
