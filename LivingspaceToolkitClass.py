@@ -1,18 +1,37 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+"""
+This module holds the classes and functions for creating the Livingspace style of Sunrooms.
+
+Classes:
+    Sunroom
+    Studio
+    Cathedral
+
+Functions:
+    angled
+    assume_units
+    pitch_input
+    pitch_estimate
+    sixteenth
+    estimate_drip_from_peak
+    calculate_armstrong_panels
+"""
 
 from math import sin, cos, tan, atan, atan2, pi
 from math import floor as m_floor
 from math import ceil as m_ceil
 from re import compile as re_compile
 import logging
+from datetime import datetime
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
-formatter = logging.Formatter('%(asctime)s:[%(name)s]:[%(levelname)s]: %(message)s')
-file_handler = logging.FileHandler('LS Toolkit.log')
+formatter = logging.Formatter('%(asctime)s:[%(name)s]:[%(levelname)s]: %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p')
+file_handler = logging.FileHandler('LS Toolkit_{}.log'.format(datetime.now().strftime("%Y-%m-%d")))
 file_handler.setFormatter(formatter)
 logger.addHandler(file_handler)
+
 _units = re_compile(r'\'|ft|feet|\"|in')
 end_cuts = ['uncut', 'plum_T_B', 'plum_T']
 
@@ -73,23 +92,23 @@ def sixteenth(number):
     return round(number * 16) / 16
 
 
-def estimate_drip_from_peak(peak, estimate_pitch, side_wall_length, overhang, thickness, endcut, awall, bwall, cwall):
+def estimate_drip_from_peak(peak, estimate_pitch, pitched_wall_length, overhang, thickness, endcut, awall, bwall, cwall):
     """
     This method is used to help estimate the pitch. Since I forgot how to do numerical methods this will have to do. All
     lengths must be in inches, the estimated pitch in radians, and this assumes you are cycling through a list of
     pitches.
-    :param peak: float
-    :param estimate_pitch: float
-    :param side_wall_length: float
-    :param overhang: float
-    :param thickness: float
-    :param endcut: str
-    :param awall: float
-    :param bwall: float
-    :param cwall: float
-    :return: float
+    :param peak: float: Peak height of the sunroom in inches
+    :param estimate_pitch: float: The estimated pitch of the room in radians
+    :param pitched_wall_length: float: The length of the pitched-side wall in inches
+    :param overhang: float: The overhang in inches
+    :param thickness: float: Roof panel thickness in inches
+    :param endcut: str: The endcut type as a string
+    :param awall: float: Height of the A-side wall in inches
+    :param bwall: float: Height of the B-side wall in inches
+    :param cwall: float: Height of the C-side wall in inches
+    :return: float: Returns the drip edge height in inches
     """
-    wall_height = peak - side_wall_length * tan(estimate_pitch)
+    wall_height = peak - pitched_wall_length * tan(estimate_pitch)
     soffit = wall_height - overhang * tan(estimate_pitch)
     estimate_drip = Sunroom(overhang=overhang, awall=awall, bwall=bwall, cwall=cwall, thickness=thickness,
                             endcut=endcut)
@@ -99,6 +118,13 @@ def estimate_drip_from_peak(peak, estimate_pitch, side_wall_length, overhang, th
 
 # noinspection SpellCheckingInspection
 def calculate_armstrong_panels(pitch, pitched_wall, unpitched_wall):
+    """
+    Calculates the number of armstrong boxes for the roof.
+    :param pitch: float: The pitch of the roof in radians
+    :param pitched_wall: float: The length of the pitched wall in inches
+    :param unpitched_wall: float: The length of the unpitched wall in inches
+    :return:
+    """
     rake_length = pitched_wall / cos(pitch)
     armstrong_area = rake_length * unpitched_wall / 144  # To get area in sq. ft.
     return m_ceil((armstrong_area + (armstrong_area * 0.1)) / 29)
@@ -108,6 +134,49 @@ def calculate_armstrong_panels(pitch, pitched_wall, unpitched_wall):
 class Sunroom:
     """
     This class will be the base class for the Studio and Cathedral type of sunrooms.
+
+    ...
+    Attributes
+    ----------
+    overhang: float
+        Overhang on sunroom
+    awall: float
+        length of A-Side wall
+    bwall: float
+        length of B-Side wall
+    cwall: float
+        length of C-Side wall
+    thickness: float
+        Thickness of roof panels
+
+    Methods
+    -------
+    calculate_drip_edge(soffit, pitch)
+        Calculates height of drip edge
+    _calculate_panel_length(pitch, pitched_wall)
+        Calculates length of roof panels
+    _calculate_roof_panels(soffit_wall, panel_length_dict)
+        Virtual method to be modefied in inherited classes
+    _calculate_hang_rail(panel_dict)
+        Virtual method to be modefied in inherited classes
+    _calculate_fascia(roof_panel_dict, panel_length_dict)
+        Virtual method to be modefied in inherited classes
+    calculate_sunroom()
+        Virtual method to be modefied in inherited classes
+    wall_height_pitch(pitch, soffit_wall_height):
+        Virtual method to be modefied in inherited classes
+    def wall_height_peak_height(soffit_wall_height, peak):
+        Virtual method to be modefied in inherited classes
+    def max_height_pitch(pitch, max_h):
+        Virtual method to be modefied in inherited classes
+    def soffit_height_peak_height(peak, soffit):
+        Virtual method to be modefied in inherited classes
+    def soffit_height_pitch(pitch, soffit):
+        Virtual method to be modefied in inherited classes
+    def drip_edge_peak_height(drip_edge, peak):
+        Virtual method to be modefied in inherited classes
+    def drip_edge_pitch(drip_edge, pitch)
+        Virtual method to be modefied in inherited classes
     """
 
     def __init__(self, overhang, awall, bwall, cwall, thickness, endcut):
@@ -126,6 +195,13 @@ class Sunroom:
             self.side_overhang = overhang
 
     def calculate_drip_edge(self, soffit, pitch):
+        """
+        Returns the drip edge height given the soffit and angled thickness. Returns in units of inches.
+
+        :param soffit: float: Soffit height in inches
+        :param pitch: float: Pitch in radians
+        :return:
+        """
         angled_thickness = angled(pitch=pitch, thickness=self.thickness)
         if self.endcut == 'plum_T_B':
             drip_edge = soffit + angled_thickness
@@ -156,37 +232,48 @@ class Sunroom:
         return {'Panel Length': panel_length, 'Max Length Check': max_panel_length, 'Panel Tolerance': panel_tolerance}
 
     def _calculate_roof_panels(self, soffit_wall, panel_length_dict):
+        """Virtual method to be modefied in inherited classes"""
         pass
 
     def _calculate_hang_rail(self, panel_dict):
+        """Virtual method to be modefied in inherited classes"""
         pass
 
     def _calculate_fascia(self, roof_panel_dict, panel_length_dict):
+        """Virtual method to be modefied in inherited classes"""
         pass
 
     def calculate_sunroom(self):
+        """Virtual method to be modefied in inherited classes"""
         pass
 
     # Scenarios
     def wall_height_pitch(self, pitch, soffit_wall_height):
+        """Virtual method to be modefied in inherited classes"""
         pass
 
     def wall_height_peak_height(self, soffit_wall_height, peak):
+        """Virtual method to be modefied in inherited classes"""
         pass
 
     def max_height_pitch(self, pitch, max_h):
+        """Virtual method to be modefied in inherited classes"""
         pass
 
     def soffit_height_peak_height(self, peak, soffit):
+        """Virtual method to be modefied in inherited classes"""
         pass
 
     def soffit_height_pitch(self, pitch, soffit):
+        """Virtual method to be modefied in inherited classes"""
         pass
 
     def drip_edge_peak_height(self, drip_edge, peak):
+        """Virtual method to be modefied in inherited classes"""
         pass
 
     def drip_edge_pitch(self, drip_edge, pitch):
+        """Virtual method to be modefied in inherited classes"""
         pass
 
 
@@ -323,7 +410,7 @@ class Studio(Sunroom):
             ratio_pitch += incr
             self.pitch = atan2(ratio_pitch, 12)
             drip_est = estimate_drip_from_peak(peak=self.peak, estimate_pitch=self.pitch,
-                                               side_wall_length=self.pitched_wall, overhang=self.overhang,
+                                               pitched_wall_length=self.pitched_wall, overhang=self.overhang,
                                                thickness=self.thickness, endcut=self.endcut, awall=self.awall,
                                                bwall=self.bwall, cwall=self.cwall)
             diff = abs(self.drip_edge - drip_est)
@@ -568,7 +655,7 @@ class Cathedral(Sunroom):
             ratio_pitch += incr
             pitch = atan2(ratio_pitch, 12)
             drip_est = estimate_drip_from_peak(peak=peak, estimate_pitch=pitch,
-                                               side_wall_length=self.bwall / 2 - self.post_width / 2,
+                                               pitched_wall_length=self.bwall / 2 - self.post_width / 2,
                                                overhang=self.overhang, thickness=self.thickness, endcut=self.endcut,
                                                awall=self.awall, bwall=self.bwall, cwall=self.cwall)
             diff = abs(drip_edge - drip_est)

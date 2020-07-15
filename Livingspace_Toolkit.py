@@ -20,6 +20,7 @@ import LivingspaceToolkitClass as LSTKC
 from math import tan
 import logging
 import re
+from datetime import datetime
 
 list_ = re.compile(r'\'|ft|feet|\"|in')
 
@@ -770,13 +771,12 @@ class Form(QObject):
         """
         if self.st_overhang_edit.text() == '':
             self.input_errors('Overhang')
-            # QMessageBox.about(self.window, 'Input Error!', 'Missing input in overhang box!!')
         if self.st_awall_edit.text() == '':
-            QMessageBox.about(self.window, 'Input Error!', 'Missing input in A Wall box!!')
+            self.input_errors('A Wall')
         if self.st_bwall_edit.text() == '':
-            QMessageBox.about(self.window, 'Input Error!', 'Missing input in B Wall box!!')
+            self.input_errors('B Wall')
         if self.st_cwall_edit.text() == '':
-            QMessageBox.about(self.window, 'Input Error!', 'Missing input in C Wall box!!')
+            self.input_errors('C Wall')
 
     def ca_common_errors(self):
         """
@@ -784,13 +784,13 @@ class Form(QObject):
         :return:
         """
         if self.ca_overhang_edit.text() == '':
-            QMessageBox.about(self.window, 'Input Error!', 'Missing input in overhang box!!')
+            self.input_errors('Overhang')
         if self.ca_awall_edit.text() == '':
-            QMessageBox.about(self.window, 'Input Error!', 'Missing input in A Wall box!!')
+            self.input_errors('A Wall')
         if self.ca_bwall_edit.text() == '':
-            QMessageBox.about(self.window, 'Input Error!', 'Missing input in B Wall box!!')
+            self.input_errors('B Wall')
         if self.ca_cwall_edit.text() == '':
-            QMessageBox.about(self.window, 'Input Error!', 'Missing input in C Wall box!!')
+            self.input_errors('C Wall')
 
     def st_calcbutton(self):
         """
@@ -965,8 +965,8 @@ if __name__ == '__main__':
     # Set up logger
     logger = logging.getLogger(__name__)
     logger.setLevel(logging.DEBUG)
-    formatter = logging.Formatter('%(asctime)s:[%(name)s]:[%(levelname)s]: %(message)s')
-    file_handler = logging.FileHandler('LS Toolkit.log')
+    formatter = logging.Formatter('%(asctime)s:[%(name)s]:[%(levelname)s]: %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p')
+    file_handler = logging.FileHandler('LS Toolkit_{}.log'.format(datetime.now().strftime("%Y-%m-%d")))
     file_handler.setFormatter(formatter)
     logger.addHandler(file_handler)
 
