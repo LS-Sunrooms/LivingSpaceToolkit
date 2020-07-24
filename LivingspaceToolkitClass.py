@@ -422,7 +422,6 @@ class Studio(Sunroom):
         in radians."""
         self.pitch = pitch
         self.unpitched_wall = soffit_wall_height
-        self.pitched_wall = max(self.awall, self.bwall)
         self.soffit = self.unpitched_wall - self.overhang * tan(self.pitch)
         self.peak = self.unpitched_wall + self.pitched_wall * tan(self.pitch)
         self.max_h = self.peak + angled(pitch=self.pitch, thickness=self.thickness)
@@ -731,8 +730,8 @@ class Cathedral(Sunroom):
     # Scenario 4
     def soffit_height_peak_height(self, peak, soffit):
         """This method is designed for Scenario 4: Soffit Height and Peak Height. Both heights must be in inches."""
-        self.a_soffit = max(soffit[0], soffit[0])
-        self.c_soffit = max(soffit[0], soffit[0])
+        self.a_soffit = max(soffit[0], soffit[1])
+        self.c_soffit = max(soffit[0], soffit[1])
         self.f_peak = peak
         self.a_pitched_wall = self.bwall / 2
         self.c_pitched_wall = self.bwall / 2

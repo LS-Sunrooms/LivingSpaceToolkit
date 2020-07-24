@@ -10,6 +10,7 @@ help their sales reps on meeting the needs of their customers.
 
 import sys
 from os import path as os_path
+from datetime import datetime
 from PySide2.QtUiTools import QUiLoader
 from PySide2.QtWidgets import QApplication, QPushButton, QLineEdit, QRadioButton, QComboBox, QTextBrowser
 from PySide2.QtWidgets import QGroupBox, QLabel, QMessageBox, QCheckBox, QTabWidget
@@ -20,6 +21,7 @@ import LivingspaceToolkitClass as LSTKC
 from math import tan
 import re
 import logging
+import yaml
 from pathlib import Path
 
 list_ = re.compile(r'\'|ft|feet|\"|in')
@@ -34,6 +36,11 @@ class Form(QObject):
         :param ui_file:
         :param parent:
         """
+        logger.info('The current date and time is: {}'.format(datetime.now().strftime("%Y-%m-%d %H:%M:%S %p")))
+        version = '1.9.2'
+        logger.info(f"Current version is {version}.")
+        version_path = \
+            r'\\192.168.1.13\Conwed\Interior Systems\Engineering\Custom_Software\Livingspace_Toolkit\version.yaml'
         super(Form, self).__init__(parent)
         ui_file = QFile(ui_file)
         ui_file.open(QFile.ReadOnly)
@@ -45,6 +52,7 @@ class Form(QObject):
         self.tabWidget = self.window.findChild(QTabWidget, 'tabWidget')
         self.studio = None
         self.cathedral = None
+        self.version_label = self.window.findChild(QLabel, 'lbl_version')
         # Studio objects
         self.st_scenario1_radio = self.window.findChild(QRadioButton, 'st_scenario1_radio')
         self.st_scenario2_radio = self.window.findChild(QRadioButton, 'st_scenario2_radio')
@@ -161,7 +169,18 @@ class Form(QObject):
 
         self.studio_form_control()
         self.cathedral_form_control()
+        self.version_label.setText(f"Version: {version}")
         self.window.show()
+        remote_version = version
+        try:
+            with open(version_path) as file:
+                remote_version = yaml.load(file, Loader=yaml.FullLoader)
+        except FileNotFoundError as err:
+            logger.exception(err)
+        else:
+            if remote_version > version:
+                QMessageBox.warning(self.window, 'Please Update!',
+                                    f"You are using version {version}. Please update to version {remote_version}!")
 
     def studio_form_control(self):
         """
@@ -778,7 +797,7 @@ class Form(QObject):
         self.st_results.clear()
         self.st_common_errors()
         self.st_results.setText('Now listing results.')
-        self.st_results.setText('This is a bug!')
+        # self.st_results.setText('This is a bug!')
         self.st_scenario_calc()
         if self.st_scenario1_radio.isChecked():
             if self.st_pitch_edit.text() == '':
