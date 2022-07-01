@@ -7,3 +7,5 @@ pyu-data/
 *.log
 *.iss
 client_config.py
+build.json
+build_local.json
