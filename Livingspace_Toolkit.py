@@ -11,10 +11,10 @@ help their sales reps on meeting the needs of their customers.
 import sys
 from os import path as os_path
 from datetime import datetime
-from PySide2.QtUiTools import QUiLoader
-from PySide2.QtWidgets import QApplication, QPushButton, QLineEdit, QRadioButton, QComboBox, QTextBrowser
-from PySide2.QtWidgets import QGroupBox, QLabel, QMessageBox, QCheckBox, QTabWidget
-from PySide2.QtCore import QFile, QObject
+from PySide6.QtUiTools import QUiLoader
+from PySide6.QtWidgets import QApplication, QPushButton, QLineEdit, QRadioButton, QComboBox, QTextBrowser
+from PySide6.QtWidgets import QGroupBox, QLabel, QMessageBox, QCheckBox, QTabWidget
+from PySide6.QtCore import QFile, QObject
 import UI_rc
 from Units import EngineeringUnits as Eu
 import LivingspaceToolkitClass as LSTKC
