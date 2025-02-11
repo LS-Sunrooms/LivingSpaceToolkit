@@ -4,6 +4,8 @@ __pycache__/
 bin/
 .pyupdater/
 pyu-data/
+.venv/
+output/
 *.log
 *.iss
 client_config.py
