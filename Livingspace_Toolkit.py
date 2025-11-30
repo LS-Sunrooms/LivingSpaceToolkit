@@ -34,7 +34,7 @@ class Form(QObject):
         :param parent:
         """
         logger.info('The current date and time is: {}'.format(datetime.now().strftime("%Y-%m-%d %H:%M:%S %p")))
-        version = '1.9.4'
+        version = '1.9.5'
         logger.info(f"Current version is {version}.")
         version_path = \
             r'\\192.168.1.13\Conwed\Interior Systems\Engineering\Custom_Software\Livingspace_Toolkit\version.yaml'

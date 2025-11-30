@@ -95,7 +95,7 @@ This project is not on an online git repository but uses a local repository.
 
 ## Versioning
 
-The current version is v0.91.
+The current version is v1.9.5.
 
 ## Authors
 
