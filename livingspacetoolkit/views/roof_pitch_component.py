@@ -26,7 +26,7 @@ class RoofPitch(QGroupBox):
 
         self.pitch_input: QLineEdit = QLineEdit()
         self.pitch_input.setObjectName("pitch_input")
-        self.pitch_input.setEnabled(False)
+        self.pitch_input.setEnabled(True)
         self.pitch_input.setPlaceholderText("0 in. or 0deg.")
 
         self.pitch_input_label: QLabel = QLabel("/12 in.")

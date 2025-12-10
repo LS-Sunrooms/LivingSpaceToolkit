@@ -1,7 +1,5 @@
 import logging
 
-from PySide6.QtCore import Qt
-from PySide6.QtGui import QFont
 from PySide6.QtWidgets import QWidget, QLineEdit, QComboBox, QVBoxLayout, QCheckBox, QSpacerItem, QSizePolicy, QLabel
 
 from livingspacetoolkit.views.roof_pitch_component import RoofPitch
