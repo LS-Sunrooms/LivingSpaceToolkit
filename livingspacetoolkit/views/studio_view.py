@@ -6,6 +6,8 @@ from livingspacetoolkit.views.studio_roof_component import StudioRoof
 from livingspacetoolkit.views.studio_wall_height_component import StudioWallHeight
 from livingspacetoolkit.views.floor_plan_component import FloorPlan
 
+logger = logging.getLogger(__name__)
+
 class Studio(QWidget):
     def __init__(self):
         super().__init__()
