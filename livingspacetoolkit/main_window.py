@@ -7,14 +7,12 @@ from PySide6.QtGui import QPixmap, QIcon
 import livingspacetoolkit.Resource.resources_rc
 
 from livingspacetoolkit.views.scenarios_view import ScenariosView
-from livingspacetoolkit.views.roof_pitch_component import RoofPitch
-from livingspacetoolkit.views.roofing_type_component import RoofingType
-from livingspacetoolkit.views.roof_end_cuts_component import RoofEndCuts
-from livingspacetoolkit.views.floor_plan_component import FloorPlan
 from livingspacetoolkit.views.results_view import Results
-from livingspacetoolkit.views.studio_roof_component import StudioRoof
-from livingspacetoolkit.views.studio_wall_height_component import StudioWallHeight
 from livingspacetoolkit.views.studio_view import Studio
+from livingspacetoolkit.views.cathedral_view import Cathedral
+
+logger = logging.getLogger(__name__)
+
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -30,17 +28,13 @@ class MainWindow(QMainWindow):
         self.logo.setPixmap(logo_image)
 
         self.scenarios = ScenariosView()
-        self.roof_pitch = RoofPitch("Pitch")
-        self.roofing_type = RoofingType()
-        self.roof_end_cuts = RoofEndCuts()
-        self.floor_plan = FloorPlan()
         self.results = Results()
-        self.studio_roof = StudioRoof()
-        self.studio_wall_height = StudioWallHeight()
         self.studio = Studio()
+        self.cathedral = Cathedral()
 
         tabs: QTabWidget = QTabWidget()
         tabs.addTab(self.studio, "Studio")
+        tabs.addTab(self.cathedral, "Cathedral")
 
         layout: QVBoxLayout = QVBoxLayout()
 

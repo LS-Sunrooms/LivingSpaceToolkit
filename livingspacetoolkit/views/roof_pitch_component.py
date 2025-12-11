@@ -6,11 +6,10 @@ from PySide6.QtCore import Qt
 logger = logging.getLogger(__name__)
 
 class RoofPitch(QGroupBox):
-    def __init__(self, label_text: str = ""):
+    def __init__(self, title: str = ""):
         super().__init__()
 
-        label = QLabel(label_text)
-        label.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.setTitle(title)
 
         self.radio_ratio: QRadioButton = QRadioButton()
         self.radio_ratio.setObjectName("radio_ratio")
@@ -37,9 +36,8 @@ class RoofPitch(QGroupBox):
         layout_ratio.addWidget(self.radio_angle)
 
         layout_main: QGridLayout = QGridLayout()
-        layout_main.addWidget(label, 0, 0)
-        layout_main.addLayout(layout_ratio, 1, 0)
-        layout_main.addWidget(self.pitch_input, 2, 0)
-        layout_main.addWidget(self.pitch_input_label, 2, 1)
+        layout_main.addLayout(layout_ratio, 0, 0)
+        layout_main.addWidget(self.pitch_input, 1, 0)
+        layout_main.addWidget(self.pitch_input_label, 1, 1)
 
         self.setLayout(layout_main)

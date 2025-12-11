@@ -12,7 +12,8 @@ class Results(QWidget):
 
         layout: QVBoxLayout = QVBoxLayout()
 
-        spacer: QSpacerItem = QSpacerItem(20, 40, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
+        spacer_top: QSpacerItem = QSpacerItem(20, 40)
+        spacer_bottom: QSpacerItem = QSpacerItem(20, 40, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
 
         self.calculate_button: QPushButton = QPushButton("Calculate")
         self.results_label: QLabel = QLabel()
@@ -26,12 +27,11 @@ class Results(QWidget):
         self.results_label.setFont(font)
         self.results_label.setAlignment(Qt.AlignmentFlag.AlignHCenter)
 
-        self.results_view.setMaximumSize(300, 500)
-        self.results_view.setMinimumSize(300, 500)
+        self.results_view.setMinimumSize(300, 850)
 
-        layout.addSpacerItem(spacer)
+        layout.addSpacerItem(spacer_top)
         layout.addWidget(self.calculate_button)
         layout.addWidget(self.results_label)
         layout.addWidget(self.results_view)
-        layout.addSpacerItem(spacer)
+        layout.addSpacerItem(spacer_bottom)
         self.setLayout(layout)
