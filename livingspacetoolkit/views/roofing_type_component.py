@@ -4,6 +4,7 @@ from PySide6.QtWidgets import QGroupBox, QRadioButton, QVBoxLayout
 
 logger = logging.getLogger(__name__)
 
+
 class RoofingType(QGroupBox):
     def __init__(self):
         super().__init__()

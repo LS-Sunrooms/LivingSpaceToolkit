@@ -1,6 +1,6 @@
 import logging
 
-from PySide6.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout
+from PySide6.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout, QSpacerItem, QSizePolicy
 
 from livingspacetoolkit.views.cathedral_roof_component import CathedralRoof
 from livingspacetoolkit.views.cathedral_wall_height_component import CathedralWallHeight
@@ -13,17 +13,19 @@ class Cathedral(QWidget):
     def __init__(self):
         super().__init__()
 
-        layout_main: QHBoxLayout = QHBoxLayout()
+        layout: QHBoxLayout = QHBoxLayout()
         layout_sub: QVBoxLayout = QVBoxLayout()
+        spacer: QSpacerItem = QSpacerItem(20, 40, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
 
-        self.cathedral_roof: CathedralRoof = CathedralRoof()
-        self.cathedral_wall: CathedralWallHeight = CathedralWallHeight()
-        self.cathedral_floor: FloorPlan = FloorPlan()
+        self.sunroom_roof: CathedralRoof = CathedralRoof()
+        self.sunroom_wall: CathedralWallHeight = CathedralWallHeight()
+        self.sunroom_floor: FloorPlan = FloorPlan()
 
-        layout_sub.addWidget(self.cathedral_wall)
-        layout_sub.addWidget(self.cathedral_floor)
+        layout_sub.addWidget(self.sunroom_wall)
+        layout_sub.addSpacerItem(spacer)
+        layout_sub.addWidget(self.sunroom_floor)
 
-        layout_main.addWidget(self.cathedral_roof)
-        layout_main.addLayout(layout_sub)
+        layout.addWidget(self.sunroom_roof)
+        layout.addLayout(layout_sub)
 
-        self.setLayout(layout_main)
+        self.setLayout(layout)

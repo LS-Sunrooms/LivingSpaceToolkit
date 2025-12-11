@@ -5,6 +5,7 @@ from PySide6.QtCore import Qt
 
 logger = logging.getLogger(__name__)
 
+
 class ScenariosView(QGroupBox):
     def __init__(self):
         super().__init__()

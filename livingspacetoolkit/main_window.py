@@ -1,11 +1,10 @@
 import logging
 
 from PySide6.QtCore import QSize
-from PySide6.QtWidgets import QMainWindow, QVBoxLayout, QWidget, QLabel, QHBoxLayout, QTabWidget
+from PySide6.QtWidgets import QMainWindow, QWidget, QLabel, QTabWidget, QGridLayout
 from PySide6.QtGui import QPixmap, QIcon
 
 import livingspacetoolkit.Resource.resources_rc
-
 from livingspacetoolkit.views.scenarios_view import ScenariosView
 from livingspacetoolkit.views.results_view import Results
 from livingspacetoolkit.views.studio_view import Studio
@@ -35,15 +34,14 @@ class MainWindow(QMainWindow):
         tabs: QTabWidget = QTabWidget()
         tabs.addTab(self.studio, "Studio")
         tabs.addTab(self.cathedral, "Cathedral")
+        tabs.setMinimumSize(600, 400)
 
-        layout: QVBoxLayout = QVBoxLayout()
+        layout: QGridLayout = QGridLayout()
 
-        layout.addWidget(self.logo)
-        layout.addWidget(self.scenarios)
-        central_layout: QHBoxLayout = QHBoxLayout()
-        central_layout.addWidget(tabs)
-        central_layout.addWidget(self.results)
-        layout.addLayout(central_layout)
+        layout.addWidget(self.logo, 0, 0, 1, 2)
+        layout.addWidget(self.scenarios, 1, 0, 1, 2)
+        layout.addWidget(tabs, 2, 0)
+        layout.addWidget(self.results, 2, 1)
 
         central_widget.setLayout(layout)
 

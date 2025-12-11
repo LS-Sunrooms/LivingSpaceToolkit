@@ -6,6 +6,7 @@ from PySide6.QtWidgets import QWidget, QLabel, QPushButton, QVBoxLayout, QTextBr
 
 logger = logging.getLogger(__name__)
 
+
 class Results(QWidget):
     def __init__(self):
         super().__init__()

@@ -1,6 +1,7 @@
 import logging
 
 from PySide6.QtWidgets import QWidget, QLineEdit, QComboBox, QVBoxLayout, QCheckBox, QSpacerItem, QSizePolicy, QLabel
+from PySide6.QtCore import QSize
 
 from livingspacetoolkit.views.roof_pitch_component import RoofPitch
 from livingspacetoolkit.views.roofing_type_component import RoofingType
@@ -28,6 +29,7 @@ class CathedralRoof(QWidget):
         thickness_label: QLabel = QLabel("Thickness")
 
         self.overhang_edit.setPlaceholderText("0' or 0\"")
+        self.overhang_edit.setMinimumSize(QSize(145, 35))
         self.fascia.setText("Fascia")
 
         layout.addWidget(self.pitch_a)

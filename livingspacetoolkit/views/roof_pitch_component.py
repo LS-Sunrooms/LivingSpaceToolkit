@@ -1,7 +1,7 @@
 import logging
 
 from PySide6.QtWidgets import QGroupBox, QRadioButton, QHBoxLayout, QGridLayout, QLabel, QLineEdit
-from PySide6.QtCore import Qt
+from PySide6.QtCore import Qt, QSize
 
 logger = logging.getLogger(__name__)
 
@@ -24,6 +24,7 @@ class RoofPitch(QGroupBox):
         self.radio_angle.setText("Angle")
 
         self.pitch_input: QLineEdit = QLineEdit()
+        self.pitch_input.setMinimumSize(QSize(145, 35))
         self.pitch_input.setObjectName("pitch_input")
         self.pitch_input.setEnabled(True)
         self.pitch_input.setPlaceholderText("0 in. or 0deg.")
