@@ -1,0 +1,43 @@
+{
+  "version": 1,
+  "disable_existing_loggers": false,
+  "formatters": {
+    "default": {
+      "format": "[%(levelname)s | %(name)s | %(lineno)s] %(asctime)s: %(message)s",
+      "datefmt": "%Y-%m-%dT%H:%M:%S%z"
+    }
+  },
+  "handlers": {
+    "stderr": {
+      "class": "logging.StreamHandler",
+      "level": "ERROR",
+      "formatter": "default",
+      "stream": "ext://sys.stderr"
+    },
+    "console": {
+      "class": "logging.StreamHandler",
+      "level": "DEBUG",
+      "formatter": "default"
+    },
+    "file": {
+      "class": "logging.handlers.RotatingFileHandler",
+      "level": "DEBUG",
+      "formatter": "default",
+      "filename": "livingspace-toolkit.log",
+      "encoding": "utf8",
+      "mode": "a+",
+      "maxBytes": 1048576,
+      "backupCount": 10
+    }
+  },
+    "loggers": {
+      "root": {
+        "level": "DEBUG",
+        "handlers": [
+          "stderr",
+          "console",
+          "file"
+        ]
+      }
+    }
+  }
