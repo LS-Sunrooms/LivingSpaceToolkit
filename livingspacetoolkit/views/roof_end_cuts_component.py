@@ -41,3 +41,7 @@ class RoofEndCuts(QGroupBox):
         self.radio_endcut1.setChecked(False)
         self.radio_endcut2.setChecked(False)
         self.radio_endcut3.setChecked(False)
+
+    def default_state(self) -> None:
+        logger.debug("Setting end cuts to default state.")
+        self.setEnabled(False)

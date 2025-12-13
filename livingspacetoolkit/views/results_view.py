@@ -37,5 +37,9 @@ class Results(QWidget):
         layout.addSpacerItem(spacer_bottom)
         self.setLayout(layout)
 
+    def default_state(self) -> None:
+        logger.debug("Setting results to default state.")
+        self.results_view.clear()
+
     def update_text(self, text: str):
         self.results_view.setText(text)

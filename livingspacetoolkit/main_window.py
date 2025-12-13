@@ -10,6 +10,7 @@ from livingspacetoolkit.views.results_view import Results
 from livingspacetoolkit.views.studio_view import Studio
 from livingspacetoolkit.views.cathedral_view import Cathedral
 from livingspacetoolkit.controllers.results_controller import ResultsController
+from livingspacetoolkit.controllers.studio_controller import StudioController
 
 logger = logging.getLogger(__name__)
 
@@ -42,6 +43,7 @@ class MainWindow(QMainWindow):
 
         # === Controllers ===
         self.results_controller = ResultsController(self.results_view, tabs)
+        self.studio_controller = StudioController(self.studio_view)
 
         layout: QGridLayout = QGridLayout()
 

@@ -3,6 +3,8 @@ import logging
 from PySide6.QtWidgets import QGroupBox, QRadioButton, QHBoxLayout, QGridLayout, QLabel, QLineEdit
 from PySide6.QtCore import Qt, QSize
 
+from livingspacetoolkit.lib.livingspacetoolkit_enums import PitchType, SunroomType
+
 logger = logging.getLogger(__name__)
 
 class RoofPitch(QGroupBox):
@@ -42,3 +44,22 @@ class RoofPitch(QGroupBox):
         layout_main.addWidget(self.pitch_input_label, 1, 1)
 
         self.setLayout(layout_main)
+
+    def default_state(self, component_name: str) -> None:
+        logger.info(f"Setting {component_name} to default state.")
+        self.radio_angle.setChecked(False)
+        self.radio_ratio.setChecked(False)
+        self.pitch_input.clear()
+        self.pitch_input_label.setText("/12 in.")
+        self.setEnabled(False)
+
+    def update_pitch_text(self, pitch_type: PitchType, sunroom: SunroomType) -> None:
+        match pitch_type:
+            case pitch_type.ANGLE:
+                self.pitch_input_label.setText(u"deg. (\N{DEGREE SIGN})")
+                logger.info(f"{sunroom.name} {self.title()} unit type set to angle.")
+                return None
+            case pitch_type.RATIO:
+                self.pitch_input_label.setText("/12 in.")
+                logger.info(f"{sunroom.name} {self.title()} unit type set to ratio.")
+                return None
