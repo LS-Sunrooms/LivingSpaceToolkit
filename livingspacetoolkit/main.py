@@ -15,6 +15,7 @@ def main():
     apply_theme(app)
     window = MainWindow()
     window.show()
+    window.tabs_controller.set_to_default_state()
     app.exec()
 
 if __name__ == "__main__":

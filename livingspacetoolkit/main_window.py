@@ -39,9 +39,9 @@ class MainWindow(QMainWindow):
         self.tabs_view = TabsView()
 
         # === Controllers ===
+        self.tabs_controller = TabsController(self.tabs_view, self.scenarios_view,self.results_view, self.toolkit_state)
         self.results_controller = ResultsController(self.results_view, self.toolkit_state)
-        self.scenario_controller = ScenarioController(self.scenarios_view, self.toolkit_state)
-        self.tabs_controller = TabsController(self.tabs_view, self.toolkit_state)
+        self.scenario_controller = ScenarioController(self.scenarios_view, self.tabs_controller, self.toolkit_state)
 
         layout: QGridLayout = QGridLayout()
 

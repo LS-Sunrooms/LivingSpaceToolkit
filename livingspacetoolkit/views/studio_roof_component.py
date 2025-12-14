@@ -1,6 +1,5 @@
 import logging
 
-from typing import Dict
 from PySide6.QtWidgets import QWidget, QLineEdit, QComboBox, QVBoxLayout, QCheckBox, QSpacerItem, QSizePolicy, QLabel
 from PySide6.QtCore import QSize
 
@@ -8,6 +7,7 @@ from livingspacetoolkit.views.roof_pitch_component import RoofPitch
 from livingspacetoolkit.views.roofing_type_component import RoofingTypeView
 from livingspacetoolkit.views.roof_end_cuts_component import RoofEndCuts
 from livingspacetoolkit.lib.livingspacetoolkit_enums import SunroomType, RoofingType
+from livingspacetoolkit.utils.helpers import set_strikethrough
 
 logger = logging.getLogger(__name__)
 
@@ -45,7 +45,6 @@ class StudioRoofView(QWidget):
         self.setLayout(layout)
 
     def default_state(self) -> None:
-        # TODO: Add strikeout to default state
         logger.debug("Setting studio roof view to default state.")
         self.pitch.default_state(SunroomType.STUDIO)
         self.overhang_edit.clear()
@@ -54,8 +53,18 @@ class StudioRoofView(QWidget):
         self.thickness_combo.clear()
         self.thickness_combo.setEnabled(False)
         self.end_cuts.default_state()
+        set_strikethrough(self.fascia, True)
         self.fascia.setChecked(False)
         self.fascia.setEnabled(False)
+
+    def enable_except_pitch(self) -> None:
+        self.overhang_edit.clear()
+        self.overhang_edit.setEnabled(True)
+        self.roofing_type.enabled_state()
+        self.thickness_combo.clear()
+        self.thickness_combo.setEnabled(True)
+        self.end_cuts.enabled_state()
+        set_strikethrough(self.fascia, False)
 
     def populate_thickness_combo(self, roof_type: RoofingType) -> None:
         self.thickness_combo.clear()

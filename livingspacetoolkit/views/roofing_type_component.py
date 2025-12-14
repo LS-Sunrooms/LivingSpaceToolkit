@@ -2,7 +2,7 @@ import logging
 
 from typing import Dict
 from PySide6.QtWidgets import QGroupBox, QRadioButton, QVBoxLayout, QButtonGroup
-from livingspacetoolkit.utils.helpers import temporary_change
+from livingspacetoolkit.utils.helpers import temporary_change, set_strikethrough
 from livingspacetoolkit.lib.livingspacetoolkit_enums import RoofingType
 
 logger = logging.getLogger(__name__)
@@ -36,12 +36,22 @@ class RoofingTypeView(QGroupBox):
         self.setLayout(layout)
 
     @temporary_change('radio_group', 'setExclusive', False, True)
-    def default_state(self):
-        # TODO: Add strikeout to default state
+    def default_state(self) -> None:
         logger.debug("Setting roofing type to default state.")
         self.radio_eco.setChecked(False)
+        set_strikethrough(self.radio_eco, True)
         self.radio_al.setChecked(False)
+        set_strikethrough(self.radio_al, True)
         self.setEnabled(False)
+
+    @temporary_change('radio_group', 'setExclusive', False, True)
+    def enabled_state(self) -> None:
+        logger.debug("Setting roofing type to enabled state.")
+        self.radio_eco.setChecked(False)
+        set_strikethrough(self.radio_eco, False)
+        self.radio_al.setChecked(False)
+        set_strikethrough(self.radio_al, False)
+        self.setEnabled(True)
 
     @staticmethod
     def set_thickness_combo_list(roof_type: RoofingType) -> Dict[str, str]:

@@ -4,7 +4,7 @@ from PySide6.QtWidgets import QGroupBox, QRadioButton, QHBoxLayout, QGridLayout,
 from PySide6.QtCore import Qt, QSize
 
 from livingspacetoolkit.lib.livingspacetoolkit_enums import PitchType, SunroomType
-from livingspacetoolkit.utils.helpers import temporary_change
+from livingspacetoolkit.utils.helpers import temporary_change, set_strikethrough
 
 logger = logging.getLogger(__name__)
 
@@ -51,13 +51,23 @@ class RoofPitch(QGroupBox):
 
     @temporary_change('radio_group', 'setExclusive', False, True)
     def default_state(self, sunroom: SunroomType) -> None:
-        # TODO: Add strikeout to default state
         logger.debug(f"Setting {sunroom.name} {self.title()} to default state.")
         self.radio_angle.setChecked(False)
         self.radio_ratio.setChecked(False)
         self.pitch_input.clear()
         self.update_pitch_text(PitchType.RATIO, sunroom)
         self.setEnabled(False)
+        set_strikethrough(self, True)
+
+    @temporary_change('radio_group', 'setExclusive', False, True)
+    def enabled_state(self, sunroom: SunroomType) -> None:
+        logger.debug(f"Setting {sunroom.name} {self.title()} to enabled state.")
+        self.radio_angle.setChecked(False)
+        self.radio_ratio.setChecked(True)
+        self.pitch_input.clear()
+        self.update_pitch_text(PitchType.RATIO, sunroom)
+        self.setEnabled(True)
+        set_strikethrough(self, False)
 
     def update_pitch_text(self, pitch_type: PitchType, sunroom: SunroomType) -> None:
         match pitch_type:

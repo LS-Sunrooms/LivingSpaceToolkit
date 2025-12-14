@@ -53,3 +53,8 @@ class FloorPlan(QWidget):
         layout.addLayout(layout_img)
 
         self.setLayout(layout)
+
+    def default_state(self) -> None:
+        self.wall_a.clear()
+        self.wall_b.clear()
+        self.wall_c.clear()

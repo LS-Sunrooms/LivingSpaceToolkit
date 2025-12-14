@@ -45,12 +45,25 @@ class RoofEndCuts(QGroupBox):
 
     @temporary_change('radio_group', 'setExclusive', False, True)
     def default_state(self) -> None:
-        # TODO: Add strikeout to default state
         logger.debug("Setting end cuts to default state.")
         self.radio_endcut1.setChecked(False)
+        set_strikethrough(self.radio_endcut1, True)
         self.radio_endcut2.setChecked(False)
+        set_strikethrough(self.radio_endcut2, True)
         self.radio_endcut3.setChecked(False)
+        set_strikethrough(self.radio_endcut3, True)
         self.setEnabled(False)
+
+    @temporary_change('radio_group', 'setExclusive', False, True)
+    def enabled_state(self) -> None:
+        logger.debug("Setting end cuts to enabled state.")
+        self.radio_endcut1.setChecked(False)
+        set_strikethrough(self.radio_endcut1, False)
+        self.radio_endcut2.setChecked(False)
+        set_strikethrough(self.radio_endcut2, False)
+        self.radio_endcut3.setChecked(False)
+        set_strikethrough(self.radio_endcut3, False)
+        self.setEnabled(True)
 
     def set_end_cuts_by_roof_type(self, roof_type: RoofingType) -> None:
         logger.debug(f"Enabling/Disabling end cuts for roofing type {roof_type.name}")
