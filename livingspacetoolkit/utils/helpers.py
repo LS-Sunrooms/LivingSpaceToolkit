@@ -1,5 +1,8 @@
 from functools import wraps
 
+from PySide6.QtGui import QFont
+from PySide6.QtWidgets import QWidget
+
 def temporary_change(
     object_attr: str,
     method_name: str,
@@ -30,3 +33,7 @@ def temporary_change(
         return wrapper
     return decorator
 
+def set_strikethrough(widget: QWidget, enabled: bool):
+    font = widget.font()
+    font.setStrikeOut(enabled)
+    widget.setFont(font)
