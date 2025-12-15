@@ -9,7 +9,7 @@ from livingspacetoolkit.lib.livingspacetoolkit_enums import Scenario, RoofingTyp
 class ToolkitState:
     sunroom_type: SunroomType = SunroomType.STUDIO
     scenario: Scenario | None = None
-    pitch: Dict[str, PitchType] | None = None
+    pitch: Dict[str, PitchType] | None = None # TODO: Make a class for pitch input. Will store type and value
     pitch_value: Dict[str, str] | None = None
     overhang: str = ''
     roofing_type: RoofingType | None = None
@@ -21,4 +21,4 @@ class ToolkitState:
         'a_wall': '',
         'b_wall': '',
         'c_wall': '',
-    })
+    }) # TODO: Create a sunroom length input class for these lengths. Make the wall and floors lists of this class

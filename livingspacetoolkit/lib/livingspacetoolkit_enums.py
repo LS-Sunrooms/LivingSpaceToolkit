@@ -30,3 +30,5 @@ class EndCutType(Enum):
 class SunroomType(Enum):
     STUDIO = 0
     CATHEDRAL = 1
+
+# TODO: Make enum for lengths
