@@ -42,6 +42,7 @@ class RoofEndCutsView(QGroupBox):
 
         self.setLayout(layout)
 
+    # TODO: These functions change the state of the view and should be in the controller
     @temporary_change('radio_group', 'setExclusive', False, True)
     def default_state(self) -> None:
         logger.debug("Setting end cuts to default state.")
@@ -53,6 +54,7 @@ class RoofEndCutsView(QGroupBox):
         set_strikethrough(self.radio_endcut3, True)
         self.setEnabled(False)
 
+    # TODO: These functions change the state of the view and should be in the controller
     @temporary_change('radio_group', 'setExclusive', False, True)
     def enabled_state(self) -> None:
         logger.debug("Setting end cuts to enabled state.")
@@ -64,6 +66,7 @@ class RoofEndCutsView(QGroupBox):
         set_strikethrough(self.radio_endcut3, False)
         self.setEnabled(True)
 
+    # TODO: These functions change the state of the view and should be in the controller
     def set_end_cuts_by_roof_type(self, roof_type: RoofingType) -> None:
         logger.debug(f"Enabling/Disabling end cuts for roofing type {roof_type.name}")
         match roof_type:
