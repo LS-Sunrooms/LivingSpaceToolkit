@@ -6,7 +6,7 @@ from PySide6.QtCore import QSize
 from .roof_end_cuts_view import RoofEndCutsView
 from .roof_pitch_view import RoofPitchView
 from .roofing_type_view import RoofingTypeView
-from livingspacetoolkit.lib.livingspacetoolkit_enums import SunroomType, RoofingType
+from livingspacetoolkit.lib.livingspacetoolkit_enums import SunroomType
 from livingspacetoolkit.utils.helpers import set_strikethrough
 
 logger = logging.getLogger(__name__)
@@ -65,10 +65,3 @@ class StudioRoofView(QWidget):
         self.thickness_combo.setEnabled(True)
         self.end_cuts.enabled_state()
         set_strikethrough(self.fascia, False)
-
-    def populate_thickness_combo(self, roof_type: RoofingType) -> None:
-        self.thickness_combo.clear()
-        combo_item_list = self.roofing_type.set_thickness_combo_list(roof_type)
-        for item in combo_item_list:
-            self.thickness_combo.addItem(item, userData=combo_item_list[item])
-        self.thickness_combo.setCurrentIndex(0)

@@ -65,23 +65,3 @@ class RoofEndCutsView(QGroupBox):
         self.radio_endcut3.setChecked(False)
         set_strikethrough(self.radio_endcut3, False)
         self.setEnabled(True)
-
-    # TODO: These functions change the state of the view and should be in the controller
-    def set_end_cuts_by_roof_type(self, roof_type: RoofingType) -> None:
-        logger.debug(f"Enabling/Disabling end cuts for roofing type {roof_type.name}")
-        match roof_type:
-            case RoofingType.ECO_GREEN:
-                self.radio_endcut1.setEnabled(True)
-                set_strikethrough(self.radio_endcut1, False)
-                self.radio_endcut2.setEnabled(True)
-                set_strikethrough(self.radio_endcut2, False)
-                self.radio_endcut3.setEnabled(True)
-                set_strikethrough(self.radio_endcut3, False)
-            case RoofingType.ALUMINUM:
-                self.radio_endcut1.setEnabled(True)
-                set_strikethrough(self.radio_endcut1, False)
-                self.radio_endcut2.setEnabled(False)
-                set_strikethrough(self.radio_endcut2, True)
-                self.radio_endcut3.setEnabled(False)
-                set_strikethrough(self.radio_endcut3, True)
-        self.radio_endcut1.setChecked(True)

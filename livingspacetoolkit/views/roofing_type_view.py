@@ -51,25 +51,3 @@ class RoofingTypeView(QGroupBox):
         self.radio_al.setChecked(False)
         set_strikethrough(self.radio_al, False)
         self.setEnabled(True)
-
-    @staticmethod
-    def set_thickness_combo_list(roof_type: RoofingType) -> Dict[str, str]:
-        combo_item_list: Dict = {}
-        match roof_type:
-            case RoofingType.ALUMINUM:
-                combo_item_list.update(
-                    {
-                        '3"': '3"',
-                        '6"': '6"'
-                    }
-                )
-            case RoofingType.ECO_GREEN:
-                combo_item_list.update(
-                    {
-                        '6"': '6"',
-                        '8"': '8.25"',
-                        '10"': '10.25"',
-                        '12"': '12.25"'
-                    }
-                )
-        return combo_item_list
