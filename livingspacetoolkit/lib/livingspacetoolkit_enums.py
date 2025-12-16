@@ -28,6 +28,7 @@ class EndCutType(Enum):
 
 
 class SunroomType(Enum):
+    # These numbers are assigned based on which tab they are on.
     STUDIO = 0
     CATHEDRAL = 1
 
