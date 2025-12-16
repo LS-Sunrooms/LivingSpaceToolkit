@@ -1,6 +1,7 @@
 import logging
+from abc import ABC, abstractmethod
+from typing import Protocol, Any
 
-from interfaces.base_tab_view import BaseTabView
 from livingspacetoolkit.models import ToolkitStateModel, RoofModel
 from livingspacetoolkit.lib.livingspacetoolkit_enums import PitchType, SunroomType, RoofingType, EndCutType, Scenario
 from livingspacetoolkit.utils.helpers import set_strikethrough
@@ -8,14 +9,18 @@ from livingspacetoolkit.utils.helpers import set_strikethrough
 logger = logging.getLogger(__name__)
 
 
-class BaseSunroomController:
-    def __init__(self, view, toolkit_state: ToolkitStateModel):
-        self.toolkit_state = toolkit_state
-        self.roof_model: RoofModel = RoofModel(toolkit_state)
+class BaseSunroomProtocol(Protocol):
+    sunroom_roof: Any
+    sunroom_wall: Any
+    sunroom_floor: Any
+    toolkit_state: ToolkitStateModel
 
-        self.sunroom_roof = view.sunroom_roof
-        self.sunroom_wall = view.sunroom_wall
-        self.sunroom_floor = view.sunroom_floor
+
+class BaseSunroomController(ABC, BaseSunroomProtocol):
+
+    @abstractmethod
+    def update_to_scenario(self):
+        pass
 
     def set_to_default(self) -> None:
         self.sunroom_roof.default_state()
