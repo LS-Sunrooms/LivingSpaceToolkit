@@ -20,6 +20,11 @@ class RoofingType(Enum):
     ECO_GREEN = auto()
     ALUMINUM = auto()
 
+class RoofSide(Enum):
+    A_SIDE = auto()
+    B_SIDE = auto()
+    C_Side = auto()
+
 
 class EndCutType(Enum):
     UNCUT_TOP_BOTTOM = auto()
