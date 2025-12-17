@@ -2,7 +2,7 @@
 name = "livingspacetoolkit"
 version = "1.9.5"
 description = "Add your description here"
-requires-python = ">=3.13"
+requires-python = ">=3.11"
 dependencies = [
     "pyside6>=6.10.1",
     "pyyaml>=6.0.3",
@@ -26,6 +26,8 @@ addopts = [
 ]
 
 testpaths = "tests"
+
+qt_api="pyside6"
 
 markers = [
     "unit: Individual units with no dependencies besides enums",
