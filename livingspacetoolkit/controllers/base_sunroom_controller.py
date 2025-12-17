@@ -5,6 +5,7 @@ from typing import Protocol, Any
 from livingspacetoolkit.models import ToolkitStateModel, RoofModel
 from livingspacetoolkit.lib.toolkit_enums import (PitchType, SunroomType, RoofingType, EndCutType,
                                                   LengthType, RoofSide)
+from livingspacetoolkit.lib.toolkit_input_class import ToolkitLength, ToolkitPitch
 from livingspacetoolkit.utils.helpers import set_strikethrough
 
 logger = logging.getLogger(__name__)
@@ -101,7 +102,7 @@ class BaseSunroomController(ABC, BaseSunroomProtocol):
         thickness_index = self.sunroom_roof.thickness_combo.currentIndex()
         thickness_item = self.sunroom_roof.thickness_combo.itemData(thickness_index)
         thickness_text = self.sunroom_roof.thickness_combo.itemText(thickness_index)
-        self.toolkit_state.thickness = thickness_item
+        self.toolkit_state.thickness.length = thickness_item
         self.set_fascia_checkbox()
         if thickness_item is not None:
             logger.info(f"Setting {self.toolkit_state.sunroom_type.name} thickness to {thickness_text}.")
@@ -118,15 +119,8 @@ class BaseSunroomController(ABC, BaseSunroomProtocol):
 
     def handle_wall_finish_edit(self, wall: LengthType) -> None:
         # TODO: A model should verify text
-        wall_width = None
-        match wall:
-            case LengthType.A_WALL_WIDTH:
-                wall_width = self.sunroom_floor.wall_dict[wall].text()
-                self.toolkit_state.floor_walls.update({"a_wall": wall_width})
-            case LengthType.B_WALL_WIDTH:
-                wall_width = self.sunroom_floor.wall_dict[wall].text()
-                self.toolkit_state.floor_walls.update({"b_wall": wall_width})
-            case LengthType.C_WALL_WIDTH:
-                wall_width = self.sunroom_floor.wall_dict[wall].text()
-                self.toolkit_state.floor_walls.update({"c_wall": wall_width})
+        wall_width = self.sunroom_floor.wall_dict[wall].text()
+        for floor_wall in self.toolkit_state.floor_walls:
+            if floor_wall.length_type is wall:
+                floor_wall.length = wall_width
         logger.debug(f"{self.toolkit_state.sunroom_type.name} {wall.name} set to: {wall_width}.")

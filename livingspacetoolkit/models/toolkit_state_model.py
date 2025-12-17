@@ -11,9 +11,9 @@ class ToolkitStateModel:
     sunroom_type: SunroomType = SunroomType.STUDIO
     scenario: Scenario | None = None
     pitch: List[ToolkitPitch] = field(default_factory=list)
-    overhang: ToolkitLength = ToolkitLength(LengthType.OVERHANG)
+    overhang: ToolkitLength = field(default_factory=lambda: ToolkitLength(LengthType.OVERHANG))
     roofing_type: RoofingType | None = None
-    thickness: ToolkitLength = ToolkitLength(LengthType.THICKNESS)
+    thickness: ToolkitLength = field(default_factory=lambda: ToolkitLength(LengthType.THICKNESS))
     end_cuts: EndCutType | None = None
     fascia: bool = False
     wall_heights: List[ToolkitLength] = field(default_factory=list)
