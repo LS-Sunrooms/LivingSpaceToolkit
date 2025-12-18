@@ -42,6 +42,7 @@ class ResultsView(QWidget):
     def default_state(self) -> None:
         logger.debug("Setting results to default state.")
         self.results_view.clear()
+        self.calculate_button.setEnabled(False)
 
     def update_text(self, text: str) -> None:
         self.results_view.setText(text)
