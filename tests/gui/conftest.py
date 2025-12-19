@@ -7,6 +7,5 @@ from livingspacetoolkit.main_window import MainWindow
 def main_window(qtbot):
     window = MainWindow()
     qtbot.addWidget(window)
-    window.show()
     window.tabs_controller.set_to_default_state()
     return window
