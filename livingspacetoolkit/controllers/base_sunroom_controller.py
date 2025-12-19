@@ -79,13 +79,11 @@ class BaseSunroomController(ABC, BaseSunroomProtocol):
         match pitch_side:
             case RoofSide.A_SIDE:
                 self.sunroom_roof.pitch_a.update_pitch_text(pitch_type, sunroom)
-                self.toolkit_state.a_side_pitch_type = pitch_type
             case RoofSide.B_SIDE:
                 self.sunroom_roof.pitch.update_pitch_text(pitch_type, sunroom)
-                self.toolkit_state.b_side_pitch_type = pitch_type
             case RoofSide.C_SIDE:
                 self.sunroom_roof.pitch_c.update_pitch_text(pitch_type, sunroom)
-                self.toolkit_state.c_side_pitch_type = pitch_type
+        self.toolkit_state.pitch[pitch_side].pitch_type = pitch_type
 
     def handle_roofing_type_click(self, roof_type: RoofingType) -> None:
         logger.debug(f"{self.toolkit_state.sunroom_type.name} roofing type set to {roof_type.name}.")

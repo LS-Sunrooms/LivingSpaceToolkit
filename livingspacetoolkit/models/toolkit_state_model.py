@@ -16,9 +16,6 @@ class ToolkitStateModel:
         RoofSide.B_SIDE: ToolkitPitch(PitchType.RATIO, RoofSide.B_SIDE),
         RoofSide.C_SIDE: ToolkitPitch(PitchType.RATIO, RoofSide.C_SIDE),
     })
-    a_side_pitch_type: PitchType = PitchType.RATIO
-    b_side_pitch_type: PitchType = PitchType.RATIO
-    c_side_pitch_type: PitchType = PitchType.RATIO
     overhang: ToolkitLength = field(default_factory=lambda: ToolkitLength(LengthType.OVERHANG))
     roofing_type: RoofingType | None = None
     thickness: ToolkitLength = field(default_factory=lambda: ToolkitLength(LengthType.THICKNESS))

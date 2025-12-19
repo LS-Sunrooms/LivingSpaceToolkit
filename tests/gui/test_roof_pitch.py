@@ -1,6 +1,6 @@
 import pytest
 
-from livingspacetoolkit.lib.toolkit_enums import PitchType
+from livingspacetoolkit.lib.toolkit_enums import PitchType, RoofSide
 
 class TestStudioRoofPitch:
 
@@ -15,7 +15,7 @@ class TestStudioRoofPitch:
         main_window.tabs_view.studio_view.sunroom_roof.pitch.radio_ratio.click()
         # Assert: The text should change
         assert main_window.tabs_view.studio_view.sunroom_roof.pitch.pitch_input_label.text() == "/12 in."
-        assert main_window.toolkit_state.b_side_pitch_type == PitchType.RATIO
+        assert main_window.toolkit_state.pitch[RoofSide.B_SIDE].pitch_type == PitchType.RATIO
 
     @pytest.mark.gui
     @pytest.mark.integration
@@ -27,7 +27,7 @@ class TestStudioRoofPitch:
         main_window.tabs_view.studio_view.sunroom_roof.pitch.radio_angle.click()
         # Assert: The text should change
         assert main_window.tabs_view.studio_view.sunroom_roof.pitch.pitch_input_label.text() == u"deg(\N{DEGREE SIGN})"
-        assert main_window.toolkit_state.b_side_pitch_type == PitchType.ANGLE
+        assert main_window.toolkit_state.pitch[RoofSide.B_SIDE].pitch_type == PitchType.ANGLE
 
     @pytest.mark.gui
     @pytest.mark.integration
@@ -58,7 +58,7 @@ class TestCathedralRoofPitch:
         main_window.tabs_view.cathedral_view.sunroom_roof.pitch_a.radio_ratio.click()
         # Assert: The text should change
         assert main_window.tabs_view.cathedral_view.sunroom_roof.pitch_a.pitch_input_label.text() == "/12 in."
-        assert main_window.toolkit_state.a_side_pitch_type == PitchType.RATIO
+        assert main_window.toolkit_state.pitch[RoofSide.A_SIDE].pitch_type == PitchType.RATIO
 
     @pytest.mark.gui
     @pytest.mark.integration
@@ -71,7 +71,7 @@ class TestCathedralRoofPitch:
         main_window.tabs_view.cathedral_view.sunroom_roof.pitch_c.radio_ratio.click()
         # Assert: The text should change
         assert main_window.tabs_view.cathedral_view.sunroom_roof.pitch_c.pitch_input_label.text() == "/12 in."
-        assert main_window.toolkit_state.c_side_pitch_type == PitchType.RATIO
+        assert main_window.toolkit_state.pitch[RoofSide.C_SIDE].pitch_type == PitchType.RATIO
 
     @pytest.mark.gui
     @pytest.mark.integration
@@ -83,7 +83,7 @@ class TestCathedralRoofPitch:
         main_window.tabs_view.cathedral_view.sunroom_roof.pitch_a.radio_angle.click()
         # Assert: The text should change
         assert main_window.tabs_view.cathedral_view.sunroom_roof.pitch_a.pitch_input_label.text() == u"deg(\N{DEGREE SIGN})"
-        assert main_window.toolkit_state.a_side_pitch_type == PitchType.ANGLE
+        assert main_window.toolkit_state.pitch[RoofSide.A_SIDE].pitch_type == PitchType.ANGLE
 
     @pytest.mark.gui
     @pytest.mark.integration
@@ -95,7 +95,7 @@ class TestCathedralRoofPitch:
         main_window.tabs_view.cathedral_view.sunroom_roof.pitch_c.radio_angle.click()
         # Assert: The text should change
         assert main_window.tabs_view.cathedral_view.sunroom_roof.pitch_c.pitch_input_label.text() == u"deg(\N{DEGREE SIGN})"
-        assert main_window.toolkit_state.c_side_pitch_type == PitchType.ANGLE
+        assert main_window.toolkit_state.pitch[RoofSide.C_SIDE].pitch_type == PitchType.ANGLE
 
     @pytest.mark.gui
     @pytest.mark.integration
