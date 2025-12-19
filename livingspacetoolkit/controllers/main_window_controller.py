@@ -6,7 +6,7 @@ from .studio_controller import StudioController
 from .cathedral_controller import CathedralController
 from livingspacetoolkit.lib.toolkit_enums import SunroomType
 
-logger = logging.getLogger(__name__)
+logger = logging.getLogger(name="livingspacetoolkit")
 
 
 class MainWindowController:

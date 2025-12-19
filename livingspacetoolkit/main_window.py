@@ -9,7 +9,7 @@ from livingspacetoolkit.controllers.main_window_controller import MainWindowCont
 from livingspacetoolkit.models.toolkit_state_model import ToolkitStateModel
 
 
-logger = logging.getLogger(__name__)
+logger = logging.getLogger(name="livingspacetoolkit")
 
 
 class MainWindow(QMainWindow):

@@ -6,7 +6,7 @@ from PySide6.QtGui import QPixmap
 
 from livingspacetoolkit.utils.helpers import set_strikethrough
 
-logger = logging.getLogger(__name__)
+logger = logging.getLogger(name="livingspacetoolkit")
 
 
 class StudioWallHeightView(QWidget):

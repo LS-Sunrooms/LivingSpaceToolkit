@@ -7,7 +7,7 @@ from PySide6.QtCore import Qt
 from livingspacetoolkit.lib.toolkit_enums import Scenario
 from livingspacetoolkit.utils.helpers import temporary_change
 
-logger = logging.getLogger(__name__)
+logger = logging.getLogger(name="livingspacetoolkit")
 
 
 class ScenariosView(QGroupBox):

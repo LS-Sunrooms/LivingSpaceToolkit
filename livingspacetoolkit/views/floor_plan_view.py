@@ -7,7 +7,7 @@ from PySide6.QtGui import QPixmap
 
 from livingspacetoolkit.lib.toolkit_enums import LengthType
 
-logger = logging.getLogger(__name__)
+logger = logging.getLogger(name="livingspacetoolkit")
 
 
 class FloorPlanView(QWidget):

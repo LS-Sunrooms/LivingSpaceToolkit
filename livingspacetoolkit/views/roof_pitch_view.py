@@ -6,7 +6,7 @@ from PySide6.QtCore import Qt, QSize
 from livingspacetoolkit.lib.toolkit_enums import PitchType, SunroomType
 from livingspacetoolkit.utils.helpers import temporary_change, set_strikethrough
 
-logger = logging.getLogger(__name__)
+logger = logging.getLogger(name="livingspacetoolkit")
 
 class RoofPitchView(QGroupBox):
     def __init__(self, name: str = ""):

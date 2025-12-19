@@ -32,6 +32,7 @@ def temporary_change(
         return wrapper
     return decorator
 
+
 def set_strikethrough(widget: QWidget, enabled: bool):
     font = widget.font()
     font.setStrikeOut(enabled)

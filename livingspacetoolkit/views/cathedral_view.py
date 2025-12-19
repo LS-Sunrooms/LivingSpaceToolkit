@@ -6,7 +6,7 @@ from .floor_plan_view import FloorPlanView
 from .cathedral_roof_view import CathedralRoofView
 from .cathedral_wall_height_view import CathedralWallHeightView
 
-logger = logging.getLogger(__name__)
+logger = logging.getLogger(name="livingspacetoolkit")
 
 
 class CathedralView(QWidget):

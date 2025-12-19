@@ -2,7 +2,7 @@ import logging
 
 from .toolkit_enums import LengthType, PitchType, RoofSide
 
-logger = logging.getLogger(__name__)
+logger = logging.getLogger(name="livingspacetoolkit")
 
 
 class ToolkitLength:

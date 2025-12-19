@@ -9,7 +9,7 @@ from .roofing_type_view import RoofingTypeView
 from livingspacetoolkit.lib.toolkit_enums import SunroomType
 from livingspacetoolkit.utils.helpers import set_strikethrough
 
-logger = logging.getLogger(__name__)
+logger = logging.getLogger(name="livingspacetoolkit")
 
 
 class StudioRoofView(QWidget):

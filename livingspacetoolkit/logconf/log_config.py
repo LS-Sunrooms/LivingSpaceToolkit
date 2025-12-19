@@ -14,4 +14,4 @@ with open(Path.joinpath(Path(os.path.dirname(__file__)).parent,
     log_config['handlers']['file']['filename'] = logs_dir / log_config['handlers']['file']['filename']
     logging.config.dictConfig(log_config)
     
-logger = logging.getLogger(__name__)
+logger = logging.getLogger(name="livingspacetoolkit")

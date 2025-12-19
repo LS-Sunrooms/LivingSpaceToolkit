@@ -8,7 +8,7 @@ from livingspacetoolkit.lib.toolkit_enums import (PitchType, SunroomType, Roofin
 from livingspacetoolkit.lib.toolkit_input_class import ToolkitLength, ToolkitPitch
 from livingspacetoolkit.utils.helpers import set_strikethrough
 
-logger = logging.getLogger(__name__)
+logger = logging.getLogger(name="livingspacetoolkit")
 
 
 class BaseSunroomProtocol(Protocol):

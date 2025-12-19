@@ -5,7 +5,7 @@ from PySide6.QtWidgets import QTabWidget
 from .studio_view import StudioView
 from .cathedral_view import CathedralView
 
-logger = logging.getLogger(__name__)
+logger = logging.getLogger(name="livingspacetoolkit")
 
 
 class TabsView(QTabWidget):

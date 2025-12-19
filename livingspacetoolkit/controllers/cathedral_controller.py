@@ -7,7 +7,7 @@ from livingspacetoolkit.lib.toolkit_enums import (PitchType, SunroomType, Roofin
 from livingspacetoolkit.utils.helpers import set_strikethrough
 from .base_sunroom_controller import BaseSunroomController
 
-logger = logging.getLogger(__name__)
+logger = logging.getLogger(name="livingspacetoolkit")
 
 
 class CathedralController(BaseSunroomController):

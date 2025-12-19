@@ -3,7 +3,7 @@
   "disable_existing_loggers": false,
   "formatters": {
     "default": {
-      "format": "[%(levelname)s | %(name)s | %(lineno)s] %(asctime)s: %(message)s",
+      "format": "[%(levelname)s | %(filename)s | %(lineno)s] %(asctime)s: %(message)s",
       "datefmt": "%Y-%m-%dT%H:%M:%S%z"
     }
   },
