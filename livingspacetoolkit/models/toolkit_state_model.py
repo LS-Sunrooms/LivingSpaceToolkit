@@ -4,7 +4,7 @@ from typing import Dict
 
 from livingspacetoolkit.lib.toolkit_enums import (Scenario, RoofingType, EndCutType, SunroomType, LengthType, PitchType,
                                                   RoofSide)
-from livingspacetoolkit.lib.toolkit_input_class import ToolkitLength, ToolkitPitch
+from livingspacetoolkit.lib import ToolkitLength, ToolkitPitch
 
 
 @dataclass()
