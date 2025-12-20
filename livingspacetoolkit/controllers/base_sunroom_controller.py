@@ -53,7 +53,7 @@ class BaseSunroomController(ABC, BaseSunroomProtocol):
         if self.toolkit_state.roofing_type == RoofingType.ECO_GREEN and (
                 self.toolkit_state.end_cuts == EndCutType.UNCUT_TOP_BOTTOM
                 or self.toolkit_state.end_cuts == EndCutType.PLUMB_CUT_TOP):
-            if self.toolkit_state.thickness == '6"':
+            if self.toolkit_state.thickness.length == 6:
                 self.sunroom_roof.fascia.setEnabled(True)
                 self.sunroom_roof.fascia.setChecked(True)
                 set_strikethrough(self.sunroom_roof.fascia, False)

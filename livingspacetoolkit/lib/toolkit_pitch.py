@@ -15,6 +15,40 @@ class ToolkitPitch:
     def __repr__(self) -> str:
         return f"ToolkitPitch({self.pitch_type}, {self.roof_side}).pitch_value({self.pitch_value})"
 
+    def __eq__(self, other):
+        if isinstance(other, ToolkitPitch):
+            return (self.pitch_type == other.pitch_type and self.roof_side == other.roof_side
+                    and self.pitch_value == other.pitch_value)
+        return NotImplementedError
+
+    def __lt__(self, other):
+        if isinstance(other, ToolkitPitch):
+            return (self.pitch_type == other.pitch_type and self.roof_side == other.roof_side
+                    and self.pitch_value < other.pitch_value)
+        return NotImplementedError
+
+    def __gt__(self, other):
+        if isinstance(other, ToolkitPitch):
+            return (self.pitch_type == other.pitch_type and self.roof_side == other.roof_side
+                    and self.pitch_value > other.pitch_value)
+        return NotImplementedError
+
+    def __add__(self, other):
+        if isinstance(other, ToolkitPitch):
+            if self.pitch_type == other.pitch_type and self.roof_side == other.roof_side:
+                return self.pitch_value + other.pitch_value
+            else:
+                return ValueError("The pitch type and roof sides must be the same.")
+        return NotImplementedError
+
+    def __sub__(self, other):
+        if isinstance(other, ToolkitPitch):
+            if self.pitch_type == other.pitch_type and self.roof_side == other.roof_side:
+                return self.pitch_value - other.pitch_value
+            else:
+                return ValueError("The pitch type and roof sides must be the same.")
+        return NotImplementedError
+
     @property
     def pitch_value(self) -> float:
         return self._pitch_value
