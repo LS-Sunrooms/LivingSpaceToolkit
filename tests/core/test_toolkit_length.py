@@ -165,3 +165,29 @@ class TestToolkitLength:
         length_1.length = actual
 
         assert length_1.length == expected
+
+    @pytest.mark.unit
+    @pytest.mark.parametrize("variable",
+                             [
+                                 '-10ft',
+                                 '-10 1/2ft',
+                                 '-10 ft',
+                                 '-10 1/2 ft',
+                                 "-10'",
+                                 "-10 1/2'",
+                                 '-10 feet',
+                                 '-10 1/2 feet',
+                                 '-10in',
+                                 '-10 in',
+                                 '-10"',
+                                 '-10 1/2in',
+                                 '-10 1/2 in',
+                                 '-10 1/2"',
+                                 '-10 feet - 10 inches',
+                                 '-10 ft. - -10 in.',
+                             ])
+    def test_negative_input(self, variable):
+        # Arrange
+        length_1 = ToolkitLength(LengthType.THICKNESS)
+        with pytest.raises(ValueError):
+            length_1.length = variable
