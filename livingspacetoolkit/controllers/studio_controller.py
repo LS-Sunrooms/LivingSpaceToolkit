@@ -43,6 +43,7 @@ class StudioController(BaseSunroomController):
     def update_to_scenario(self) -> None:
         self.set_to_default()
         self.sunroom_roof.enable_except_pitch()
+        self.sunroom_floor.enable_floor_input()
         match self.toolkit_state.scenario:
             case Scenario.WALL_HEIGHT_PITCH:
                 self.sunroom_roof.pitch.enabled_state(self.toolkit_state.sunroom_type)

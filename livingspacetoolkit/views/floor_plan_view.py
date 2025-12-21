@@ -65,3 +65,11 @@ class FloorPlanView(QWidget):
         self.wall_a.clear()
         self.wall_b.clear()
         self.wall_c.clear()
+        self.wall_a.setEnabled(False)
+        self.wall_b.setEnabled(False)
+        self.wall_c.setEnabled(False)
+
+    def enable_floor_input(self) -> None:
+        self.wall_a.setEnabled(True)
+        self.wall_b.setEnabled(True)
+        self.wall_c.setEnabled(True)
