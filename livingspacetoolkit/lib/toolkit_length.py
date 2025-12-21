@@ -56,7 +56,8 @@ class ToolkitLength:
     \s*$
     """,
     re.IGNORECASE | re.VERBOSE
-)
+    )
+    NEGATIVE_MEASUREMENT_REGEX = re.compile(r"^\s*-\s*\d")
 
     def __init__(self, length_type: LengthType):
         self._length = 0
@@ -105,6 +106,8 @@ class ToolkitLength:
         # TODO: Need to add verification logic
         if not value:
             raise ValueError("Length cannot be empty")
+        if self._is_negative_measurement(value):
+            raise ValueError(f"Length cannot be negative: {value}")
         self._length = self._parse_imperial_to_inches(value)
 
     @property
@@ -148,3 +151,6 @@ class ToolkitLength:
         )
 
         return feet * 12 + inches
+
+    def _is_negative_measurement(self, text: str) -> bool:
+        return bool(self.NEGATIVE_MEASUREMENT_REGEX.match(text))
