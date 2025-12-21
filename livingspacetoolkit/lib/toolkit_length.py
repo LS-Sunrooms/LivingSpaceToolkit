@@ -11,7 +11,8 @@ class ToolkitLength:
     IMPERIAL_REGEX = re.compile(
         r"""
         ^\s*
-
+        (?P<sign>[+-]?)                 # Optional sign for entire measurement
+        
         # -------- FEET (optional) --------
         (?:
             (?:(?P<f_whole>\d+)\s+)?                 
@@ -50,6 +51,7 @@ class ToolkitLength:
     BARE_NUMBER_REGEX = re.compile(
     r"""
     ^\s*
+    (?P<sign>[+-]?)                 # Optional sign
     (?P<value>\d+(?:\.\d+)?)     # Integer or decimal
     \s*
     (?:"|in\.?|inches)?          # Optional inches unit
@@ -117,11 +119,17 @@ class ToolkitLength:
         # ---- Case 1: Bare number → inches ----
         m = self.BARE_NUMBER_REGEX.match(text)
         if m:
-            return float(m.group("value"))
+            sign = -1 if m.group("sign") == "-" else 1
+            measurement = sign * float(m.group("value"))
+            if measurement < 0:
+                raise ValueError(f"Negative length: {measurement}")
+            return measurement
         # ---- Case 2: Imperial measurement ----
         match = self.IMPERIAL_REGEX.match(text)
         if not match:
             raise ValueError(f"Invalid imperial format: {text}")
+
+        sign = -1 if m.group("sign") == "-" else 1
 
         def to_float(whole, num, den, integer):
             value = 0.0
@@ -146,5 +154,7 @@ class ToolkitLength:
             match.group("i_den"),
             match.group("i_int"),
         )
-
-        return feet * 12 + inches
+        measurement = sign * (feet * 12 + inches)
+        if measurement < 0:
+            raise ValueError(f"Negative Length: {feet} feet, {inches} inches.")
+        return measurement
