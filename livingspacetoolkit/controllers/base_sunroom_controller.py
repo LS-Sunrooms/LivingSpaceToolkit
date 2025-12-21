@@ -102,7 +102,10 @@ class BaseSunroomController(ABC, BaseSunroomProtocol):
         thickness_index = self.sunroom_roof.thickness_combo.currentIndex()
         thickness_item = self.sunroom_roof.thickness_combo.itemData(thickness_index)
         thickness_text = self.sunroom_roof.thickness_combo.itemText(thickness_index)
-        self.toolkit_state.thickness.length = thickness_item
+        try:
+            self.toolkit_state.thickness.length = thickness_item
+        except ValueError:
+            logger.warning('Roofing Type changed')
         self.set_fascia_checkbox()
         if thickness_item is not None:
             logger.info(f"Setting {self.toolkit_state.sunroom_type.name} thickness to {thickness_text}.")
@@ -117,10 +120,12 @@ class BaseSunroomController(ABC, BaseSunroomProtocol):
         self.toolkit_state.fascia = fascia_state
         logger.info(f"Setting {self.toolkit_state.sunroom_type.name} fascia to {fascia_state}.")
 
-    def handle_wall_finish_edit(self, wall: LengthType) -> None:
-        # TODO: A model should verify text
+    def handle_floor_wall_finish_edit(self, wall: LengthType) -> None:
         wall_width = self.sunroom_floor.wall_dict[wall].text()
-        for floor_wall in self.toolkit_state.floor_walls:
-            if floor_wall.length_type is wall:
-                floor_wall.length = wall_width
-        logger.debug(f"{self.toolkit_state.sunroom_type.name} {wall.name} set to: {wall_width}.")
+        try:
+            self.toolkit_state.floor_walls[wall].length = wall_width
+            logger.info(f"{self.toolkit_state.sunroom_type.name} {wall.name} set to: {wall_width}.")
+        except ValueError:
+            # TODO: Add a warning message to user.
+            logger.warning(f"Invalid input: {wall_width}")
+            self.sunroom_floor.wall_dict[wall].clear()
