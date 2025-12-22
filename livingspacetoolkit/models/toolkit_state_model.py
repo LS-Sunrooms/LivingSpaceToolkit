@@ -39,7 +39,6 @@ class ToolkitStateModel:
     })
 
     def default_state(self) -> None:
-        self.scenario = None
         for roof_side in self.pitch:
             self.pitch[roof_side].pitch_type = PitchType.RATIO
             self.pitch[roof_side].pitch_value = '0'
