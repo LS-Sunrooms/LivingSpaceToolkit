@@ -85,7 +85,7 @@ class ToolkitPitch:
         return self._pitch_value
 
     @pitch_value.setter
-    def pitch_value(self, value) -> None:
+    def pitch_value(self, value: str) -> None:
         if not value:
             raise ValueError("Angle/Ratio cannot be empty")
         if self._is_negative_input(value):
