@@ -26,7 +26,7 @@ class ResultsView(QWidget):
         font.setItalic(True)
         font.setUnderline(True)
 
-        self.results_label.setText("ResultsView:")
+        self.results_label.setText("Results:")
         self.results_label.setFont(font)
         self.results_label.setAlignment(Qt.AlignmentFlag.AlignHCenter)
 
