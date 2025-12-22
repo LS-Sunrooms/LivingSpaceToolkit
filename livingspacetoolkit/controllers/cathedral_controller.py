@@ -44,7 +44,6 @@ class CathedralController(BaseSunroomController):
 
     def update_to_scenario(self):
         self.set_to_default()
-        self.toolkit_state.default_state()
         self.sunroom_roof.enable_except_pitch()
         self.sunroom_floor.enable_floor_input()
         match self.toolkit_state.scenario:
@@ -91,3 +90,4 @@ class CathedralController(BaseSunroomController):
                 self.sunroom_roof.pitch_c.enabled_state(self.toolkit_state.sunroom_type)
                 set_strikethrough(self.sunroom_wall.drip_edge_height_label, False)
                 self.sunroom_wall.drip_edge_height_edit.setEnabled(True)
+        self.toolkit_state.default_state()

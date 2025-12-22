@@ -39,7 +39,6 @@ class ToolkitStateModel:
     })
 
     def default_state(self) -> None:
-        self.sunroom_type = SunroomType.STUDIO
         self.scenario = None
         for roof_side in self.pitch:
             self.pitch[roof_side].pitch_type = PitchType.RATIO

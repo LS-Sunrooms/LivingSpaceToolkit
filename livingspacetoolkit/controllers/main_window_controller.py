@@ -30,11 +30,11 @@ class MainWindowController:
         self.results_view.calculate_button.clicked.connect(self.handle_results_button_click)
 
     def handle_tab_change(self) -> None:
+        self.toolkit_state.default_state()
         self.toolkit_state.sunroom_type = SunroomType(self.tabs_view.currentIndex())
         self.results_view.results_view.clear()
         self.scenarios_view.default_state()
         self.set_to_default_state()
-        self.toolkit_state.default_state()
         logger.debug(f'The sunroom type, {SunroomType(self.tabs_view.currentIndex()).name}, has been selected.')
 
     def handle_scenario_selected(self) -> None:
