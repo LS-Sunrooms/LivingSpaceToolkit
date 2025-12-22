@@ -41,7 +41,12 @@ class TestStudioRoofPitch:
 
     @pytest.mark.gui
     @pytest.mark.integration
-    def test_pitch_line_edit_(self, main_window):
+    def test_ratio_pitch_line_edit_warning(self, main_window):
+        pass
+
+    @pytest.mark.gui
+    @pytest.mark.integration
+    def test_angle_pitch_line_edit_warning(self, main_window):
         pass
 
 
@@ -119,10 +124,20 @@ class TestCathedralRoofPitch:
 
     @pytest.mark.gui
     @pytest.mark.integration
-    def test_a_side_pitch_line_edit_(self, main_window):
+    def test_ratio_a_side_pitch_line_edit_warning(self, main_window):
         pass
 
     @pytest.mark.gui
     @pytest.mark.integration
-    def test_c_side_pitch_line_edit_(self, main_window):
+    def test_ratio_c_side_pitch_line_edit_warning(self, main_window):
+        pass
+
+    @pytest.mark.gui
+    @pytest.mark.integration
+    def test_angle_a_side_pitch_line_edit_warning(self, main_window):
+        pass
+
+    @pytest.mark.gui
+    @pytest.mark.integration
+    def test_angle_c_side_pitch_line_edit_warning(self, main_window):
         pass
