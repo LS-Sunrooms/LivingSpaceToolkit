@@ -29,8 +29,7 @@ class StudioController(BaseSunroomController):
         self.sunroom_roof.roofing_type.radio_al.clicked.connect(
             lambda: self.handle_roofing_type_click(RoofingType.ALUMINUM))
         self.sunroom_roof.pitch.pitch_input.editingFinished.connect(
-            lambda: self.handle_pitch_finish_edit(RoofSide.B_SIDE)
-        )
+            lambda: self.handle_pitch_finish_edit(RoofSide.B_SIDE))
         self.sunroom_roof.roofing_type.radio_eco.clicked.connect(
             lambda: self.handle_roofing_type_click(RoofingType.ECO_GREEN))
         self.sunroom_roof.thickness_combo.currentIndexChanged.connect(self.handle_thickness_combo_index_change)
