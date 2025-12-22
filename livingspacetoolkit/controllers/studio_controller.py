@@ -21,6 +21,7 @@ class StudioController(BaseSunroomController):
         self.sunroom_floor = view.sunroom_floor
 
         # Connect signals
+        # Roof view signals
         self.sunroom_roof.pitch.radio_ratio.clicked.connect(
             lambda: self.handle_pitch_type_click(PitchType.RATIO, SunroomType.STUDIO, RoofSide.B_SIDE))
         self.sunroom_roof.pitch.radio_angle.clicked.connect(
@@ -37,6 +38,7 @@ class StudioController(BaseSunroomController):
         self.sunroom_roof.end_cuts.radio_endcut3.clicked.connect(
             lambda: self.handle_end_cuts_click(EndCutType.PLUMB_CUT_TOP))
         self.sunroom_roof.fascia.clicked.connect(self.handle_fascia_click)
+        # Floor view signals
         self.sunroom_floor.wall_a.editingFinished.connect(
             lambda: self.handle_floor_wall_finish_edit(LengthType.A_WALL_WIDTH))
         self.sunroom_floor.wall_b.editingFinished.connect(

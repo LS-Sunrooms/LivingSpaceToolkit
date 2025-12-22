@@ -1,10 +1,12 @@
 import logging
+from typing import Dict
 
 from PySide6.QtCore import Qt, QSize
 from PySide6.QtWidgets import QWidget, QLineEdit, QVBoxLayout, QHBoxLayout, QSpacerItem, QSizePolicy, QLabel
 from PySide6.QtGui import QPixmap
 
 from livingspacetoolkit.utils.helpers import set_strikethrough
+from livingspacetoolkit.lib.toolkit_enums import LengthType
 
 logger = logging.getLogger(name="livingspacetoolkit")
 
@@ -34,6 +36,14 @@ class StudioWallHeightView(QWidget):
         self.b_wall_height_edit: QLineEdit = QLineEdit()
         self.drip_edge_height_label: QLabel = QLabel("Drip Edge Height")
         self.peak_height_edit.setPlaceholderText("0' or 0\"")
+
+        self.wall_height_dict: Dict[LengthType, QLineEdit] = {
+            LengthType.PEAK_HEIGHT: self.peak_height_edit,
+            LengthType.MAX_HEIGHT: self.max_height_edit,
+            LengthType.B_WALL_HEIGHT: self.b_wall_height_edit,
+            LengthType.B_SIDE_SOFFIT_HEIGHT: self.soffit_height_edit,
+            LengthType.DRIP_EDGE_HEIGHT: self.drip_edge_height_edit
+        }
 
         self.peak_height_edit.setMinimumSize(QSize(145, 35))
         self.max_height_edit.setPlaceholderText("0' or 0\"")
