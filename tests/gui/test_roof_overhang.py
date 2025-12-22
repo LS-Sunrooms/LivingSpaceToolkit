@@ -61,7 +61,7 @@ class TestCathedralOverhang:
     @pytest.mark.integration
     def test_overhang_input_error(self, qtbot, main_window, mock_warning):
         # Arrange: Set tab to cathedral and scenario to WALL_HEIGHT_PITCH so that overhang is enabled
-        main_window.tabs_view.setCurrentIndex(0)
+        main_window.tabs_view.setCurrentIndex(1)
         main_window.scenarios_view.radio1.click()
 
         # Act: Enter text in overhang field
