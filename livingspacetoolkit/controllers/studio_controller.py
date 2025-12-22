@@ -15,6 +15,7 @@ class StudioController(BaseSunroomController):
         self.toolkit_state = toolkit_state
         self.roof_model: RoofModel = RoofModel(toolkit_state)
 
+        self.view = view
         self.sunroom_roof = view.sunroom_roof
         self.sunroom_wall = view.sunroom_wall
         self.sunroom_floor = view.sunroom_floor

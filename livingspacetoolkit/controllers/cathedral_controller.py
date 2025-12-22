@@ -1,6 +1,6 @@
 import logging
 
-from livingspacetoolkit.views.cathedral_view import CathedralView
+from livingspacetoolkit.views import CathedralView
 from livingspacetoolkit.models import ToolkitStateModel, RoofModel
 from livingspacetoolkit.lib.toolkit_enums import (PitchType, SunroomType, RoofingType, EndCutType, Scenario,
                                                   RoofSide)
@@ -15,6 +15,7 @@ class CathedralController(BaseSunroomController):
         self.toolkit_state = toolkit_state
         self.roof_model: RoofModel = RoofModel(toolkit_state)
 
+        self.view = view
         self.sunroom_roof = view.sunroom_roof
         self.sunroom_wall = view.sunroom_wall
         self.sunroom_floor = view.sunroom_floor

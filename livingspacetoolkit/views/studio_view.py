@@ -1,6 +1,6 @@
 import logging
 
-from PySide6.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout, QSpacerItem, QSizePolicy
+from PySide6.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout, QSpacerItem, QSizePolicy, QMessageBox
 
 from .floor_plan_view import FloorPlanView
 from .studio_wall_height_view import StudioWallHeightView
@@ -29,3 +29,6 @@ class StudioView(QWidget):
         layout.addLayout(layout_sub)
 
         self.setLayout(layout)
+
+    def show_warning(self, message: str) -> None:
+        QMessageBox.warning(self, "WARNING", message, QMessageBox.StandardButton.Ok)

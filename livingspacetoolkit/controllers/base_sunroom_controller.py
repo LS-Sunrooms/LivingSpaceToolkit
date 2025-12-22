@@ -11,6 +11,7 @@ logger = logging.getLogger(name="livingspacetoolkit")
 
 
 class BaseSunroomProtocol(Protocol):
+    view: Any
     sunroom_roof: Any
     sunroom_wall: Any
     sunroom_floor: Any
@@ -125,7 +126,7 @@ class BaseSunroomController(ABC, BaseSunroomProtocol):
         try:
             self.toolkit_state.floor_walls[wall].length = wall_width
             logger.info(f"{self.toolkit_state.sunroom_type.name} {wall.name} set to: {wall_width}.")
-        except ValueError:
-            # TODO: Add a warning message to user.
+        except ValueError as err:
+            self.view.show_warning(str(err))
             logger.warning(f"Invalid input: {wall_width}")
             self.sunroom_floor.wall_dict[wall].clear()
