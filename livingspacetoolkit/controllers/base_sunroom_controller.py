@@ -159,6 +159,6 @@ class BaseSunroomController(ABC, BaseSunroomProtocol):
                     self.toolkit_state.wall_heights[enum].length = widget_text
                     logger.info(f"{self.toolkit_state.sunroom_type.name} {enum.name} set to: {widget_text}.")
                 except ValueError as err:
-                    self.view.show_warning(err)
+                    self.view.show_warning(str(err))
                     logger.warning(f"Invalid {enum.name} input: {widget_text}")
                     self.sunroom_wall.wall_height_dict[enum].clear()

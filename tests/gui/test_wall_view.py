@@ -279,7 +279,7 @@ class TestCathedralWallHeights:
         # Assert changes
         assert mock_warning["title"] == "WARNING"
         assert mock_warning["text"] == 'Invalid imperial format: abc'
-        assert main_window.tabs_view.studio_view.sunroom_wall.c_wall_height_edit.text() == ''
+        assert main_window.tabs_view.cathedral_view.sunroom_wall.c_wall_height_edit.text() == ''
         assert main_window.toolkit_state.wall_heights[LengthType.C_WALL_HEIGHT].length == 0.0
 
     @pytest.mark.gui
