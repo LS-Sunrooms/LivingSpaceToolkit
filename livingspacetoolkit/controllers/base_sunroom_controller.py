@@ -155,7 +155,7 @@ class BaseSunroomController(ABC, BaseSunroomProtocol):
                     self.view.show_warning(str(err))
                     logger.warning(f"Invalid {enum.name} input: {widget_text}")
                     self.sunroom_roof.overhang_edit.clear()
-            case LengthType.THICKNESS:
+            case LengthType.THICKNESS | LengthType.PANEL:
                 pass
             case _:
                 widget_text = self.sunroom_wall.wall_height_dict[enum].text()

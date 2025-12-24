@@ -52,3 +52,4 @@ class LengthType(Enum):
     A_WALL_WIDTH = auto()
     B_WALL_WIDTH  = auto()
     C_WALL_WIDTH = auto()
+    PANEL = auto()
