@@ -62,6 +62,7 @@ class ToolkitLength:
     def __init__(self, length_type: LengthType):
         self._length: float = 0
         self._length_type = length_type
+        self._modified: bool = False
 
     def __repr__(self) -> str:
         return f"ToolkitLength({self.length_type}).length({self.length})"
@@ -108,12 +109,19 @@ class ToolkitLength:
         if self._is_negative_measurement(value):
             raise ValueError(f"Length cannot be negative: {value}")
         self._length = self._parse_imperial_to_inches(value)
+        self.modified = True
 
     @property
     def length_type(self) -> LengthType:
         return self._length_type
 
+    @property
+    def modified(self) -> bool:
+        return self._modified
 
+    @modified.setter
+    def modified(self, value: bool) -> None:
+        self._modified = value
 
     def _parse_imperial_to_inches(self, text: str) -> float:
         # ---- Case 1: Bare number → inches ----

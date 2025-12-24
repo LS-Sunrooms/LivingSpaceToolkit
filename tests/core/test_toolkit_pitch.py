@@ -28,6 +28,7 @@ class TestToolkitPitch:
         # Assert
         assert pitch.pitch_type == PitchType.ANGLE
         assert pitch.pitch_value == radians(30)
+        assert pitch.modified == True
 
     @pytest.mark.unit
     @pytest.mark.parametrize("class_input", pitch_equality_list, ids=pitch_input_ids)

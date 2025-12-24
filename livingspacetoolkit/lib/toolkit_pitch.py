@@ -42,6 +42,7 @@ class ToolkitPitch:
         self._pitch_type = pitch_type
         self._roof_side = roof_side
         self._pitch_value: float = 0.0
+        self._modified: bool = False
 
     def __repr__(self) -> str:
         return f"ToolkitPitch({self.pitch_type}, {self.roof_side}).pitch_value({self.pitch_value})"
@@ -96,11 +97,13 @@ class ToolkitPitch:
                 if angle >= 60:
                     raise ValueError(f"Angle is too high: {angle}")
                 self._pitch_value = radians(angle)
+                self.modified = True
             case PitchType.RATIO:
                 ratio = self.parse_number(value)
                 if ratio >= 21:
                     raise ValueError(f"Ratio is too high: {ratio}")
                 self._pitch_value = atan(ratio/12)
+                self.modified = True
 
     @property
     def pitch_type(self) -> PitchType:
@@ -113,6 +116,14 @@ class ToolkitPitch:
     @property
     def roof_side(self) -> RoofSide:
         return self._roof_side
+
+    @property
+    def modified(self) -> bool:
+        return self._modified
+
+    @modified.setter
+    def modified(self, value: bool) -> None:
+        self._modified = value
 
     def parse_angle(self, text: str) -> float:
         m = self.ANGLE_REGEX.match(text)

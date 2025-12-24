@@ -24,6 +24,7 @@ class TestToolkitLength:
         # Assert
         assert length.length_type == LengthType.OVERHANG
         assert length.length == 15
+        assert length.modified == True
 
     @pytest.mark.unit
     @pytest.mark.parametrize("class_input", length_equality_list, ids=length_input_id)
