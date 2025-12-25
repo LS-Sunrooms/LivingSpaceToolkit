@@ -67,9 +67,9 @@ class ToolkitStateModel:
         if self.end_cuts is None:
             raise TypeError("Please select an end cut type.")
         if not self.overhang.modified:
-            raise TypeError(f"Please input a value for the {self.overhang.length_type}.")
+            raise TypeError(f"Please input a value for the {self.overhang.length_type.name}.")
         if not self.thickness.modified:
-            raise TypeError(f"Please input a value for the {self.thickness.length_type}.")
+            raise TypeError(f"Please input a value for the {self.thickness.length_type.name}.")
         for wall in self.floor_walls:
             if not self.floor_walls[wall].modified:
                 raise TypeError(f"Please input a value for the {wall.name}.")
