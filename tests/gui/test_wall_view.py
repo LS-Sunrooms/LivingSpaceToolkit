@@ -2,7 +2,7 @@ import pytest
 
 from PySide6.QtCore import Qt
 
-from livingspacetoolkit.lib.toolkit_enums import LengthType
+from livingspacetoolkit.lib.toolkit_enums import LengthType, SunroomSide
 
 
 class TestStudioWallHeights:
@@ -21,7 +21,7 @@ class TestStudioWallHeights:
 
         # Assert changes
         assert main_window.tabs_view.studio_view.sunroom_wall.peak_height_edit.text() == '10 ft.'
-        assert main_window.toolkit_state.wall_heights[LengthType.PEAK_HEIGHT].length == 120.0
+        assert main_window.toolkit_state.wall_heights[(None, LengthType.PEAK_HEIGHT)].length == 120.0
 
     @pytest.mark.gui
     @pytest.mark.integration
@@ -39,7 +39,7 @@ class TestStudioWallHeights:
         assert mock_warning["title"] == "WARNING"
         assert mock_warning["text"] == 'Invalid imperial format: abc'
         assert main_window.tabs_view.studio_view.sunroom_wall.peak_height_edit.text() == ''
-        assert main_window.toolkit_state.wall_heights[LengthType.PEAK_HEIGHT].length == 0.0
+        assert main_window.toolkit_state.wall_heights[(None, LengthType.PEAK_HEIGHT)].length == 0.0
 
     @pytest.mark.gui
     @pytest.mark.integration
@@ -55,7 +55,7 @@ class TestStudioWallHeights:
 
         # Assert changes
         assert main_window.tabs_view.studio_view.sunroom_wall.b_wall_height_edit.text() == '10 ft.'
-        assert main_window.toolkit_state.wall_heights[LengthType.B_WALL_HEIGHT].length == 120.0
+        assert main_window.toolkit_state.wall_heights[(SunroomSide.B_SIDE, LengthType.WALL_HEIGHT)].length == 120.0
 
     @pytest.mark.gui
     @pytest.mark.integration
@@ -73,7 +73,7 @@ class TestStudioWallHeights:
         assert mock_warning["title"] == "WARNING"
         assert mock_warning["text"] == 'Invalid imperial format: abc'
         assert main_window.tabs_view.studio_view.sunroom_wall.b_wall_height_edit.text() == ''
-        assert main_window.toolkit_state.wall_heights[LengthType.B_WALL_HEIGHT].length == 0.0
+        assert main_window.toolkit_state.wall_heights[(SunroomSide.B_SIDE, LengthType.WALL_HEIGHT)].length == 0.0
 
     @pytest.mark.gui
     @pytest.mark.integration
@@ -89,7 +89,7 @@ class TestStudioWallHeights:
 
         # Assert changes
         assert main_window.tabs_view.studio_view.sunroom_wall.max_height_edit.text() == '10 ft.'
-        assert main_window.toolkit_state.wall_heights[LengthType.MAX_HEIGHT].length == 120.0
+        assert main_window.toolkit_state.wall_heights[(None, LengthType.MAX_HEIGHT)].length == 120.0
 
     @pytest.mark.gui
     @pytest.mark.integration
@@ -107,7 +107,7 @@ class TestStudioWallHeights:
         assert mock_warning["title"] == "WARNING"
         assert mock_warning["text"] == 'Invalid imperial format: abc'
         assert main_window.tabs_view.studio_view.sunroom_wall.max_height_edit.text() == ''
-        assert main_window.toolkit_state.wall_heights[LengthType.MAX_HEIGHT].length == 0.0
+        assert main_window.toolkit_state.wall_heights[(None, LengthType.MAX_HEIGHT)].length == 0.0
 
     @pytest.mark.gui
     @pytest.mark.integration
@@ -123,7 +123,7 @@ class TestStudioWallHeights:
 
         # Assert changes
         assert main_window.tabs_view.studio_view.sunroom_wall.soffit_height_edit.text() == '10 ft.'
-        assert main_window.toolkit_state.wall_heights[LengthType.B_SIDE_SOFFIT_HEIGHT].length == 120.0
+        assert main_window.toolkit_state.wall_heights[(SunroomSide.B_SIDE, LengthType.SOFFIT_HEIGHT)].length == 120.0
 
     @pytest.mark.gui
     @pytest.mark.integration
@@ -141,7 +141,7 @@ class TestStudioWallHeights:
         assert mock_warning["title"] == "WARNING"
         assert mock_warning["text"] == 'Invalid imperial format: abc'
         assert main_window.tabs_view.studio_view.sunroom_wall.soffit_height_edit.text() == ''
-        assert main_window.toolkit_state.wall_heights[LengthType.B_SIDE_SOFFIT_HEIGHT].length == 0.0
+        assert main_window.toolkit_state.wall_heights[(SunroomSide.B_SIDE, LengthType.SOFFIT_HEIGHT)].length == 0.0
 
     @pytest.mark.gui
     @pytest.mark.integration
@@ -157,7 +157,7 @@ class TestStudioWallHeights:
 
         # Assert changes
         assert main_window.tabs_view.studio_view.sunroom_wall.drip_edge_height_edit.text() == '10 ft.'
-        assert main_window.toolkit_state.wall_heights[LengthType.DRIP_EDGE_HEIGHT].length == 120.0
+        assert main_window.toolkit_state.wall_heights[(None, LengthType.DRIP_EDGE_HEIGHT)].length == 120.0
 
     @pytest.mark.gui
     @pytest.mark.integration
@@ -175,7 +175,7 @@ class TestStudioWallHeights:
         assert mock_warning["title"] == "WARNING"
         assert mock_warning["text"] == 'Invalid imperial format: abc'
         assert main_window.tabs_view.studio_view.sunroom_wall.drip_edge_height_edit.text() == ''
-        assert main_window.toolkit_state.wall_heights[LengthType.DRIP_EDGE_HEIGHT].length == 0.0
+        assert main_window.toolkit_state.wall_heights[(None, LengthType.DRIP_EDGE_HEIGHT)].length == 0.0
 
 
 class TestCathedralWallHeights:
@@ -194,7 +194,7 @@ class TestCathedralWallHeights:
 
         # Assert changes
         assert main_window.tabs_view.cathedral_view.sunroom_wall.peak_height_edit.text() == '10 ft.'
-        assert main_window.toolkit_state.wall_heights[LengthType.PEAK_HEIGHT].length == 120.0
+        assert main_window.toolkit_state.wall_heights[(None, LengthType.PEAK_HEIGHT)].length == 120.0
 
     @pytest.mark.gui
     @pytest.mark.integration
@@ -212,7 +212,7 @@ class TestCathedralWallHeights:
         assert mock_warning["title"] == "WARNING"
         assert mock_warning["text"] == 'Invalid imperial format: abc'
         assert main_window.tabs_view.cathedral_view.sunroom_wall.peak_height_edit.text() == ''
-        assert main_window.toolkit_state.wall_heights[LengthType.PEAK_HEIGHT].length == 0.0
+        assert main_window.toolkit_state.wall_heights[(None, LengthType.PEAK_HEIGHT)].length == 0.0
 
     @pytest.mark.gui
     @pytest.mark.integration
@@ -228,7 +228,7 @@ class TestCathedralWallHeights:
 
         # Assert changes
         assert main_window.tabs_view.cathedral_view.sunroom_wall.a_wall_height_edit.text() == '10 ft.'
-        assert main_window.toolkit_state.wall_heights[LengthType.A_WALL_HEIGHT].length == 120.0
+        assert main_window.toolkit_state.wall_heights[(SunroomSide.A_SIDE, LengthType.WALL_HEIGHT)].length == 120.0
 
     @pytest.mark.gui
     @pytest.mark.integration
@@ -246,7 +246,7 @@ class TestCathedralWallHeights:
         assert mock_warning["title"] == "WARNING"
         assert mock_warning["text"] == 'Invalid imperial format: abc'
         assert main_window.tabs_view.cathedral_view.sunroom_wall.a_wall_height_edit.text() == ''
-        assert main_window.toolkit_state.wall_heights[LengthType.A_WALL_HEIGHT].length == 0.0
+        assert main_window.toolkit_state.wall_heights[(SunroomSide.A_SIDE, LengthType.WALL_HEIGHT)].length == 0.0
 
     @pytest.mark.gui
     @pytest.mark.integration
@@ -262,7 +262,7 @@ class TestCathedralWallHeights:
 
         # Assert changes
         assert main_window.tabs_view.cathedral_view.sunroom_wall.c_wall_height_edit.text() == '10 ft.'
-        assert main_window.toolkit_state.wall_heights[LengthType.C_WALL_HEIGHT].length == 120.0
+        assert main_window.toolkit_state.wall_heights[(SunroomSide.C_SIDE, LengthType.WALL_HEIGHT)].length == 120.0
 
     @pytest.mark.gui
     @pytest.mark.integration
@@ -280,7 +280,7 @@ class TestCathedralWallHeights:
         assert mock_warning["title"] == "WARNING"
         assert mock_warning["text"] == 'Invalid imperial format: abc'
         assert main_window.tabs_view.cathedral_view.sunroom_wall.c_wall_height_edit.text() == ''
-        assert main_window.toolkit_state.wall_heights[LengthType.C_WALL_HEIGHT].length == 0.0
+        assert main_window.toolkit_state.wall_heights[(SunroomSide.C_SIDE, LengthType.WALL_HEIGHT)].length == 0.0
 
     @pytest.mark.gui
     @pytest.mark.integration
@@ -296,7 +296,7 @@ class TestCathedralWallHeights:
 
         # Assert changes
         assert main_window.tabs_view.cathedral_view.sunroom_wall.max_height_edit.text() == '10 ft.'
-        assert main_window.toolkit_state.wall_heights[LengthType.MAX_HEIGHT].length == 120.0
+        assert main_window.toolkit_state.wall_heights[(None, LengthType.MAX_HEIGHT)].length == 120.0
 
     @pytest.mark.gui
     @pytest.mark.integration
@@ -314,7 +314,7 @@ class TestCathedralWallHeights:
         assert mock_warning["title"] == "WARNING"
         assert mock_warning["text"] == 'Invalid imperial format: abc'
         assert main_window.tabs_view.cathedral_view.sunroom_wall.max_height_edit.text() == ''
-        assert main_window.toolkit_state.wall_heights[LengthType.MAX_HEIGHT].length == 0.0
+        assert main_window.toolkit_state.wall_heights[(None, LengthType.MAX_HEIGHT)].length == 0.0
 
     @pytest.mark.gui
     @pytest.mark.integration
@@ -330,7 +330,7 @@ class TestCathedralWallHeights:
 
         # Assert changes
         assert main_window.tabs_view.cathedral_view.sunroom_wall.soffit_height_a_edit.text() == '10 ft.'
-        assert main_window.toolkit_state.wall_heights[LengthType.A_SIDE_SOFFIT_HEIGHT].length == 120.0
+        assert main_window.toolkit_state.wall_heights[(SunroomSide.A_SIDE, LengthType.SOFFIT_HEIGHT)].length == 120.0
 
     @pytest.mark.gui
     @pytest.mark.integration
@@ -348,7 +348,7 @@ class TestCathedralWallHeights:
         assert mock_warning["title"] == "WARNING"
         assert mock_warning["text"] == 'Invalid imperial format: abc'
         assert main_window.tabs_view.cathedral_view.sunroom_wall.soffit_height_a_edit.text() == ''
-        assert main_window.toolkit_state.wall_heights[LengthType.A_SIDE_SOFFIT_HEIGHT].length == 0.0
+        assert main_window.toolkit_state.wall_heights[(SunroomSide.A_SIDE, LengthType.SOFFIT_HEIGHT)].length == 0.0
 
     @pytest.mark.gui
     @pytest.mark.integration
@@ -364,7 +364,7 @@ class TestCathedralWallHeights:
 
         # Assert changes
         assert main_window.tabs_view.cathedral_view.sunroom_wall.soffit_height_c_edit.text() == '10 ft.'
-        assert main_window.toolkit_state.wall_heights[LengthType.C_SIDE_SOFFIT_HEIGHT].length == 120.0
+        assert main_window.toolkit_state.wall_heights[(SunroomSide.C_SIDE, LengthType.SOFFIT_HEIGHT)].length == 120.0
 
     @pytest.mark.gui
     @pytest.mark.integration
@@ -382,7 +382,7 @@ class TestCathedralWallHeights:
         assert mock_warning["title"] == "WARNING"
         assert mock_warning["text"] == 'Invalid imperial format: abc'
         assert main_window.tabs_view.cathedral_view.sunroom_wall.soffit_height_c_edit.text() == ''
-        assert main_window.toolkit_state.wall_heights[LengthType.C_SIDE_SOFFIT_HEIGHT].length == 0.0
+        assert main_window.toolkit_state.wall_heights[(SunroomSide.C_SIDE, LengthType.SOFFIT_HEIGHT)].length == 0.0
 
     @pytest.mark.gui
     @pytest.mark.integration
@@ -398,7 +398,7 @@ class TestCathedralWallHeights:
 
         # Assert changes
         assert main_window.tabs_view.cathedral_view.sunroom_wall.drip_edge_height_edit.text() == '10 ft.'
-        assert main_window.toolkit_state.wall_heights[LengthType.DRIP_EDGE_HEIGHT].length == 120.0
+        assert main_window.toolkit_state.wall_heights[(None, LengthType.DRIP_EDGE_HEIGHT)].length == 120.0
 
     @pytest.mark.gui
     @pytest.mark.integration
@@ -416,4 +416,4 @@ class TestCathedralWallHeights:
         assert mock_warning["title"] == "WARNING"
         assert mock_warning["text"] == 'Invalid imperial format: abc'
         assert main_window.tabs_view.cathedral_view.sunroom_wall.drip_edge_height_edit.text() == ''
-        assert main_window.toolkit_state.wall_heights[LengthType.DRIP_EDGE_HEIGHT].length == 0.0
+        assert main_window.toolkit_state.wall_heights[(None, LengthType.DRIP_EDGE_HEIGHT)].length == 0.0

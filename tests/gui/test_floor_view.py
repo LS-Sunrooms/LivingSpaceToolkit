@@ -1,7 +1,7 @@
 import pytest
 from PySide6.QtCore import Qt
 
-from livingspacetoolkit.lib.toolkit_enums import LengthType
+from livingspacetoolkit.lib.toolkit_enums import SunroomSide
 
 
 class TestStudioFloorPlan:
@@ -20,7 +20,7 @@ class TestStudioFloorPlan:
 
         # Assert changes
         assert main_window.tabs_view.studio_view.sunroom_floor.wall_a.text() == '10 ft.'
-        assert main_window.toolkit_state.floor_walls[LengthType.A_WALL_WIDTH].length == 120.0
+        assert main_window.toolkit_state.floor_walls[SunroomSide.A_SIDE].length == 120.0
 
     @pytest.mark.gui
     @pytest.mark.integration
@@ -38,7 +38,7 @@ class TestStudioFloorPlan:
         assert mock_warning["title"] == "WARNING"
         assert mock_warning["text"] == 'Invalid imperial format: abc'
         assert main_window.tabs_view.studio_view.sunroom_floor.wall_a.text() == ''
-        assert main_window.toolkit_state.floor_walls[LengthType.A_WALL_WIDTH].length == 0.0
+        assert main_window.toolkit_state.floor_walls[SunroomSide.A_SIDE].length == 0.0
 
     @pytest.mark.gui
     @pytest.mark.integration
@@ -54,7 +54,7 @@ class TestStudioFloorPlan:
 
         # Assert changes
         assert main_window.tabs_view.studio_view.sunroom_floor.wall_b.text() == '10 ft.'
-        assert main_window.toolkit_state.floor_walls[LengthType.B_WALL_WIDTH].length == 120.0
+        assert main_window.toolkit_state.floor_walls[SunroomSide.B_SIDE].length == 120.0
 
     @pytest.mark.gui
     @pytest.mark.integration
@@ -72,7 +72,7 @@ class TestStudioFloorPlan:
         assert mock_warning["title"] == "WARNING"
         assert mock_warning["text"] == 'Invalid imperial format: abc'
         assert main_window.tabs_view.studio_view.sunroom_floor.wall_b.text() == ''
-        assert main_window.toolkit_state.floor_walls[LengthType.B_WALL_WIDTH].length == 0.0
+        assert main_window.toolkit_state.floor_walls[SunroomSide.B_SIDE].length == 0.0
 
     @pytest.mark.gui
     @pytest.mark.integration
@@ -88,7 +88,7 @@ class TestStudioFloorPlan:
 
         # Assert changes
         assert main_window.tabs_view.studio_view.sunroom_floor.wall_c.text() == '10 ft.'
-        assert main_window.toolkit_state.floor_walls[LengthType.C_WALL_WIDTH].length == 120.0
+        assert main_window.toolkit_state.floor_walls[SunroomSide.C_SIDE].length == 120.0
 
     @pytest.mark.gui
     @pytest.mark.integration
@@ -106,7 +106,7 @@ class TestStudioFloorPlan:
         assert mock_warning["title"] == "WARNING"
         assert mock_warning["text"] == 'Invalid imperial format: abc'
         assert main_window.tabs_view.studio_view.sunroom_floor.wall_c.text() == ''
-        assert main_window.toolkit_state.floor_walls[LengthType.C_WALL_WIDTH].length == 0.0
+        assert main_window.toolkit_state.floor_walls[SunroomSide.C_SIDE].length == 0.0
 
 
 class TestCathedralFloorPlan:
@@ -125,7 +125,7 @@ class TestCathedralFloorPlan:
 
         # Assert changes
         assert main_window.tabs_view.cathedral_view.sunroom_floor.wall_a.text() == '10 ft.'
-        assert main_window.toolkit_state.floor_walls[LengthType.A_WALL_WIDTH].length == 120.0
+        assert main_window.toolkit_state.floor_walls[SunroomSide.A_SIDE].length == 120.0
 
     @pytest.mark.gui
     @pytest.mark.integration
@@ -143,7 +143,7 @@ class TestCathedralFloorPlan:
         assert mock_warning["title"] == "WARNING"
         assert mock_warning["text"] == 'Invalid imperial format: abc'
         assert main_window.tabs_view.cathedral_view.sunroom_floor.wall_a.text() == ''
-        assert main_window.toolkit_state.floor_walls[LengthType.A_WALL_WIDTH].length == 0.0
+        assert main_window.toolkit_state.floor_walls[SunroomSide.A_SIDE].length == 0.0
 
     @pytest.mark.gui
     @pytest.mark.integration
@@ -159,7 +159,7 @@ class TestCathedralFloorPlan:
 
         # Assert changes
         assert main_window.tabs_view.cathedral_view.sunroom_floor.wall_b.text() == '10 ft.'
-        assert main_window.toolkit_state.floor_walls[LengthType.B_WALL_WIDTH].length == 120.0
+        assert main_window.toolkit_state.floor_walls[SunroomSide.B_SIDE].length == 120.0
 
     @pytest.mark.gui
     @pytest.mark.integration
@@ -177,7 +177,7 @@ class TestCathedralFloorPlan:
         assert mock_warning["title"] == "WARNING"
         assert mock_warning["text"] == 'Invalid imperial format: abc'
         assert main_window.tabs_view.cathedral_view.sunroom_floor.wall_b.text() == ''
-        assert main_window.toolkit_state.floor_walls[LengthType.B_WALL_WIDTH].length == 0.0
+        assert main_window.toolkit_state.floor_walls[SunroomSide.B_SIDE].length == 0.0
 
     @pytest.mark.gui
     @pytest.mark.integration
@@ -193,7 +193,7 @@ class TestCathedralFloorPlan:
 
         # Assert changes
         assert main_window.tabs_view.cathedral_view.sunroom_floor.wall_c.text() == '10 ft.'
-        assert main_window.toolkit_state.floor_walls[LengthType.C_WALL_WIDTH].length == 120.0
+        assert main_window.toolkit_state.floor_walls[SunroomSide.C_SIDE].length == 120.0
 
     @pytest.mark.gui
     @pytest.mark.integration
@@ -211,4 +211,4 @@ class TestCathedralFloorPlan:
         assert mock_warning["title"] == "WARNING"
         assert mock_warning["text"] == 'Invalid imperial format: abc'
         assert main_window.tabs_view.cathedral_view.sunroom_floor.wall_c.text() == ''
-        assert main_window.toolkit_state.floor_walls[LengthType.C_WALL_WIDTH].length == 0.0
+        assert main_window.toolkit_state.floor_walls[SunroomSide.C_SIDE].length == 0.0

@@ -6,7 +6,7 @@ from PySide6.QtWidgets import QWidget, QLineEdit, QVBoxLayout, QHBoxLayout, QSpa
 from PySide6.QtGui import QPixmap
 
 from livingspacetoolkit.utils.helpers import set_strikethrough
-from livingspacetoolkit.lib.toolkit_enums import LengthType
+from livingspacetoolkit.lib.toolkit_enums import LengthType, SunroomSide
 
 logger = logging.getLogger(name="livingspacetoolkit")
 
@@ -39,14 +39,14 @@ class CathedralWallHeightView(QWidget):
         self.soffit_height_c_label: QLabel = QLabel("Soffit Height C Wall")
         self.drip_edge_height_label: QLabel = QLabel("Drip Edge Height")
 
-        self.wall_height_dict: Dict[LengthType, QLineEdit] = {
-            LengthType.PEAK_HEIGHT: self.peak_height_edit,
-            LengthType.MAX_HEIGHT: self.max_height_edit,
-            LengthType.A_WALL_HEIGHT: self.a_wall_height_edit,
-            LengthType.C_WALL_HEIGHT: self.c_wall_height_edit,
-            LengthType.A_SIDE_SOFFIT_HEIGHT: self.soffit_height_a_edit,
-            LengthType.C_SIDE_SOFFIT_HEIGHT: self.soffit_height_c_edit,
-            LengthType.DRIP_EDGE_HEIGHT: self.drip_edge_height_edit
+        self.wall_height_dict: Dict[tuple[SunroomSide | None, QLineEdit]] = {
+            (None, LengthType.PEAK_HEIGHT): self.peak_height_edit,
+            (None, LengthType.MAX_HEIGHT): self.max_height_edit,
+            (SunroomSide.A_SIDE, LengthType.WALL_HEIGHT): self.a_wall_height_edit,
+            (SunroomSide.C_SIDE, LengthType.WALL_HEIGHT): self.c_wall_height_edit,
+            (SunroomSide.A_SIDE, LengthType.SOFFIT_HEIGHT): self.soffit_height_a_edit,
+            (SunroomSide.C_SIDE, LengthType.SOFFIT_HEIGHT): self.soffit_height_c_edit,
+            (None, LengthType.DRIP_EDGE_HEIGHT): self.drip_edge_height_edit
         }
 
         self.peak_height_edit.setPlaceholderText("0' or 0\"")

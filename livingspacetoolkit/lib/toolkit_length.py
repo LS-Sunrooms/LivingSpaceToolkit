@@ -1,7 +1,7 @@
 import logging
 import re
 
-from .toolkit_enums import LengthType
+from .toolkit_enums import LengthType, SunroomSide
 
 logger = logging.getLogger(name="livingspacetoolkit")
 
@@ -59,43 +59,47 @@ class ToolkitLength:
     )
     NEGATIVE_MEASUREMENT_REGEX = re.compile(r"^\s*-\s*\d")
 
-    def __init__(self, length_type: LengthType):
+    def __init__(self, length_type: LengthType, sunroom_side: SunroomSide | None = None):
         self._length: float = 0
         self._length_type = length_type
+        self._sunroom_side = sunroom_side
         self._modified: bool = False
 
     def __repr__(self) -> str:
-        return f"ToolkitLength({self.length_type}).length({self.length})"
+        return f"ToolkitLength({self.length_type}, {self.sunroom_side}).length({self.length})"
 
     def __eq__(self, other):
         if isinstance(other, ToolkitLength):
-            return self.length_type == other.length_type and self.length == other.length
+            return (self.length_type == other.length_type and self.sunroom_side == other.sunroom_side
+                    and self.length == other.length)
         return NotImplementedError
 
     def __lt__(self, other):
         if isinstance(other, ToolkitLength):
-            return self.length_type == other.length_type and self.length < other.length
+            return (self.length_type == other.length_type and self.sunroom_side == other.sunroom_side
+                    and self.length < other.length)
         return NotImplementedError
 
     def __gt__(self, other):
         if isinstance(other, ToolkitLength):
-            return self.length_type == other.length_type and self.length > other.length
+            return (self.length_type == other.length_type and self.sunroom_side == other.sunroom_side
+                    and self.length > other.length)
         return NotImplementedError
 
     def __add__(self, other):
         if isinstance(other, ToolkitLength):
-            if self.length_type == other.length_type:
+            if self.length_type == other.length_type and self.sunroom_side == other.sunroom_side:
                 return  self.length + other.length
             else:
-                return ValueError("The length type must be the same.")
+                return ValueError("The length type and sunroom side must be the same.")
         return NotImplementedError
 
     def __sub__(self, other):
         if isinstance(other, ToolkitLength):
-            if self.length_type == other.length_type:
+            if self.length_type == other.length_type and self.sunroom_side == other.sunroom_side:
                 return  self.length - other.length
             else:
-                return ValueError("The length type must be the same.")
+                return ValueError("The length type and sunroom side must be the same.")
         return NotImplementedError
 
     @property
@@ -114,6 +118,14 @@ class ToolkitLength:
     @property
     def length_type(self) -> LengthType:
         return self._length_type
+
+    @property
+    def sunroom_side(self) -> SunroomSide:
+        return self._sunroom_side
+
+    @sunroom_side.setter
+    def sunroom_side(self, value: SunroomSide) -> None:
+        self._sunroom_side = value
 
     @property
     def modified(self) -> bool:

@@ -2,7 +2,7 @@ import logging
 import re
 from math import atan, radians
 
-from .toolkit_enums import PitchType, RoofSide
+from .toolkit_enums import PitchType, SunroomSide
 
 logger = logging.getLogger(name="livingspacetoolkit")
 
@@ -38,7 +38,7 @@ class ToolkitPitch:
     )
 
     NEGATIVE_INPUT_REGEX = re.compile(r"^\s*-\s*\d")
-    def __init__(self, pitch_type: PitchType, roof_side: RoofSide):
+    def __init__(self, pitch_type: PitchType, roof_side: SunroomSide):
         self._pitch_type = pitch_type
         self._roof_side = roof_side
         self._pitch_value: float = 0.0
@@ -113,7 +113,7 @@ class ToolkitPitch:
         self._pitch_type = pitch_type
 
     @property
-    def roof_side(self) -> RoofSide:
+    def roof_side(self) -> SunroomSide:
         return self._roof_side
 
     @property

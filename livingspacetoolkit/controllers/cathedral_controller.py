@@ -3,7 +3,7 @@ import logging
 from livingspacetoolkit.views import CathedralView
 from livingspacetoolkit.models import ToolkitStateModel, RoofModel
 from livingspacetoolkit.lib.toolkit_enums import (PitchType, SunroomType, RoofingType, EndCutType, Scenario,
-                                                  RoofSide, LengthType)
+                                                  SunroomSide, LengthType)
 from livingspacetoolkit.utils.helpers import set_strikethrough
 from .base_sunroom_controller import BaseSunroomController
 
@@ -23,19 +23,19 @@ class CathedralController(BaseSunroomController):
         # Connect signals
         # Roof view signals
         self.sunroom_roof.pitch_a.radio_ratio.clicked.connect(
-            lambda: self.handle_pitch_type_click(PitchType.RATIO, SunroomType.CATHEDRAL, RoofSide.A_SIDE))
+            lambda: self.handle_pitch_type_click(PitchType.RATIO, SunroomType.CATHEDRAL, SunroomSide.A_SIDE))
         self.sunroom_roof.pitch_a.radio_angle.clicked.connect(
-            lambda: self.handle_pitch_type_click(PitchType.ANGLE, SunroomType.CATHEDRAL, RoofSide.A_SIDE))
+            lambda: self.handle_pitch_type_click(PitchType.ANGLE, SunroomType.CATHEDRAL, SunroomSide.A_SIDE))
         self.sunroom_roof.pitch_a.pitch_input.editingFinished.connect(
-            lambda: self.handle_line_edit_finish_edit(RoofSide.A_SIDE))
+            lambda: self.handle_line_edit_finish_edit(SunroomSide.A_SIDE))
         self.sunroom_roof.pitch_c.radio_ratio.clicked.connect(
-            lambda: self.handle_pitch_type_click(PitchType.RATIO, SunroomType.CATHEDRAL, RoofSide.C_SIDE))
+            lambda: self.handle_pitch_type_click(PitchType.RATIO, SunroomType.CATHEDRAL, SunroomSide.C_SIDE))
         self.sunroom_roof.pitch_c.radio_angle.clicked.connect(
-            lambda: self.handle_pitch_type_click(PitchType.ANGLE, SunroomType.CATHEDRAL, RoofSide.C_SIDE))
+            lambda: self.handle_pitch_type_click(PitchType.ANGLE, SunroomType.CATHEDRAL, SunroomSide.C_SIDE))
         self.sunroom_roof.pitch_c.pitch_input.editingFinished.connect(
-            lambda: self.handle_line_edit_finish_edit(RoofSide.C_SIDE))
+            lambda: self.handle_line_edit_finish_edit(SunroomSide.C_SIDE))
         self.sunroom_roof.overhang_edit.editingFinished.connect(
-            lambda: self.handle_line_edit_finish_edit(LengthType.OVERHANG))
+            lambda: self.handle_line_edit_finish_edit(None, LengthType.OVERHANG))
         self.sunroom_roof.roofing_type.radio_al.clicked.connect(
             lambda: self.handle_roofing_type_click(RoofingType.ALUMINUM))
         self.sunroom_roof.roofing_type.radio_eco.clicked.connect(
@@ -50,26 +50,26 @@ class CathedralController(BaseSunroomController):
         self.sunroom_roof.fascia.clicked.connect(self.handle_fascia_click)
         # Floor view signals
         self.sunroom_floor.wall_a.editingFinished.connect(
-            lambda: self.handle_line_edit_finish_edit(LengthType.A_WALL_WIDTH))
+            lambda: self.handle_line_edit_finish_edit(SunroomSide.A_SIDE, LengthType.WALL_WIDTH))
         self.sunroom_floor.wall_b.editingFinished.connect(
-            lambda: self.handle_line_edit_finish_edit(LengthType.B_WALL_WIDTH))
+            lambda: self.handle_line_edit_finish_edit(SunroomSide.B_SIDE, LengthType.WALL_WIDTH))
         self.sunroom_floor.wall_c.editingFinished.connect(
-            lambda: self.handle_line_edit_finish_edit(LengthType.C_WALL_WIDTH))
+            lambda: self.handle_line_edit_finish_edit(SunroomSide.C_SIDE, LengthType.WALL_WIDTH))
         # Wall view signals
         self.sunroom_wall.peak_height_edit.editingFinished.connect(
-            lambda: self.handle_line_edit_finish_edit(LengthType.PEAK_HEIGHT))
+            lambda: self.handle_line_edit_finish_edit(None, LengthType.PEAK_HEIGHT))
         self.sunroom_wall.max_height_edit.editingFinished.connect(
-            lambda: self.handle_line_edit_finish_edit(LengthType.MAX_HEIGHT))
+            lambda: self.handle_line_edit_finish_edit(None, LengthType.MAX_HEIGHT))
         self.sunroom_wall.a_wall_height_edit.editingFinished.connect(
-            lambda: self.handle_line_edit_finish_edit(LengthType.A_WALL_HEIGHT))
+            lambda: self.handle_line_edit_finish_edit(SunroomSide.A_SIDE, LengthType.WALL_HEIGHT))
         self.sunroom_wall.c_wall_height_edit.editingFinished.connect(
-            lambda: self.handle_line_edit_finish_edit(LengthType.C_WALL_HEIGHT))
+            lambda: self.handle_line_edit_finish_edit(SunroomSide.C_SIDE, LengthType.WALL_HEIGHT))
         self.sunroom_wall.soffit_height_a_edit.editingFinished.connect(
-            lambda: self.handle_line_edit_finish_edit(LengthType.A_SIDE_SOFFIT_HEIGHT))
+            lambda: self.handle_line_edit_finish_edit(SunroomSide.A_SIDE, LengthType.SOFFIT_HEIGHT))
         self.sunroom_wall.soffit_height_c_edit.editingFinished.connect(
-            lambda: self.handle_line_edit_finish_edit(LengthType.C_SIDE_SOFFIT_HEIGHT))
+            lambda: self.handle_line_edit_finish_edit(SunroomSide.C_SIDE, LengthType.SOFFIT_HEIGHT))
         self.sunroom_wall.drip_edge_height_edit.editingFinished.connect(
-            lambda: self.handle_line_edit_finish_edit(LengthType.DRIP_EDGE_HEIGHT))
+            lambda: self.handle_line_edit_finish_edit(None, LengthType.DRIP_EDGE_HEIGHT))
 
     def update_to_scenario(self):
         self.set_to_default()

@@ -20,7 +20,7 @@ class RoofingType(Enum):
     ECO_GREEN = auto()
     ALUMINUM = auto()
 
-class RoofSide(Enum):
+class SunroomSide(Enum):
     A_SIDE = auto()
     B_SIDE = auto()
     C_SIDE = auto()
@@ -43,15 +43,9 @@ class LengthType(Enum):
     PEAK_HEIGHT = auto()
     MAX_HEIGHT = auto()
     DRIP_EDGE_HEIGHT = auto()
-    A_SIDE_SOFFIT_HEIGHT = auto()
-    B_SIDE_SOFFIT_HEIGHT = auto()
-    C_SIDE_SOFFIT_HEIGHT = auto()
-    A_WALL_HEIGHT = auto()
-    B_WALL_HEIGHT = auto()
-    C_WALL_HEIGHT = auto()
-    A_WALL_WIDTH = auto()
-    B_WALL_WIDTH  = auto()
-    C_WALL_WIDTH = auto()
+    SOFFIT_HEIGHT = auto()
+    WALL_HEIGHT = auto()
+    WALL_WIDTH = auto()
     PANEL = auto()
     HANG_RAIL = auto()
     FASCIA = auto()

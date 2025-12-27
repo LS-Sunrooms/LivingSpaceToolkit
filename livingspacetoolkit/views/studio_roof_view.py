@@ -7,7 +7,7 @@ from PySide6.QtCore import QSize
 from .roof_end_cuts_view import RoofEndCutsView
 from .roof_pitch_view import RoofPitchView
 from .roofing_type_view import RoofingTypeView
-from livingspacetoolkit.lib.toolkit_enums import SunroomType, RoofSide
+from livingspacetoolkit.lib.toolkit_enums import SunroomType, SunroomSide
 from livingspacetoolkit.utils.helpers import set_strikethrough
 
 logger = logging.getLogger(name="livingspacetoolkit")
@@ -27,8 +27,8 @@ class StudioRoofView(QWidget):
         self.end_cuts: RoofEndCutsView = RoofEndCutsView()
         self.fascia: QCheckBox = QCheckBox()
 
-        self.pitch_dict: Dict[RoofSide, QLineEdit] = {
-            RoofSide.B_SIDE: self.pitch.pitch_input
+        self.pitch_dict: Dict[SunroomSide, QLineEdit] = {
+            SunroomSide.B_SIDE: self.pitch.pitch_input
         }
 
         self.overhang_edit.setPlaceholderText("0' or 0\"")

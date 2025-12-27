@@ -1,15 +1,16 @@
 import pytest
 
 from livingspacetoolkit.lib import ToolkitLength
-from livingspacetoolkit.lib.toolkit_enums import LengthType
+from livingspacetoolkit.lib.toolkit_enums import LengthType, SunroomSide
 
 
 class TestToolkitLength:
 
     length_equality_list = [
-                                 (["12'", LengthType.THICKNESS], True),
-                                 (["11'", LengthType.THICKNESS], False),
-                                 (["12'", LengthType.OVERHANG], False)
+        (["12'", LengthType.THICKNESS, SunroomSide.A_SIDE], True),
+        (["12'", LengthType.THICKNESS, SunroomSide.B_SIDE], False),
+        (["11'", LengthType.THICKNESS, SunroomSide.A_SIDE], False),
+        (["12'", LengthType.OVERHANG, SunroomSide.A_SIDE], False)
                              ]
 
     @staticmethod
@@ -29,10 +30,10 @@ class TestToolkitLength:
     @pytest.mark.unit
     @pytest.mark.parametrize("class_input", length_equality_list, ids=length_input_id)
     def test_equality(self, class_input: tuple[list, bool]):
-        length_1 = ToolkitLength(LengthType.THICKNESS)
+        length_1 = ToolkitLength(LengthType.THICKNESS, SunroomSide.A_SIDE)
         length_1.length = "12'"
 
-        length_2 = ToolkitLength(class_input[0][1])
+        length_2 = ToolkitLength(class_input[0][1], class_input[0][2])
         length_2.length = class_input[0][0]
 
         assert (length_1 == length_2) == class_input[1]

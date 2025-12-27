@@ -2,7 +2,7 @@ import pytest
 from math import atan, radians
 from PySide6.QtCore import Qt
 
-from livingspacetoolkit.lib.toolkit_enums import PitchType, RoofSide
+from livingspacetoolkit.lib.toolkit_enums import PitchType, SunroomSide
 
 class TestStudioRoofPitch:
 
@@ -17,7 +17,7 @@ class TestStudioRoofPitch:
         main_window.tabs_view.studio_view.sunroom_roof.pitch.radio_ratio.click()
         # Assert: The text should change
         assert main_window.tabs_view.studio_view.sunroom_roof.pitch.pitch_input_label.text() == "/12 in."
-        assert main_window.toolkit_state.pitch[RoofSide.B_SIDE].pitch_type == PitchType.RATIO
+        assert main_window.toolkit_state.pitch[SunroomSide.B_SIDE].pitch_type == PitchType.RATIO
 
     @pytest.mark.gui
     @pytest.mark.integration
@@ -29,7 +29,7 @@ class TestStudioRoofPitch:
         main_window.tabs_view.studio_view.sunroom_roof.pitch.radio_angle.click()
         # Assert: The text should change
         assert main_window.tabs_view.studio_view.sunroom_roof.pitch.pitch_input_label.text() == u"deg(\N{DEGREE SIGN})"
-        assert main_window.toolkit_state.pitch[RoofSide.B_SIDE].pitch_type == PitchType.ANGLE
+        assert main_window.toolkit_state.pitch[SunroomSide.B_SIDE].pitch_type == PitchType.ANGLE
 
     @pytest.mark.gui
     @pytest.mark.integration
@@ -44,7 +44,7 @@ class TestStudioRoofPitch:
             qtbot.keyClick(main_window.tabs_view.studio_view.sunroom_roof.pitch.pitch_input, Qt.Key.Key_Return)
         # Assert changes
         assert main_window.tabs_view.studio_view.sunroom_roof.pitch.pitch_input.text() == '5'
-        assert main_window.toolkit_state.pitch[RoofSide.B_SIDE].pitch_value == atan(5/12)
+        assert main_window.toolkit_state.pitch[SunroomSide.B_SIDE].pitch_value == atan(5 / 12)
 
     @pytest.mark.gui
     @pytest.mark.integration
@@ -59,7 +59,7 @@ class TestStudioRoofPitch:
             qtbot.keyClick(main_window.tabs_view.studio_view.sunroom_roof.pitch.pitch_input, Qt.Key.Key_Return)
         # Assert changes
         assert main_window.tabs_view.studio_view.sunroom_roof.pitch.pitch_input.text() == '15 deg'
-        assert main_window.toolkit_state.pitch[RoofSide.B_SIDE].pitch_value == radians(15)
+        assert main_window.toolkit_state.pitch[SunroomSide.B_SIDE].pitch_value == radians(15)
 
     @pytest.mark.gui
     @pytest.mark.integration
@@ -76,7 +76,7 @@ class TestStudioRoofPitch:
         assert mock_warning["title"] == "WARNING"
         assert mock_warning["text"] == 'Invalid number format: abc'
         assert main_window.tabs_view.studio_view.sunroom_roof.pitch.pitch_input.text() == ''
-        assert main_window.toolkit_state.pitch[RoofSide.B_SIDE].pitch_value == 0.0
+        assert main_window.toolkit_state.pitch[SunroomSide.B_SIDE].pitch_value == 0.0
 
     @pytest.mark.gui
     @pytest.mark.integration
@@ -93,7 +93,7 @@ class TestStudioRoofPitch:
         assert mock_warning["title"] == "WARNING"
         assert mock_warning["text"] == 'Invalid angle format: abc'
         assert main_window.tabs_view.studio_view.sunroom_roof.pitch.pitch_input.text() == ''
-        assert main_window.toolkit_state.pitch[RoofSide.B_SIDE].pitch_value == 0.0
+        assert main_window.toolkit_state.pitch[SunroomSide.B_SIDE].pitch_value == 0.0
 
 
 class TestCathedralRoofPitch:
@@ -109,7 +109,7 @@ class TestCathedralRoofPitch:
         main_window.tabs_view.cathedral_view.sunroom_roof.pitch_a.radio_ratio.click()
         # Assert: The text should change
         assert main_window.tabs_view.cathedral_view.sunroom_roof.pitch_a.pitch_input_label.text() == "/12 in."
-        assert main_window.toolkit_state.pitch[RoofSide.A_SIDE].pitch_type == PitchType.RATIO
+        assert main_window.toolkit_state.pitch[SunroomSide.A_SIDE].pitch_type == PitchType.RATIO
 
     @pytest.mark.gui
     @pytest.mark.integration
@@ -122,7 +122,7 @@ class TestCathedralRoofPitch:
         main_window.tabs_view.cathedral_view.sunroom_roof.pitch_c.radio_ratio.click()
         # Assert: The text should change
         assert main_window.tabs_view.cathedral_view.sunroom_roof.pitch_c.pitch_input_label.text() == "/12 in."
-        assert main_window.toolkit_state.pitch[RoofSide.C_SIDE].pitch_type == PitchType.RATIO
+        assert main_window.toolkit_state.pitch[SunroomSide.C_SIDE].pitch_type == PitchType.RATIO
 
     @pytest.mark.gui
     @pytest.mark.integration
@@ -134,7 +134,7 @@ class TestCathedralRoofPitch:
         main_window.tabs_view.cathedral_view.sunroom_roof.pitch_a.radio_angle.click()
         # Assert: The text should change
         assert main_window.tabs_view.cathedral_view.sunroom_roof.pitch_a.pitch_input_label.text() == u"deg(\N{DEGREE SIGN})"
-        assert main_window.toolkit_state.pitch[RoofSide.A_SIDE].pitch_type == PitchType.ANGLE
+        assert main_window.toolkit_state.pitch[SunroomSide.A_SIDE].pitch_type == PitchType.ANGLE
 
     @pytest.mark.gui
     @pytest.mark.integration
@@ -146,7 +146,7 @@ class TestCathedralRoofPitch:
         main_window.tabs_view.cathedral_view.sunroom_roof.pitch_c.radio_angle.click()
         # Assert: The text should change
         assert main_window.tabs_view.cathedral_view.sunroom_roof.pitch_c.pitch_input_label.text() == u"deg(\N{DEGREE SIGN})"
-        assert main_window.toolkit_state.pitch[RoofSide.C_SIDE].pitch_type == PitchType.ANGLE
+        assert main_window.toolkit_state.pitch[SunroomSide.C_SIDE].pitch_type == PitchType.ANGLE
 
     @pytest.mark.gui
     @pytest.mark.integration
@@ -161,7 +161,7 @@ class TestCathedralRoofPitch:
             qtbot.keyClick(main_window.tabs_view.cathedral_view.sunroom_roof.pitch_a.pitch_input, Qt.Key.Key_Return)
         # Assert changes
         assert main_window.tabs_view.cathedral_view.sunroom_roof.pitch_a.pitch_input.text() == '5'
-        assert main_window.toolkit_state.pitch[RoofSide.A_SIDE].pitch_value == atan(5/12)
+        assert main_window.toolkit_state.pitch[SunroomSide.A_SIDE].pitch_value == atan(5 / 12)
 
     @pytest.mark.gui
     @pytest.mark.integration
@@ -176,7 +176,7 @@ class TestCathedralRoofPitch:
             qtbot.keyClick(main_window.tabs_view.cathedral_view.sunroom_roof.pitch_c.pitch_input, Qt.Key.Key_Return)
         # Assert changes
         assert main_window.tabs_view.cathedral_view.sunroom_roof.pitch_c.pitch_input.text() == '5'
-        assert main_window.toolkit_state.pitch[RoofSide.C_SIDE].pitch_value == atan(5 / 12)
+        assert main_window.toolkit_state.pitch[SunroomSide.C_SIDE].pitch_value == atan(5 / 12)
 
     @pytest.mark.gui
     @pytest.mark.integration
@@ -191,7 +191,7 @@ class TestCathedralRoofPitch:
             qtbot.keyClick(main_window.tabs_view.cathedral_view.sunroom_roof.pitch_a.pitch_input, Qt.Key.Key_Return)
         # Assert changes
         assert main_window.tabs_view.cathedral_view.sunroom_roof.pitch_a.pitch_input.text() == '15 deg'
-        assert main_window.toolkit_state.pitch[RoofSide.A_SIDE].pitch_value == radians(15)
+        assert main_window.toolkit_state.pitch[SunroomSide.A_SIDE].pitch_value == radians(15)
 
     @pytest.mark.gui
     @pytest.mark.integration
@@ -206,7 +206,7 @@ class TestCathedralRoofPitch:
             qtbot.keyClick(main_window.tabs_view.cathedral_view.sunroom_roof.pitch_c.pitch_input, Qt.Key.Key_Return)
         # Assert changes
         assert main_window.tabs_view.cathedral_view.sunroom_roof.pitch_c.pitch_input.text() == '15 deg'
-        assert main_window.toolkit_state.pitch[RoofSide.C_SIDE].pitch_value == radians(15)
+        assert main_window.toolkit_state.pitch[SunroomSide.C_SIDE].pitch_value == radians(15)
 
     @pytest.mark.gui
     @pytest.mark.integration
@@ -223,7 +223,7 @@ class TestCathedralRoofPitch:
         assert mock_warning["title"] == "WARNING"
         assert mock_warning["text"] == 'Invalid number format: abc'
         assert main_window.tabs_view.cathedral_view.sunroom_roof.pitch_a.pitch_input.text() == ''
-        assert main_window.toolkit_state.pitch[RoofSide.A_SIDE].pitch_value == 0.0
+        assert main_window.toolkit_state.pitch[SunroomSide.A_SIDE].pitch_value == 0.0
 
     @pytest.mark.gui
     @pytest.mark.integration
@@ -240,7 +240,7 @@ class TestCathedralRoofPitch:
         assert mock_warning["title"] == "WARNING"
         assert mock_warning["text"] == 'Invalid number format: abc'
         assert main_window.tabs_view.cathedral_view.sunroom_roof.pitch_c.pitch_input.text() == ''
-        assert main_window.toolkit_state.pitch[RoofSide.C_SIDE].pitch_value == 0.0
+        assert main_window.toolkit_state.pitch[SunroomSide.C_SIDE].pitch_value == 0.0
 
     @pytest.mark.gui
     @pytest.mark.integration
@@ -257,7 +257,7 @@ class TestCathedralRoofPitch:
         assert mock_warning["title"] == "WARNING"
         assert mock_warning["text"] == 'Invalid angle format: abc'
         assert main_window.tabs_view.cathedral_view.sunroom_roof.pitch_a.pitch_input.text() == ''
-        assert main_window.toolkit_state.pitch[RoofSide.A_SIDE].pitch_value == 0.0
+        assert main_window.toolkit_state.pitch[SunroomSide.A_SIDE].pitch_value == 0.0
 
     @pytest.mark.gui
     @pytest.mark.integration
@@ -274,4 +274,4 @@ class TestCathedralRoofPitch:
         assert mock_warning["title"] == "WARNING"
         assert mock_warning["text"] == 'Invalid angle format: abc'
         assert main_window.tabs_view.cathedral_view.sunroom_roof.pitch_c.pitch_input.text() == ''
-        assert main_window.toolkit_state.pitch[RoofSide.C_SIDE].pitch_value == 0.0
+        assert main_window.toolkit_state.pitch[SunroomSide.C_SIDE].pitch_value == 0.0

@@ -6,7 +6,7 @@ from PySide6.QtWidgets import QWidget, QLineEdit, QVBoxLayout, QHBoxLayout, QSpa
 from PySide6.QtGui import QPixmap
 
 from livingspacetoolkit.utils.helpers import set_strikethrough
-from livingspacetoolkit.lib.toolkit_enums import LengthType
+from livingspacetoolkit.lib.toolkit_enums import LengthType, SunroomSide
 
 logger = logging.getLogger(name="livingspacetoolkit")
 
@@ -42,12 +42,12 @@ class StudioWallHeightView(QWidget):
         self.soffit_height_edit.setPlaceholderText("0' or 0\"")
         self.drip_edge_height_edit.setPlaceholderText("0' or 0\"")
 
-        self.wall_height_dict: Dict[LengthType, QLineEdit] = {
-            LengthType.PEAK_HEIGHT: self.peak_height_edit,
-            LengthType.MAX_HEIGHT: self.max_height_edit,
-            LengthType.B_WALL_HEIGHT: self.b_wall_height_edit,
-            LengthType.B_SIDE_SOFFIT_HEIGHT: self.soffit_height_edit,
-            LengthType.DRIP_EDGE_HEIGHT: self.drip_edge_height_edit
+        self.wall_height_dict: Dict[tuple[SunroomSide | None, QLineEdit]] = {
+            (None, LengthType.PEAK_HEIGHT): self.peak_height_edit,
+            (None, LengthType.MAX_HEIGHT): self.max_height_edit,
+            (SunroomSide.B_SIDE, LengthType.WALL_HEIGHT): self.b_wall_height_edit,
+            (SunroomSide.B_SIDE, LengthType.SOFFIT_HEIGHT): self.soffit_height_edit,
+            (None, LengthType.DRIP_EDGE_HEIGHT): self.drip_edge_height_edit
         }
 
         layout_heights.addWidget(self.peak_height_label)

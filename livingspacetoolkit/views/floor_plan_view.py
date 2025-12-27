@@ -5,7 +5,7 @@ from PySide6.QtCore import Qt, QSize
 from PySide6.QtWidgets import QWidget, QHBoxLayout, QLabel, QLineEdit, QVBoxLayout, QSpacerItem, QSizePolicy
 from PySide6.QtGui import QPixmap
 
-from livingspacetoolkit.lib.toolkit_enums import LengthType
+from livingspacetoolkit.lib.toolkit_enums import SunroomSide
 
 logger = logging.getLogger(name="livingspacetoolkit")
 
@@ -30,10 +30,10 @@ class FloorPlanView(QWidget):
         self.wall_c.setPlaceholderText("0' or 0\"")
         self.wall_c.setMinimumSize(QSize(145, 35))
 
-        self.wall_dict: Dict[LengthType, QLineEdit] = {
-            LengthType.A_WALL_WIDTH: self.wall_a,
-            LengthType.B_WALL_WIDTH: self.wall_b,
-            LengthType.C_WALL_WIDTH: self.wall_c,
+        self.wall_dict: Dict[SunroomSide, QLineEdit] = {
+            SunroomSide.A_SIDE: self.wall_a,
+            SunroomSide.B_SIDE: self.wall_b,
+            SunroomSide.C_SIDE: self.wall_c,
         }
 
         label_a: QLabel = QLabel("A Wall")
