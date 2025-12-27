@@ -20,7 +20,7 @@ class StudioRoofView(QWidget):
         layout: QVBoxLayout = QVBoxLayout()
         spacer: QSpacerItem = QSpacerItem(20, 40, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
 
-        self.pitch: RoofPitchView = RoofPitchView("Pitch")
+        self.pitch: RoofPitchView = RoofPitchView("B Side Pitch")
         self.overhang_edit: QLineEdit = QLineEdit()
         self.roofing_type: RoofingTypeView = RoofingTypeView()
         self.thickness_combo: QComboBox = QComboBox()
@@ -35,7 +35,7 @@ class StudioRoofView(QWidget):
         self.overhang_edit.setMinimumSize(QSize(145, 35))
         self.fascia.setText("Fascia")
 
-        layout.addWidget(QLabel("Pitch"))
+        layout.addWidget(QLabel("B Side Pitch"))
         layout.addWidget(self.pitch)
         layout.addWidget(QLabel("Overhang"))
         layout.addWidget(self.overhang_edit)

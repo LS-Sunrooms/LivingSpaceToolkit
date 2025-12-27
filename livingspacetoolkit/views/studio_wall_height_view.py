@@ -27,15 +27,20 @@ class StudioWallHeightView(QWidget):
 
         self.peak_height_edit: QLineEdit = QLineEdit()
         self.max_height_edit: QLineEdit = QLineEdit()
+        self.b_wall_height_edit: QLineEdit = QLineEdit()
         self.soffit_height_edit: QLineEdit = QLineEdit()
         self.drip_edge_height_edit: QLineEdit = QLineEdit()
         self.peak_height_label: QLabel = QLabel("Peak Height")
         self.max_height_label: QLabel = QLabel("Max Height")
         self.b_wall_height_label: QLabel = QLabel("B Wall Height")
-        self.soffit_height_label: QLabel = QLabel("Soffit Height")
-        self.b_wall_height_edit: QLineEdit = QLineEdit()
+        self.soffit_height_label: QLabel = QLabel("Soffit Height B Wall")
         self.drip_edge_height_label: QLabel = QLabel("Drip Edge Height")
         self.peak_height_edit.setPlaceholderText("0' or 0\"")
+        self.peak_height_edit.setMinimumSize(QSize(145, 35))
+        self.max_height_edit.setPlaceholderText("0' or 0\"")
+        self.b_wall_height_edit.setPlaceholderText("0' or 0\"")
+        self.soffit_height_edit.setPlaceholderText("0' or 0\"")
+        self.drip_edge_height_edit.setPlaceholderText("0' or 0\"")
 
         self.wall_height_dict: Dict[LengthType, QLineEdit] = {
             LengthType.PEAK_HEIGHT: self.peak_height_edit,
@@ -44,12 +49,6 @@ class StudioWallHeightView(QWidget):
             LengthType.B_SIDE_SOFFIT_HEIGHT: self.soffit_height_edit,
             LengthType.DRIP_EDGE_HEIGHT: self.drip_edge_height_edit
         }
-
-        self.peak_height_edit.setMinimumSize(QSize(145, 35))
-        self.max_height_edit.setPlaceholderText("0' or 0\"")
-        self.b_wall_height_edit.setPlaceholderText("0' or 0\"")
-        self.soffit_height_edit.setPlaceholderText("0' or 0\"")
-        self.drip_edge_height_edit.setPlaceholderText("0' or 0\"")
 
         layout_heights.addWidget(self.peak_height_label)
         layout_heights.addWidget(self.peak_height_edit)
