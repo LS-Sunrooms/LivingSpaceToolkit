@@ -12,6 +12,7 @@ class BaseScenarioClass(ABC):
     @abstractmethod
     def __init__(self, toolkit_state_model: ToolkitStateModel) -> None:
         self.toolkit_state_model = toolkit_state_model
+        self.post_width = 3.25 # Business logic. The width of the center post. Used in cathedral calculations.
 
     @staticmethod
     @abstractmethod
