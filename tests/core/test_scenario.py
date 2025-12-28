@@ -62,7 +62,56 @@ class TestStudioScenarios:
         assert toolkit_state.wall_heights[(SunroomSide.A_SIDE, LengthType.WALL_HEIGHT)].length == studio_test_data['floor_walls']
         assert toolkit_state.wall_heights[(SunroomSide.C_SIDE, LengthType.WALL_HEIGHT)].length == studio_test_data['floor_walls']
 
+    @pytest.mark.integration
+    def test_wall_height_peak_height(self):
+        pass
+
+    @pytest.mark.integration
+    def test_max_height_pitch(self):
+        pass
+
+    @pytest.mark.integration
+    def test_soffit_height_peak_height(self):
+        pass
+
+    @pytest.mark.integration
+    def test_soffit_height_pitch(self):
+        pass
+
+    @pytest.mark.integration
+    def test_drip_edge_peak_height(self):
+        pass
+
+    @pytest.mark.integration
+    def test_drip_edge_pitch(self):
+        pass
+
 class TestCathedralScenarios:
 
+    @pytest.mark.integration
     def test_wall_height_pitch(self):
+        pass
+
+    @pytest.mark.integration
+    def test_wall_height_peak_height(self):
+        pass
+
+    @pytest.mark.integration
+    def test_max_height_pitch(self):
+        pass
+
+    @pytest.mark.integration
+    def test_soffit_height_peak_height(self):
+        pass
+
+    @pytest.mark.integration
+    def test_soffit_height_pitch(self):
+        pass
+
+    @pytest.mark.integration
+    def test_drip_edge_peak_height(self):
+        pass
+
+    @pytest.mark.integration
+    def test_drip_edge_pitch(self):
         pass

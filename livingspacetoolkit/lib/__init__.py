@@ -4,5 +4,5 @@ from .base_scenario_class import ScenarioSelector
 from .scenario_wall_height_pitch import WallHeightPitch
 
 __all__ = [
-    "ToolkitLength", "ToolkitPitch", "ScenarioSelector"
+    "ToolkitLength", "ToolkitPitch", "ScenarioSelector", "WallHeightPitch"
 ]
