@@ -1,15 +1,11 @@
-import logging
-
 from PySide6.QtCore import QSize
 from PySide6.QtWidgets import QMainWindow, QWidget, QLabel, QGridLayout
 from PySide6.QtGui import QPixmap, QIcon
 
+from livingspacetoolkit.logconf.log_config import logger
 from livingspacetoolkit.views import ScenariosView, ResultsView, TabsView
 from livingspacetoolkit.controllers.main_window_controller import MainWindowController
 from livingspacetoolkit.models.toolkit_state_model import ToolkitStateModel
-
-
-logger = logging.getLogger(name="livingspacetoolkit")
 
 
 class MainWindow(QMainWindow):

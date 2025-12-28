@@ -1,13 +1,10 @@
-import logging
-
+from livingspacetoolkit.logconf.log_config import logger
 from livingspacetoolkit.views import StudioView
 from livingspacetoolkit.models import ToolkitStateModel, RoofModel
 from livingspacetoolkit.lib.toolkit_enums import (PitchType, SunroomType, RoofingType, EndCutType, Scenario,
                                                   LengthType, SunroomSide)
 from livingspacetoolkit.utils.helpers import set_strikethrough
 from .base_sunroom_controller import BaseSunroomController
-
-logger = logging.getLogger(name="livingspacetoolkit")
 
 
 class StudioController(BaseSunroomController):

@@ -1,5 +1,4 @@
-import logging
-
+from livingspacetoolkit.logconf.log_config import logger
 from livingspacetoolkit.views import CathedralView
 from livingspacetoolkit.models import ToolkitStateModel, RoofModel
 from livingspacetoolkit.lib.toolkit_enums import (PitchType, SunroomType, RoofingType, EndCutType, Scenario,
@@ -7,7 +6,6 @@ from livingspacetoolkit.lib.toolkit_enums import (PitchType, SunroomType, Roofin
 from livingspacetoolkit.utils.helpers import set_strikethrough
 from .base_sunroom_controller import BaseSunroomController
 
-logger = logging.getLogger(name="livingspacetoolkit")
 
 
 class CathedralController(BaseSunroomController):

@@ -1,14 +1,12 @@
-import logging
 from typing import Dict
 
 from PySide6.QtCore import Qt, QSize
 from PySide6.QtWidgets import QWidget, QLineEdit, QVBoxLayout, QHBoxLayout, QSpacerItem, QSizePolicy, QLabel
 from PySide6.QtGui import QPixmap
 
+from livingspacetoolkit.logconf.log_config import logger
 from livingspacetoolkit.utils.helpers import set_strikethrough
 from livingspacetoolkit.lib.toolkit_enums import LengthType, SunroomSide
-
-logger = logging.getLogger(name="livingspacetoolkit")
 
 
 class CathedralWallHeightView(QWidget):

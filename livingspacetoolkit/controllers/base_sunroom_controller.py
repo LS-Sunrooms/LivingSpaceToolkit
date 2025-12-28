@@ -1,13 +1,11 @@
-import logging
 from abc import ABC, abstractmethod
 from typing import Protocol, Any
 
+from livingspacetoolkit.logconf.log_config import logger
 from livingspacetoolkit.models import ToolkitStateModel, RoofModel
 from livingspacetoolkit.lib.toolkit_enums import (PitchType, SunroomType, RoofingType, EndCutType,
                                                   LengthType, SunroomSide)
 from livingspacetoolkit.utils.helpers import set_strikethrough
-
-logger = logging.getLogger(name="livingspacetoolkit")
 
 
 class BaseSunroomProtocol(Protocol):

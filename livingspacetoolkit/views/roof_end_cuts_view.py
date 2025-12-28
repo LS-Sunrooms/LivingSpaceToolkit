@@ -1,11 +1,7 @@
-import logging
-
 from PySide6.QtWidgets import QGroupBox, QRadioButton, QVBoxLayout, QButtonGroup
 
-from livingspacetoolkit.lib.toolkit_enums import RoofingType, EndCutType
+from livingspacetoolkit.logconf.log_config import logger
 from livingspacetoolkit.utils.helpers import temporary_change, set_strikethrough
-
-logger = logging.getLogger(name="livingspacetoolkit")
 
 
 class RoofEndCutsView(QGroupBox):

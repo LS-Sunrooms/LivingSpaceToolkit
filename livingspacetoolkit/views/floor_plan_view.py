@@ -1,13 +1,11 @@
-import logging
 from typing import Dict
 
 from PySide6.QtCore import Qt, QSize
 from PySide6.QtWidgets import QWidget, QHBoxLayout, QLabel, QLineEdit, QVBoxLayout, QSpacerItem, QSizePolicy
 from PySide6.QtGui import QPixmap
 
+from livingspacetoolkit.logconf.log_config import logger
 from livingspacetoolkit.lib.toolkit_enums import SunroomSide
-
-logger = logging.getLogger(name="livingspacetoolkit")
 
 
 class FloorPlanView(QWidget):

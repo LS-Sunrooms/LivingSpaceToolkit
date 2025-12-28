@@ -1,10 +1,8 @@
-import logging
 import re
 from math import atan, radians
 
 from .toolkit_enums import PitchType, SunroomSide
-
-logger = logging.getLogger(name="livingspacetoolkit")
+from livingspacetoolkit.logconf.log_config import logger
 
 
 class ToolkitPitch:

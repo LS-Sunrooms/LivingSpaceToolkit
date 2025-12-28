@@ -1,13 +1,11 @@
-import logging
 from math import sin, cos, tan, atan, atan2, pi
 from math import floor as m_floor
 from math import ceil as m_ceil
 
 from .base_scenario_class import BaseScenarioClass
 from .toolkit_enums import Scenario, LengthType, SunroomSide, SunroomType
+from livingspacetoolkit.logconf.log_config import logger
 from livingspacetoolkit.models import ToolkitStateModel
-
-logger = logging.getLogger(name="livingspacetoolkit")
 
 
 class WallHeightPitch(BaseScenarioClass):

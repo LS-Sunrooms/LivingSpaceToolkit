@@ -1,13 +1,9 @@
-import livingspacetoolkit.logconf.log_config
-import logging
-
 from PySide6.QtWidgets import QApplication
 
+from livingspacetoolkit.logconf.log_config import logger
 from livingspacetoolkit.main_window import MainWindow
 from livingspacetoolkit.theme_manager import apply_theme
 import livingspacetoolkit.Resource.resources_rc
-
-logger = logging.getLogger(name="livingspacetoolkit")
 
 
 def main():

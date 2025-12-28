@@ -1,11 +1,10 @@
-import logging
 from math import sin, cos, tan, atan, atan2, pi
 from abc import ABC, abstractmethod
 
+from livingspacetoolkit.logconf.log_config import logger
 from .toolkit_enums import Scenario, EndCutType
 from livingspacetoolkit.models import ToolkitStateModel
 
-logger = logging.getLogger(name="livingspacetoolkit")
 
 
 class BaseScenarioClass(ABC):

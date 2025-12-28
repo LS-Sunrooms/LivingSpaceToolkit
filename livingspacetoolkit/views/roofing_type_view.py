@@ -1,11 +1,6 @@
-import logging
-
-from typing import Dict
 from PySide6.QtWidgets import QGroupBox, QRadioButton, QVBoxLayout, QButtonGroup
+from livingspacetoolkit.logconf.log_config import logger
 from livingspacetoolkit.utils.helpers import temporary_change, set_strikethrough
-from livingspacetoolkit.lib.toolkit_enums import RoofingType
-
-logger = logging.getLogger(name="livingspacetoolkit")
 
 
 class RoofingTypeView(QGroupBox):

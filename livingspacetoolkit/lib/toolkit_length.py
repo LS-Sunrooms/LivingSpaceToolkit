@@ -1,9 +1,7 @@
-import logging
 import re
 
 from .toolkit_enums import LengthType, SunroomSide
-
-logger = logging.getLogger(name="livingspacetoolkit")
+from livingspacetoolkit.logconf.log_config import logger
 
 
 class ToolkitLength:

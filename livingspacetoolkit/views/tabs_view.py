@@ -1,11 +1,8 @@
-import logging
-
 from PySide6.QtWidgets import QTabWidget, QMessageBox
 
+from livingspacetoolkit.logconf.log_config import logger
 from .studio_view import StudioView
 from .cathedral_view import CathedralView
-
-logger = logging.getLogger(name="livingspacetoolkit")
 
 
 class TabsView(QTabWidget):

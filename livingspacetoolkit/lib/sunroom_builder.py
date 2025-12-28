@@ -1,14 +1,13 @@
-import logging
 from math import sin, cos, tan, atan, atan2, pi
 from math import floor as m_floor
 from math import ceil as m_ceil
 
+from livingspacetoolkit.logconf.log_config import logger
 from .toolkit_enums import Scenario, EndCutType, LengthType
 from .toolkit_length import ToolkitLength
 from .base_scenario_class import ScenarioSelector
 from livingspacetoolkit.models import ToolkitStateModel, SunroomModel
 
-logger = logging.getLogger(name="livingspacetoolkit")
 
 
 class SunroomBuilder:

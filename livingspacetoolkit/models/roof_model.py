@@ -1,10 +1,8 @@
-import logging
-
 from typing import Dict
 from livingspacetoolkit.models.toolkit_state_model import ToolkitStateModel
-from livingspacetoolkit.lib.toolkit_enums import PitchType, SunroomType, RoofingType, EndCutType, Scenario
+from livingspacetoolkit.logconf.log_config import logger
+from livingspacetoolkit.lib.toolkit_enums import RoofingType
 
-logger = logging.getLogger(name="livingspacetoolkit")
 
 
 class RoofModel:

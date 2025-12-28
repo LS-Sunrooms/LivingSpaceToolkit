@@ -1,11 +1,10 @@
-import logging
 from dataclasses import dataclass, field
 from typing import Dict
 
+from livingspacetoolkit.logconf.log_config import logger
 from livingspacetoolkit.lib.toolkit_enums import (SunroomType, LengthType, SunroomSide)
 from livingspacetoolkit.lib import ToolkitLength
 
-logger = logging.getLogger(name="livingspacetoolkit")
 
 
 @dataclass

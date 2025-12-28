@@ -1,12 +1,9 @@
-import logging
-
+from livingspacetoolkit.logconf.log_config import logger
 from livingspacetoolkit.views import ScenariosView, ResultsView, TabsView
 from livingspacetoolkit.models.toolkit_state_model import ToolkitStateModel
 from .studio_controller import StudioController
 from .cathedral_controller import CathedralController
 from livingspacetoolkit.lib.toolkit_enums import SunroomType
-
-logger = logging.getLogger(name="livingspacetoolkit")
 
 
 class MainWindowController:

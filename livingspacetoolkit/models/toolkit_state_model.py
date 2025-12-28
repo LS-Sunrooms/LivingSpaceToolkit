@@ -1,7 +1,7 @@
-import logging
 from dataclasses import dataclass, field
 from typing import Dict, List
 
+from livingspacetoolkit.logconf.log_config import logger
 from livingspacetoolkit.lib.toolkit_enums import (Scenario, RoofingType, EndCutType, SunroomType, LengthType, PitchType,
                                                   SunroomSide)
 from livingspacetoolkit.lib import ToolkitLength, ToolkitPitch
