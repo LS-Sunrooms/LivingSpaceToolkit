@@ -19,6 +19,10 @@ class BaseScenarioClass(ABC):
     def scenario_condition(scenario: Scenario) -> bool:
         return False
 
+    @abstractmethod
+    def calculate_sunroom_properties(self) -> None:
+        pass
+
     @staticmethod
     def calculate_hypotenuse(opposite: float, pitch: float) -> float:
         """
@@ -86,7 +90,8 @@ class UnknownScenario(BaseScenarioClass):
     def __init__(self):
         pass
 
-    def scenario_condition(self, scenario: Scenario) -> bool:
+    @staticmethod
+    def scenario_condition(scenario: Scenario) -> bool:
         return False
 
 
@@ -94,7 +99,7 @@ class ScenarioSelector:
     def __init__(self, toolkit_state_model: ToolkitStateModel) -> None:
         self.toolkit_state_model = toolkit_state_model
 
-    def identify_scenario(self) -> BaseScenarioClass | type[UnknownScenario]:
+    def identify_scenario(self):
         for scenario_cls in BaseScenarioClass.__subclasses__():
             try:
                 if scenario_cls.scenario_condition(self.toolkit_state_model.scenario):

@@ -38,7 +38,12 @@ class WallHeightPitch(BaseScenarioClass):
                     soffit_height_b_side)
                 self.toolkit_state_model.wall_heights[(None, LengthType.PEAK_HEIGHT)].length = peak_height
                 self.toolkit_state_model.wall_heights[(None, LengthType.MAX_HEIGHT)].length = max_height
-                self.toolkit_state_model.wall_heights[(SunroomSide.B_SIDE, LengthType.DRIP_EDGE_HEIGHT)].length = drip_edge
+                self.toolkit_state_model.wall_heights[
+                    (SunroomSide.B_SIDE, LengthType.DRIP_EDGE_HEIGHT)].length = drip_edge
+                self.toolkit_state_model.wall_heights[
+                    (SunroomSide.A_SIDE, LengthType.WALL_HEIGHT)].length = wall_height_b_side
+                self.toolkit_state_model.wall_heights[
+                    (SunroomSide.C_SIDE, LengthType.WALL_HEIGHT)].length = wall_height_b_side
             case SunroomType.CATHEDRAL:
                 gabled_wall = self.toolkit_state_model.floor_walls[SunroomSide.B_SIDE]
                 pitch_a_side = self.toolkit_state_model.pitch[SunroomSide.A_SIDE]
