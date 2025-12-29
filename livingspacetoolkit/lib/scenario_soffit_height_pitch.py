@@ -17,3 +17,6 @@ class SoffitHeightPitch(BaseScenarioClass):
     def scenario_condition(scenario: Scenario) -> bool:
         logger.debug(f"Selecting {scenario.name} class for calculations.")
         return scenario == Scenario.SOFFIT_HEIGHT_PITCH
+
+    def calculate_sunroom_properties(self) -> None:
+        pass

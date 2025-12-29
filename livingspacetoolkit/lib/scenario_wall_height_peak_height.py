@@ -17,3 +17,6 @@ class WallHeightPeakHeight(BaseScenarioClass):
     def scenario_condition(scenario: Scenario) -> bool:
         logger.debug(f"Selecting {scenario.name} class for calculations.")
         return scenario == Scenario.WALL_HEIGHT_PEAK_HEIGHT
+
+    def calculate_sunroom_properties(self) -> None:
+        pass

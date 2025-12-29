@@ -17,3 +17,6 @@ class DripEdgePeakHeight(BaseScenarioClass):
     def scenario_condition(scenario: Scenario) -> bool:
         logger.debug(f"Selecting {scenario.name} class for calculations.")
         return scenario == Scenario.DRIP_EDGE_PEAK_HEIGHT
+
+    def calculate_sunroom_properties(self) -> None:
+        pass

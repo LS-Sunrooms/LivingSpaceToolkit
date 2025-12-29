@@ -17,3 +17,6 @@ class DripEdgePitch(BaseScenarioClass):
     def scenario_condition(scenario: Scenario) -> bool:
         logger.debug(f"Selecting {scenario.name} class for calculations.")
         return scenario == Scenario.DRIP_EDGE_PITCH
+
+    def calculate_sunroom_properties(self) -> None:
+        pass
