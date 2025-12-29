@@ -50,12 +50,12 @@ class WallHeightPitch(BaseScenarioClass):
                 thickness = self.toolkit_state_model.thickness
                 wall_height_a_side = self.toolkit_state_model.wall_heights[(SunroomSide.A_SIDE, LengthType.WALL_HEIGHT)]
                 wall_height_c_side = self.toolkit_state_model.wall_heights[(SunroomSide.C_SIDE, LengthType.WALL_HEIGHT)]
-                soffit_height_a_side = wall_height_a_side - overhang.length * tan(pitch_a_side.pitch_value)
-                soffit_height_c_side = wall_height_c_side - overhang.length * tan(pitch_c_side.pitch_value)
+                soffit_height_a_side = wall_height_a_side.length - overhang.length * tan(pitch_a_side.pitch_value)
+                soffit_height_c_side = wall_height_c_side.length - overhang.length * tan(pitch_c_side.pitch_value)
                 peak = self.calculate_triangle_height(pitch_a_side.pitch_value, pitch_c_side.pitch_value,
                                                       gabled_wall.length)
                 peak += max(wall_height_a_side.length, wall_height_c_side.length)
-                fenevision_peak = self.calculate_triangle_height(pitch_a_side.pitch_value,
+                fenevision_peak = peak - self.calculate_triangle_height(pitch_a_side.pitch_value,
                                                                         pitch_c_side.pitch_value, self.post_width)
                 max_height = (fenevision_peak +
                                      max(self.calculate_hypotenuse(thickness.length, pitch_a_side.pitch_value),
