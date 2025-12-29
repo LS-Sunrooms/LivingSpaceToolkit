@@ -19,6 +19,7 @@ class WallHeightPeakHeight(BaseScenarioClass):
     def calculate_sunroom_properties(self) -> None:
         match self.toolkit_state_model.sunroom_type:
             case SunroomType.STUDIO:
+                # Gather variables
                 flat_wall = max(self.toolkit_state_model.floor_walls[SunroomSide.A_SIDE],
                                 self.toolkit_state_model.floor_walls[SunroomSide.C_SIDE]).length
                 overhang = self.toolkit_state_model.overhang.length
@@ -28,12 +29,12 @@ class WallHeightPeakHeight(BaseScenarioClass):
                                                                             LengthType.WALL_HEIGHT)].length
                 # Calculate
                 pitch_b_side = atan((peak_height - wall_height_b_side) / flat_wall)
-                pitch_b_ratio = tan(pitch_b_side) * 12 # Turn it back into a ratio to update state model
                 soffit_height_b_side = wall_height_b_side - overhang * tan(pitch_b_side)
                 max_height = peak_height + self.calculate_hypotenuse(thickness, pitch_b_side)
                 drip_edge = self.calculate_drip_edge(thickness, soffit_height_b_side, pitch_b_side)
                 # Add calculated values to toolkit_state_model
-                self.toolkit_state_model.pitch[SunroomSide.B_SIDE].pitch_value = pitch_b_ratio
+                # Turn it back into a ratio to update state model
+                self.toolkit_state_model.pitch[SunroomSide.B_SIDE].pitch_value = tan(pitch_b_side) * 12
                 self.toolkit_state_model.wall_heights[(SunroomSide.B_SIDE, LengthType.SOFFIT_HEIGHT)].length = (
                     soffit_height_b_side)
                 self.toolkit_state_model.wall_heights[(None, LengthType.MAX_HEIGHT)].length = max_height
@@ -44,6 +45,7 @@ class WallHeightPeakHeight(BaseScenarioClass):
                 self.toolkit_state_model.wall_heights[
                     (SunroomSide.C_SIDE, LengthType.WALL_HEIGHT)].length = wall_height_b_side
             case SunroomType.CATHEDRAL:
+                # Gather variables
                 gabled_wall = self.toolkit_state_model.floor_walls[SunroomSide.B_SIDE].length
                 fenevision_peak = self.toolkit_state_model.wall_heights[(None, LengthType.PEAK_HEIGHT)].length
                 overhang = self.toolkit_state_model.overhang.length
@@ -52,10 +54,9 @@ class WallHeightPeakHeight(BaseScenarioClass):
                                                                             LengthType.WALL_HEIGHT)].length
                 wall_height_c_side = self.toolkit_state_model.wall_heights[(SunroomSide.C_SIDE,
                                                                             LengthType.WALL_HEIGHT)].length
+                # Calculate
                 pitch_a_side = atan2(fenevision_peak - wall_height_a_side, gabled_wall / 2 - self.post_width / 2)
-                pitch_a_ratio = tan(pitch_a_side) * 12  # Turn it back into a ratio to update state model
                 pitch_c_side = atan2(fenevision_peak - wall_height_c_side, gabled_wall / 2 - self.post_width / 2)
-                pitch_c_ratio = tan(pitch_c_side) * 12  # Turn it back into a ratio to update state model
                 soffit_height_a_side = wall_height_a_side - overhang * tan(pitch_a_side)
                 soffit_height_c_side = wall_height_c_side - overhang * tan(pitch_c_side)
                 max_height = (fenevision_peak + max(self.calculate_hypotenuse(thickness, pitch_a_side),
@@ -64,8 +65,9 @@ class WallHeightPeakHeight(BaseScenarioClass):
                 drip_edge_a_side = self.calculate_drip_edge(thickness, soffit_height_a_side, pitch_a_side)
                 drip_edge_c_side = self.calculate_drip_edge(thickness, soffit_height_c_side, pitch_c_side)
                 # Add calculated values to toolkit_state_model
-                self.toolkit_state_model.pitch[SunroomSide.A_SIDE].pitch_value = pitch_a_ratio
-                self.toolkit_state_model.pitch[SunroomSide.C_SIDE].pitch_value = pitch_c_ratio
+                # Turn it back into a ratio to update state model
+                self.toolkit_state_model.pitch[SunroomSide.A_SIDE].pitch_value = tan(pitch_a_side) * 12
+                self.toolkit_state_model.pitch[SunroomSide.C_SIDE].pitch_value = tan(pitch_c_side) * 12
                 self.toolkit_state_model.wall_heights[(SunroomSide.A_SIDE, LengthType.SOFFIT_HEIGHT)].length = (
                     soffit_height_a_side)
                 self.toolkit_state_model.wall_heights[(SunroomSide.C_SIDE, LengthType.SOFFIT_HEIGHT)].length = (
