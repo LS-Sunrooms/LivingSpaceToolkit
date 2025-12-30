@@ -38,10 +38,11 @@ def set_strikethrough(widget: QWidget, enabled: bool) -> None:
     font.setStrikeOut(enabled)
     widget.setFont(font)
 
-def to_sixteenth(number: float) -> float:
+def to_nice_number(in_number: float, denominator: int) -> float:
     """
-    Rounds number to nearest 16th.
-    :param number: float
+    Rounds input number to nearest denominator number
+    :param denominator: int
+    :param in_number: float
     :return: float
     """
-    return round(number * 16) / 16
+    return round(in_number * denominator) / denominator
