@@ -42,6 +42,10 @@ class ToolkitStateModel:
         SunroomSide.B_SIDE: ToolkitLength(LengthType.WALL_WIDTH, SunroomSide.B_SIDE),
         SunroomSide.C_SIDE: ToolkitLength(LengthType.WALL_WIDTH, SunroomSide.C_SIDE),
     })
+    cathedral_gable: Dict[SunroomSide, ToolkitLength] = field(default_factory=lambda: {
+        SunroomSide.A_SIDE: ToolkitLength(LengthType.WALL_WIDTH, SunroomSide.A_SIDE),
+        SunroomSide.C_SIDE: ToolkitLength(LengthType.WALL_WIDTH, SunroomSide.C_SIDE),
+    }) # Used for roof panel calculations for cathedral.
 
     def default_state(self, sunroom: SunroomType|None = None, scenario: Scenario|None = None) -> None:
         if sunroom is None:
@@ -66,6 +70,9 @@ class ToolkitStateModel:
         for sunroom_side in self.floor_walls:
             self.floor_walls[sunroom_side].length = 0
             self.floor_walls[sunroom_side].modified = False
+        for sunroom_side in self.cathedral_gable:
+            self.cathedral_gable[sunroom_side].length = 0
+            self.cathedral_gable[sunroom_side].modified = False
 
     def check_calculation_ready(self) -> None:
         if self.scenario is None:

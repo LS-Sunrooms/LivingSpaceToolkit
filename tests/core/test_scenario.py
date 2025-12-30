@@ -241,7 +241,7 @@ class TestStudioScenarios:
         assert to_nice_number(pitch, 2) == 10
         assert to_nice_number(peak, 16) == 220
         assert to_nice_number(soffit, 16) == 111.6875
-        assert to_nice_number(drip_edge, 16) == 116.3125
+        assert to_nice_number(drip_edge, 16) == expected
         assert to_nice_number(max_height, 16) == 227.8125
         assert to_nice_number(a_wall_height, 16) == 120
         assert to_nice_number(b_wall_height, 16) == 120

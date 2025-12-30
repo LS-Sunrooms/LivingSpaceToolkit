@@ -77,3 +77,5 @@ class WallHeightPeakHeight(BaseScenarioClass):
                     drip_edge_a_side)
                 self.toolkit_state_model.wall_heights[(SunroomSide.C_SIDE, LengthType.DRIP_EDGE_HEIGHT)].length = (
                     drip_edge_c_side)
+                self.toolkit_state_model.cathedral_gable[SunroomSide.A_SIDE].length = gabled_wall / 2
+                self.toolkit_state_model.cathedral_gable[SunroomSide.C_SIDE].length = gabled_wall / 2
