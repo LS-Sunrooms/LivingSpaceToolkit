@@ -1,5 +1,5 @@
 import pytest
-from math import tan
+from math import tan, sin, pi
 
 from livingspacetoolkit.lib import *
 from livingspacetoolkit.models import ToolkitStateModel, SunroomModel
@@ -387,6 +387,8 @@ class TestCathedralScenarios:
         drip_edge_c_side = toolkit_state.wall_heights[(SunroomSide.C_SIDE, LengthType.DRIP_EDGE_HEIGHT)].length
         a_wall_height = toolkit_state.wall_heights[(SunroomSide.A_SIDE, LengthType.WALL_HEIGHT)].length
         c_wall_height = toolkit_state.wall_heights[(SunroomSide.C_SIDE, LengthType.WALL_HEIGHT)].length
+        assert sunroom_model.cathedral_gable[SunroomSide.A_SIDE].length == 120 / 2
+        assert sunroom_model.cathedral_gable[SunroomSide.C_SIDE].length == 120 / 2
         assert to_nice_number(pitch_a_side, 2) == 10
         assert to_nice_number(pitch_c_side, 2) == 10
         assert to_nice_number(peak, 16) == 168.625
@@ -435,6 +437,8 @@ class TestCathedralScenarios:
         drip_edge_c_side = toolkit_state.wall_heights[(SunroomSide.C_SIDE, LengthType.DRIP_EDGE_HEIGHT)].length
         a_wall_height = toolkit_state.wall_heights[(SunroomSide.A_SIDE, LengthType.WALL_HEIGHT)].length
         c_wall_height = toolkit_state.wall_heights[(SunroomSide.C_SIDE, LengthType.WALL_HEIGHT)].length
+        assert sunroom_model.cathedral_gable[SunroomSide.A_SIDE].length == 120 / 2
+        assert sunroom_model.cathedral_gable[SunroomSide.C_SIDE].length == 120 / 2
         assert to_nice_number(pitch_a_side, 2) == 10
         assert to_nice_number(pitch_c_side, 2) == 10
         assert to_nice_number(peak, 16) == 168
@@ -473,9 +477,12 @@ class TestCathedralScenarios:
         # Act
         scenario.calculate_sunroom_properties()
         # Assert
-        pitch_a_side = 12 * tan(toolkit_state.pitch[SunroomSide.A_SIDE].pitch_value)
-        pitch_c_side = 12 * tan(toolkit_state.pitch[SunroomSide.C_SIDE].pitch_value)
+        pitch_a_raw = toolkit_state.pitch[SunroomSide.A_SIDE].pitch_value
+        pitch_c_raw = toolkit_state.pitch[SunroomSide.C_SIDE].pitch_value
+        pitch_a_side = 12 * tan(pitch_a_raw)
+        pitch_c_side = 12 * tan(pitch_c_raw)
         peak = toolkit_state.wall_heights[(None, LengthType.PEAK_HEIGHT)].length
+        actual_peak = scenario.calculate_triangle_height(pitch_a_raw, pitch_c_raw, 120)
         max_height = toolkit_state.wall_heights[(None, LengthType.MAX_HEIGHT)].length
         soffit_a_side = toolkit_state.wall_heights[(SunroomSide.A_SIDE, LengthType.SOFFIT_HEIGHT)].length
         soffit_c_side = toolkit_state.wall_heights[(SunroomSide.C_SIDE, LengthType.SOFFIT_HEIGHT)].length
@@ -483,6 +490,10 @@ class TestCathedralScenarios:
         drip_edge_c_side = toolkit_state.wall_heights[(SunroomSide.C_SIDE, LengthType.DRIP_EDGE_HEIGHT)].length
         a_wall_height = toolkit_state.wall_heights[(SunroomSide.A_SIDE, LengthType.WALL_HEIGHT)].length
         c_wall_height = toolkit_state.wall_heights[(SunroomSide.C_SIDE, LengthType.WALL_HEIGHT)].length
+        assert (sunroom_model.cathedral_gable[SunroomSide.A_SIDE].length == actual_peak /
+                tan(toolkit_state.pitch[SunroomSide.A_SIDE].pitch_value))
+        assert (sunroom_model.cathedral_gable[SunroomSide.C_SIDE].length == actual_peak /
+                tan(toolkit_state.pitch[SunroomSide.C_SIDE].pitch_value))
         assert to_nice_number(pitch_a_side, 2) == 10
         assert to_nice_number(pitch_c_side, 2) == 10
         assert to_nice_number(peak, 16) == 210.8125
@@ -531,6 +542,8 @@ class TestCathedralScenarios:
         drip_edge_c_side = toolkit_state.wall_heights[(SunroomSide.C_SIDE, LengthType.DRIP_EDGE_HEIGHT)].length
         a_wall_height = toolkit_state.wall_heights[(SunroomSide.A_SIDE, LengthType.WALL_HEIGHT)].length
         c_wall_height = toolkit_state.wall_heights[(SunroomSide.C_SIDE, LengthType.WALL_HEIGHT)].length
+        assert sunroom_model.cathedral_gable[SunroomSide.A_SIDE].length == 120 / 2
+        assert sunroom_model.cathedral_gable[SunroomSide.C_SIDE].length == 120 / 2
         assert to_nice_number(pitch_a_side, 2) == 10
         assert to_nice_number(pitch_c_side, 2) == 10
         assert to_nice_number(peak, 16) == 168
@@ -570,8 +583,10 @@ class TestCathedralScenarios:
         # Act
         scenario.calculate_sunroom_properties()
         # Assert
-        pitch_a_side = 12 * tan(toolkit_state.pitch[SunroomSide.A_SIDE].pitch_value)
-        pitch_c_side = 12 * tan(toolkit_state.pitch[SunroomSide.C_SIDE].pitch_value)
+        pitch_a_raw = toolkit_state.pitch[SunroomSide.A_SIDE].pitch_value
+        pitch_c_raw = toolkit_state.pitch[SunroomSide.C_SIDE].pitch_value
+        pitch_a_side = 12 * tan(pitch_a_raw)
+        pitch_c_side = 12 * tan(pitch_c_raw)
         peak = toolkit_state.wall_heights[(None, LengthType.PEAK_HEIGHT)].length
         max_height = toolkit_state.wall_heights[(None, LengthType.MAX_HEIGHT)].length
         soffit_a_side = toolkit_state.wall_heights[(SunroomSide.A_SIDE, LengthType.SOFFIT_HEIGHT)].length
@@ -580,6 +595,12 @@ class TestCathedralScenarios:
         drip_edge_c_side = toolkit_state.wall_heights[(SunroomSide.C_SIDE, LengthType.DRIP_EDGE_HEIGHT)].length
         a_wall_height = toolkit_state.wall_heights[(SunroomSide.A_SIDE, LengthType.WALL_HEIGHT)].length
         c_wall_height = toolkit_state.wall_heights[(SunroomSide.C_SIDE, LengthType.WALL_HEIGHT)].length
+        actual_peak = (scenario.calculate_triangle_height(pitch_a_raw, pitch_c_raw, 120) +
+                       max(a_wall_height, c_wall_height))
+        assert (sunroom_model.cathedral_gable[SunroomSide.A_SIDE].length == (
+                    actual_peak - max(a_wall_height, c_wall_height)) / tan(pitch_a_raw))
+        assert (sunroom_model.cathedral_gable[SunroomSide.C_SIDE].length == (
+                    actual_peak - max(a_wall_height, c_wall_height)) / tan(pitch_c_raw))
         assert to_nice_number(pitch_a_side, 2) == 10
         assert to_nice_number(pitch_c_side, 2) == 10
         assert to_nice_number(peak, 16) == 169
@@ -628,6 +649,8 @@ class TestCathedralScenarios:
         drip_edge_c_side = toolkit_state.wall_heights[(SunroomSide.C_SIDE, LengthType.DRIP_EDGE_HEIGHT)].length
         a_wall_height = toolkit_state.wall_heights[(SunroomSide.A_SIDE, LengthType.WALL_HEIGHT)].length
         c_wall_height = toolkit_state.wall_heights[(SunroomSide.C_SIDE, LengthType.WALL_HEIGHT)].length
+        assert sunroom_model.cathedral_gable[SunroomSide.A_SIDE].length == 120 / 2
+        assert sunroom_model.cathedral_gable[SunroomSide.C_SIDE].length == 120 / 2
         assert to_nice_number(pitch_a_side, 2) == 10
         assert to_nice_number(pitch_c_side, 2) == 10
         assert to_nice_number(peak, 16) == 168
@@ -666,8 +689,10 @@ class TestCathedralScenarios:
         # Act
         scenario.calculate_sunroom_properties()
         # Assert
-        pitch_a_side = 12 * tan(toolkit_state.pitch[SunroomSide.A_SIDE].pitch_value)
-        pitch_c_side = 12 * tan(toolkit_state.pitch[SunroomSide.C_SIDE].pitch_value)
+        pitch_a_raw = toolkit_state.pitch[SunroomSide.A_SIDE].pitch_value
+        pitch_c_raw = toolkit_state.pitch[SunroomSide.C_SIDE].pitch_value
+        pitch_a_side = 12 * tan(pitch_a_raw)
+        pitch_c_side = 12 * tan(pitch_c_raw)
         peak = toolkit_state.wall_heights[(None, LengthType.PEAK_HEIGHT)].length
         max_height = toolkit_state.wall_heights[(None, LengthType.MAX_HEIGHT)].length
         soffit_a_side = toolkit_state.wall_heights[(SunroomSide.A_SIDE, LengthType.SOFFIT_HEIGHT)].length
@@ -676,6 +701,12 @@ class TestCathedralScenarios:
         drip_edge_c_side = toolkit_state.wall_heights[(SunroomSide.C_SIDE, LengthType.DRIP_EDGE_HEIGHT)].length
         a_wall_height = toolkit_state.wall_heights[(SunroomSide.A_SIDE, LengthType.WALL_HEIGHT)].length
         c_wall_height = toolkit_state.wall_heights[(SunroomSide.C_SIDE, LengthType.WALL_HEIGHT)].length
+        actual_peak = (scenario.calculate_triangle_height(pitch_a_raw, pitch_c_raw, 120) +
+                       max(a_wall_height, c_wall_height))
+        assert (sunroom_model.cathedral_gable[SunroomSide.A_SIDE].length == (
+                    actual_peak - max(a_wall_height, c_wall_height)) / tan(pitch_a_raw))
+        assert (sunroom_model.cathedral_gable[SunroomSide.C_SIDE].length == (
+                    actual_peak - max(a_wall_height, c_wall_height)) / tan(pitch_c_raw))
         assert to_nice_number(pitch_a_side, 2) == 10
         assert to_nice_number(pitch_c_side, 2) == 10
         assert to_nice_number(peak, 16) == 165.1875

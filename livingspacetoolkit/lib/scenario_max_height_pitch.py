@@ -60,7 +60,7 @@ class MaxHeightPitch(BaseScenarioClass):
                                    self.calculate_triangle_height(pitch_a_side, pitch_c_side, self.post_width))
                 # TODO: Combined they are the wall width on B Side. They can be different for different pitches
                 half_gable_a_side = peak_height / tan(pitch_a_side)
-                half_gable_c_side = peak_height / tan(pitch_a_side)
+                half_gable_c_side = peak_height / tan(pitch_c_side)
                 wall_height_a_side = (max_height - max(self.calculate_hypotenuse(thickness, pitch_a_side),
                                                       self.calculate_hypotenuse(thickness, pitch_c_side)) -
                                       self.calculate_triangle_height(pitch_a_side, pitch_c_side, gabled_wall))
