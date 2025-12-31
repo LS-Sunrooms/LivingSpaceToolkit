@@ -45,6 +45,7 @@ class MaxHeightPitch(BaseScenarioClass):
                     (SunroomSide.B_SIDE, LengthType.WALL_HEIGHT)].length = wall_height_b_side
                 self.toolkit_state_model.wall_heights[
                     (SunroomSide.C_SIDE, LengthType.WALL_HEIGHT)].length = wall_height_b_side
+                self.sunroom_model.gable_wall[SunroomSide.B_SIDE].length = flat_wall
             case SunroomType.CATHEDRAL:
                 # Gather variables
                 gabled_wall = self.toolkit_state_model.floor_walls[SunroomSide.B_SIDE].length
@@ -83,5 +84,5 @@ class MaxHeightPitch(BaseScenarioClass):
                     drip_edge_a_side)
                 self.toolkit_state_model.wall_heights[(SunroomSide.C_SIDE, LengthType.DRIP_EDGE_HEIGHT)].length = (
                     drip_edge_c_side)
-                self.sunroom_model.cathedral_gable[SunroomSide.A_SIDE].length = half_gable_a_side
-                self.sunroom_model.cathedral_gable[SunroomSide.C_SIDE].length = half_gable_c_side
+                self.sunroom_model.gable_wall[SunroomSide.A_SIDE].length = half_gable_a_side
+                self.sunroom_model.gable_wall[SunroomSide.C_SIDE].length = half_gable_c_side

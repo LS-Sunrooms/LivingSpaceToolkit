@@ -1,4 +1,4 @@
-from math import sin, cos, tan, atan, atan2, pi
+from math import sin, cos, tan, pi
 from abc import ABC, abstractmethod
 
 from livingspacetoolkit.logconf.log_config import logger

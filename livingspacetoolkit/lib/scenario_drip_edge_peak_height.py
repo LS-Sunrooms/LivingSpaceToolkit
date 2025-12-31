@@ -70,6 +70,7 @@ class DripEdgePeakHeight(BaseScenarioClass):
                     (SunroomSide.A_SIDE, LengthType.WALL_HEIGHT)].length = wall_height_b_side
                 self.toolkit_state_model.wall_heights[
                     (SunroomSide.C_SIDE, LengthType.WALL_HEIGHT)].length = wall_height_b_side
+                self.sunroom_model.gable_wall[SunroomSide.B_SIDE].length = flat_wall
             case SunroomType.CATHEDRAL:
                 pitch = 0
                 # Gather variables
@@ -118,5 +119,5 @@ class DripEdgePeakHeight(BaseScenarioClass):
                     wall_height_a_c_side)
                 self.toolkit_state_model.wall_heights[(SunroomSide.C_SIDE, LengthType.WALL_HEIGHT)].length = (
                     wall_height_a_c_side)
-                self.sunroom_model.cathedral_gable[SunroomSide.A_SIDE].length = gabled_wall / 2
-                self.sunroom_model.cathedral_gable[SunroomSide.C_SIDE].length = gabled_wall / 2
+                self.sunroom_model.gable_wall[SunroomSide.A_SIDE].length = gabled_wall / 2
+                self.sunroom_model.gable_wall[SunroomSide.C_SIDE].length = gabled_wall / 2
