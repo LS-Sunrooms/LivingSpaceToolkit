@@ -30,7 +30,7 @@ class DripEdgePeakHeight(BaseScenarioClass):
             case SunroomType.STUDIO:
                 pitch_b_side = 0
                 # Gather variables
-                flat_wall = max(self.toolkit_state_model.floor_walls[SunroomSide.A_SIDE],
+                gable_wall = max(self.toolkit_state_model.floor_walls[SunroomSide.A_SIDE],
                                 self.toolkit_state_model.floor_walls[SunroomSide.C_SIDE]).length
                 overhang = self.toolkit_state_model.overhang.length
                 thickness = self.toolkit_state_model.thickness.length
@@ -43,7 +43,7 @@ class DripEdgePeakHeight(BaseScenarioClass):
                     ratio_pitch += increment
                     pitch_b_side = atan2(ratio_pitch, 12)
                     drip_estimate_b_side = self.estimate_drip_from_peak(peak_height, overhang, thickness, pitch_b_side,
-                                                                        flat_wall)
+                                                                        gable_wall)
                     difference = abs(drip_edge_b_side - drip_estimate_b_side)
                     if ratio_pitch > 12:
                         logger.error("Failed to estimate the drip edge!")
@@ -51,7 +51,7 @@ class DripEdgePeakHeight(BaseScenarioClass):
                     if drip_estimate_b_side < drip_edge_b_side:
                         ratio_pitch = old_ratio_pitch
                         increment /= 2
-                wall_height_b_side = peak_height - flat_wall * tan(pitch_b_side)
+                wall_height_b_side = peak_height - gable_wall * tan(pitch_b_side)
                 soffit_height_b_side = wall_height_b_side - overhang * tan(pitch_b_side)
                 max_height = peak_height + self.calculate_hypotenuse(thickness, pitch_b_side)
                 # TODO: Do I really need to recalculate the drip edge? It's what is in the original so it's here.
@@ -70,11 +70,11 @@ class DripEdgePeakHeight(BaseScenarioClass):
                     (SunroomSide.A_SIDE, LengthType.WALL_HEIGHT)].length = wall_height_b_side
                 self.toolkit_state_model.wall_heights[
                     (SunroomSide.C_SIDE, LengthType.WALL_HEIGHT)].length = wall_height_b_side
-                self.sunroom_model.gable_wall[SunroomSide.B_SIDE].length = flat_wall
+                self.sunroom_model.gable_wall[SunroomSide.B_SIDE].length = gable_wall
             case SunroomType.CATHEDRAL:
                 pitch = 0
                 # Gather variables
-                gabled_wall = self.toolkit_state_model.floor_walls[SunroomSide.B_SIDE].length
+                gable_wall = self.toolkit_state_model.floor_walls[SunroomSide.B_SIDE].length
                 fenevision_peak = self.toolkit_state_model.wall_heights[(None, LengthType.PEAK_HEIGHT)].length
                 overhang = self.toolkit_state_model.overhang.length
                 thickness = self.toolkit_state_model.thickness.length
@@ -88,7 +88,7 @@ class DripEdgePeakHeight(BaseScenarioClass):
                     ratio_pitch += increment
                     pitch = atan2(ratio_pitch, 12)
                     drip_estimate = self.estimate_drip_from_peak(fenevision_peak, overhang, thickness, pitch,
-                                                                 gabled_wall / 2 - self.post_width / 2)
+                                                                 gable_wall / 2 - self.post_width / 2)
                     difference = abs(drip_estimate - drip_edge_a_side) # There's only one input for drip edge.
                     if ratio_pitch > 12:
                         logger.error("Failed to estimate the drip edge!")
@@ -98,7 +98,7 @@ class DripEdgePeakHeight(BaseScenarioClass):
                         increment /= 2
                     # Now take the estimated pitch and set it as a ratio then convert back to radians. It's more
                     # accurate for some reason.
-                wall_height_a_c_side = fenevision_peak - (gabled_wall / 2 - self.post_width / 2) * tan(pitch)
+                wall_height_a_c_side = fenevision_peak - (gable_wall / 2 - self.post_width / 2) * tan(pitch)
                 soffit_height_a_c_side = wall_height_a_c_side - overhang * tan(pitch)
                 max_height = (fenevision_peak + self.calculate_hypotenuse(thickness, pitch) +
                               self.calculate_triangle_height(pitch, pitch, self.post_width))
@@ -119,5 +119,5 @@ class DripEdgePeakHeight(BaseScenarioClass):
                     wall_height_a_c_side)
                 self.toolkit_state_model.wall_heights[(SunroomSide.C_SIDE, LengthType.WALL_HEIGHT)].length = (
                     wall_height_a_c_side)
-                self.sunroom_model.gable_wall[SunroomSide.A_SIDE].length = gabled_wall / 2
-                self.sunroom_model.gable_wall[SunroomSide.C_SIDE].length = gabled_wall / 2
+                self.sunroom_model.gable_wall[SunroomSide.A_SIDE].length = gable_wall / 2
+                self.sunroom_model.gable_wall[SunroomSide.C_SIDE].length = gable_wall / 2

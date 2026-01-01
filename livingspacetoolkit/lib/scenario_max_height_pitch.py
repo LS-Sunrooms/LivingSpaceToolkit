@@ -21,16 +21,16 @@ class MaxHeightPitch(BaseScenarioClass):
         match self.toolkit_state_model.sunroom_type:
             case SunroomType.STUDIO:
                 # Gather variables
-                flat_wall = max(self.toolkit_state_model.floor_walls[SunroomSide.A_SIDE],
+                gable_wall = max(self.toolkit_state_model.floor_walls[SunroomSide.A_SIDE],
                                 self.toolkit_state_model.floor_walls[SunroomSide.C_SIDE]).length
                 pitch_b_side = self.toolkit_state_model.pitch[SunroomSide.B_SIDE].pitch_value
                 overhang = self.toolkit_state_model.overhang.length
                 thickness = self.toolkit_state_model.thickness.length
                 max_height = self.toolkit_state_model.wall_heights[(None, LengthType.MAX_HEIGHT)].length
                 # Calculate
-                wall_height_b_side = max_height - flat_wall * tan(pitch_b_side) - self.calculate_hypotenuse(thickness,
+                wall_height_b_side = max_height - gable_wall * tan(pitch_b_side) - self.calculate_hypotenuse(thickness,
                                                                                                        pitch_b_side)
-                soffit_height_b_side = flat_wall - overhang * tan(pitch_b_side)
+                soffit_height_b_side = gable_wall - overhang * tan(pitch_b_side)
                 peak_height = max_height - self.calculate_hypotenuse(thickness, pitch_b_side)
                 drip_edge_b_side = self.calculate_drip_edge(thickness, soffit_height_b_side, pitch_b_side)
                 # Add calculated values to toolkit_state_model
@@ -45,17 +45,17 @@ class MaxHeightPitch(BaseScenarioClass):
                     (SunroomSide.B_SIDE, LengthType.WALL_HEIGHT)].length = wall_height_b_side
                 self.toolkit_state_model.wall_heights[
                     (SunroomSide.C_SIDE, LengthType.WALL_HEIGHT)].length = wall_height_b_side
-                self.sunroom_model.gable_wall[SunroomSide.B_SIDE].length = flat_wall
+                self.sunroom_model.gable_wall[SunroomSide.B_SIDE].length = gable_wall
             case SunroomType.CATHEDRAL:
                 # Gather variables
-                gabled_wall = self.toolkit_state_model.floor_walls[SunroomSide.B_SIDE].length
+                gable_wall = self.toolkit_state_model.floor_walls[SunroomSide.B_SIDE].length
                 pitch_a_side = self.toolkit_state_model.pitch[SunroomSide.A_SIDE].pitch_value
                 pitch_c_side = self.toolkit_state_model.pitch[SunroomSide.C_SIDE].pitch_value
                 overhang = self.toolkit_state_model.overhang.length
                 thickness = self.toolkit_state_model.thickness.length
                 max_height = self.toolkit_state_model.wall_heights[(None, LengthType.MAX_HEIGHT)].length
                 # Calculate
-                peak_height = self.calculate_triangle_height(pitch_a_side, pitch_c_side, gabled_wall)
+                peak_height = self.calculate_triangle_height(pitch_a_side, pitch_c_side, gable_wall)
                 fenevision_peak = (max_height - max(self.calculate_hypotenuse(thickness, pitch_a_side),
                                                    self.calculate_hypotenuse(thickness, pitch_c_side)) -
                                    self.calculate_triangle_height(pitch_a_side, pitch_c_side, self.post_width))
@@ -64,7 +64,7 @@ class MaxHeightPitch(BaseScenarioClass):
                 half_gable_c_side = peak_height / tan(pitch_c_side)
                 wall_height_a_side = (max_height - max(self.calculate_hypotenuse(thickness, pitch_a_side),
                                                       self.calculate_hypotenuse(thickness, pitch_c_side)) -
-                                      self.calculate_triangle_height(pitch_a_side, pitch_c_side, gabled_wall))
+                                      self.calculate_triangle_height(pitch_a_side, pitch_c_side, gable_wall))
                 wall_height_c_side = wall_height_a_side
                 soffit_height_a_side = wall_height_a_side - overhang * tan(pitch_a_side)
                 soffit_height_c_side = wall_height_c_side - overhang * tan(pitch_c_side)
