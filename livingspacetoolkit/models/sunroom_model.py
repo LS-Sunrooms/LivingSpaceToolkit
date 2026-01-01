@@ -2,14 +2,13 @@ from dataclasses import dataclass, field
 from typing import Dict
 
 from livingspacetoolkit.logconf.log_config import logger
-from livingspacetoolkit.lib.toolkit_enums import (SunroomType, LengthType, SunroomSide)
+from livingspacetoolkit.lib.toolkit_enums import LengthType, SunroomSide
 from livingspacetoolkit.lib import ToolkitLength
 
 
 
 @dataclass
 class SunroomModel:
-    sunroom_type: SunroomType = SunroomType.STUDIO
     max_panel_length: Dict[SunroomSide, bool] = field(default_factory=lambda:{
         SunroomSide.A_SIDE: False,
         SunroomSide.B_SIDE: False,
@@ -62,9 +61,8 @@ class SunroomModel:
     })
     armstrong_panels: int = 0
 
-    def default_state(self, sunroom: SunroomType):
-        logger.debug(f"Setting sunroom model to default state for {sunroom.name} sunroom.")
-        self.sunroom_type = sunroom
+    def default_state(self):
+        logger.debug("Setting sunroom model to default state.")
         for roof_side in SunroomSide:
             self.max_panel_length[roof_side] = False
             self.panel_tolerance[roof_side] = False
