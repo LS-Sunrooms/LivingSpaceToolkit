@@ -57,7 +57,7 @@ class SunroomModel:
     fascia: Dict[SunroomSide, Dict[str, List[ToolkitLength] | bool]] = field(default_factory=lambda:{
         SunroomSide.A_SIDE: {'value': [ToolkitLength(LengthType.FASCIA)], "max_length": False},
         SunroomSide.B_SIDE: {'value': [ToolkitLength(LengthType.FASCIA), ToolkitLength(LengthType.FASCIA)],
-                             "max_length": False},
+                             "max_length": False}, # Cathedral uses both, Studio use the first.
         SunroomSide.C_SIDE: {'value': [ToolkitLength(LengthType.FASCIA)], "max_length": False}
     })
     armstrong_panels: int = 0
