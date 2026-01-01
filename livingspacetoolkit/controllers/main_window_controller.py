@@ -1,9 +1,11 @@
 from livingspacetoolkit.logconf.log_config import logger
 from livingspacetoolkit.views import ScenariosView, ResultsView, TabsView
-from livingspacetoolkit.models.toolkit_state_model import ToolkitStateModel
+from livingspacetoolkit.models import ToolkitStateModel, SunroomModel
+from livingspacetoolkit.models.results_model import generate_results
 from .studio_controller import StudioController
 from .cathedral_controller import CathedralController
 from livingspacetoolkit.lib.toolkit_enums import SunroomType
+from livingspacetoolkit.lib import SunroomBuilder, ScenarioSelector
 
 
 class MainWindowController:
@@ -43,14 +45,19 @@ class MainWindowController:
         self.results_view.calculate_button.setEnabled(True)
 
     def handle_results_button_click(self) -> None:
-        # TODO: Button press actually does calculations using calculations model
         try:
             logger.debug("Checking if all fields are filled for selected scenario.")
             self.toolkit_state.check_calculation_ready()
+            logger.info(f"Calculating properties of {self.toolkit_state.sunroom_type.name} sunroom using scenario: {self.toolkit_state.scenario.name}")
+            sunroom_model = SunroomModel()
+            scenario = ScenarioSelector(self.toolkit_state).identify_scenario(sunroom_model)
+            scenario.calculate_sunroom_properties()
+            builder = SunroomBuilder(self.toolkit_state, sunroom_model)
+            builder.build_roof_components()
+            self.results_view.update_text(generate_results(self.toolkit_state, sunroom_model))
         except TypeError as err:
             self.tabs_view.show_warning(str(err))
             logger.warning(err)
-        self.results_view.update_text("Button Pressed.\nNew line added.")
 
     def set_to_default_state(self) -> None:
         self.studio_controller.set_to_default()

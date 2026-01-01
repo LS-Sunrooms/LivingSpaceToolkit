@@ -147,10 +147,12 @@ class SunroomBuilder:
             case SunroomSide.A_SIDE | SunroomSide.C_SIDE:
                 try:
                     self.sunroom_model.fascia[SunroomSide.B_SIDE]["value"][0].length = fascia_half_gable
+                    self.sunroom_model.fascia[SunroomSide.B_SIDE]["value"][1].length = fascia_half_gable
                 except ValueError as err:
                     logger.warning(err)
                     self.sunroom_model.fascia[SunroomSide.B_SIDE]["max_length"] = True
                     self.sunroom_model.fascia[SunroomSide.B_SIDE]["value"][0].length = fascia_half_gable / 2
+                    self.sunroom_model.fascia[SunroomSide.B_SIDE]["value"][1].length = fascia_half_gable / 2
             case SunroomSide.B_SIDE:
                 try:
                     self.sunroom_model.fascia[SunroomSide.A_SIDE]["value"][0].length = fascia_half_gable
