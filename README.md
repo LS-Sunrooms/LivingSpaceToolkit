@@ -9,8 +9,8 @@ orders for Livingspace sunrooms.
 
 ## Getting Started
 
-The requirements.txt file lists the required packages needed to run the gui application. There are also four custom
-modules included.
+The requirements are listed in the pyproject.toml file. It is recommended the developer uses `uv` for project
+management.
 
 ### Requirements
 
@@ -21,8 +21,12 @@ The program needs the following packages:
 
 ### Installing
 
-Use pyinstaller to generate the .exe file. Include the four modules, the .ui file, and the .qrc file.
-Use `--hidden-import PySide2.QtXml`.
+To build the project into an executable use Nuitka.
+1. Install dependencies: `uv sync` & `uv sync --group dev`
+2. Activate the Python environment and open a terminal in that environment.
+3. The directory you should be in is the top level directory with the pyproject.toml file.
+4. To compile the project into an executable run the following command: `nuitka livingspacetoolkit/main.py`
+   1. The options for this compilation are listed in the main.py file.
 
 ### Usage:
 
@@ -48,9 +52,9 @@ The next selection is the end cuts. This is how the ends of the panels will be c
 Uncut means they will be cut on site. Plum cut means they will be cut before delivery and will be cut such that the ends
 will be perpendicular to the ground. 
 
-Fascia is left as a check box. Fascia is an architectural term for a vertical frieze or band under a roof edge. This is
+Fascia is left as a checkbox. Fascia is an architectural term for a vertical frieze or band under a roof edge. This is
 visible to outside observers and can be important for the appearance of the sunroom. Fascia is only available for uncut
-roof edges at certain panel thicknesses. If your selection meets the criteria then the check box will be automatically
+roof edges at certain panel thicknesses. If your selection meets the criteria then the checkbox will be automatically
 enabled and checked.
 
 The center of the app has more text boxes that you fill in based on the scenario selected. You must always fill out the
@@ -83,20 +87,28 @@ of the roof to protect against weather.
 Since this program was written specifically for Livingspace Sunrooms these numbers are designed to work with their ERP
 system.
 
+### Testing
+
+Unlike the previous version of this project I have included a dozens of tests. These test the core functions and the gui
+interface. From the project directory run `pytest` if you have the `dev` group installed using `uv`.
+
 ### Screenshots
 
-![StudioView](images/screenshot2.jpg)
+![Disabled View](images/Screenshot_1.png)
 
-![CathedralView](images/screenshot3.jpg)
+![StudioView](images/Screenshot_2.png)
+
+![CathedralView](images/Screenshot_3.png)
 
 ## Future Work
 
-This project needs to be reorganized properly. I was only learning how to program in Python when I did this project so
-some work needs to be put into cleanup and refactoring.
+As of version V2.0.0 I just finished refactoring the entire project. Hopefully it will be easier for the next engineer
+to maintain. The basic math for the sunroom calculations were kept the same and any updates to the math will be done by
+someone who knows what they're doing.
 
 ## Versioning
 
-The current version is v1.9.5.
+This project uses semantic versioning. The current version is V2.0.0
 
 ## Authors
 
@@ -105,7 +117,3 @@ The current version is v1.9.5.
 ## License
 
 (©) 2025 LivingSpace Sunrooms. All rights reserved.
-
-## Acknowledgements
-
-All the great engineers who wrote the books that I'm using for this project.

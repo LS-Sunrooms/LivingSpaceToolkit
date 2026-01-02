@@ -9,6 +9,7 @@ from .base_sunroom_controller import BaseSunroomController
 
 class StudioController(BaseSunroomController):
     def __init__(self, view: StudioView, toolkit_state: ToolkitStateModel):
+        """Controller for the studio view. Handles signals from the view and updates the toolkit_state_model."""
         self.toolkit_state = toolkit_state
         self.roof_model: RoofModel = RoofModel(toolkit_state)
 

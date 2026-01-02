@@ -18,7 +18,7 @@ class BaseSunroomProtocol(Protocol):
 
 
 class BaseSunroomController(ABC, BaseSunroomProtocol):
-
+    """Base controller for each sunroom type in the Tabs view (studio and cathedral for now). This class is inherited."""
     @abstractmethod
     def update_to_scenario(self) -> None:
         pass

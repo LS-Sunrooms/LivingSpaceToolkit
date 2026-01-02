@@ -1,8 +1,0 @@
-<RCC>
-  <qresource prefix="Sunrooms">
-    <file alias="CathedralView">../d0afddd4/LivingSpace_Cathedral2.png</file>
-    <file alias="Logo">../aa0c96ea/Livingspace_Sunrooms_logo.png</file>
-    <file alias="FloorPlanView">../b284715f/LivingSpace_FloorPlan2.png</file>
-    <file alias="StudioView">../9c3e0921/LivingSpace_Studio2.png</file>
-  </qresource>
-</RCC>

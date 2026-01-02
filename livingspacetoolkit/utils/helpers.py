@@ -34,15 +34,16 @@ def temporary_change(
 
 
 def set_strikethrough(widget: QWidget, enabled: bool) -> None:
+    """Enables or disables a strikethrough on a given label."""
     font = widget.font()
     font.setStrikeOut(enabled)
     widget.setFont(font)
 
 def to_nice_number(in_number: float, denominator: int) -> float:
     """
-    Rounds input number to nearest denominator number
+    Rounds input number to nearest denominator number. Used to display lengths in 16ths or pitches to the nearest #.5.
     :param denominator: int
     :param in_number: float
-    :return: float
+    :return:
     """
     return round(in_number * denominator) / denominator

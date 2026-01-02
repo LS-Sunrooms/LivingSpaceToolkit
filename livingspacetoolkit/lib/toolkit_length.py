@@ -5,6 +5,8 @@ from livingspacetoolkit.config.log_config import logger
 
 
 class ToolkitLength:
+    """This class is used for all length calculations. It includes regex to convert imperial units into inches, the
+    ability to determine which side sunroom the length is for, and what type of feature the length is for."""
 
     IMPERIAL_REGEX = re.compile(
         r"""

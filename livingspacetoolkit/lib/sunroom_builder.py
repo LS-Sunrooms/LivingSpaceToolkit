@@ -10,6 +10,8 @@ from livingspacetoolkit.models import ToolkitStateModel, SunroomModel
 
 
 class SunroomBuilder:
+    """This class calculates components of the roof. This includes the length of the roof panels, how many there are,
+    the length of the hang rails, the length of the fascia, the number of Armstrong boxes needed, ect."""
     def __init__(self, toolkit_state_model: ToolkitStateModel, sunroom_model: SunroomModel) -> None:
         self.toolkit_state_model = toolkit_state_model
         self.sunroom_model = sunroom_model

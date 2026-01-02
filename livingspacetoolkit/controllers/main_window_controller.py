@@ -9,6 +9,7 @@ from livingspacetoolkit.lib import SunroomBuilder, ScenarioSelector
 
 
 class MainWindowController:
+    """Controller for the main window view. Handles signals from the view and updates the toolkit_state_model."""
     def __init__(self,
                  tabs_view: TabsView,
                  scenarios_view: ScenariosView,

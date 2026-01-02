@@ -9,6 +9,8 @@ from livingspacetoolkit.lib import ToolkitLength
 
 @dataclass
 class SunroomModel:
+    """This model records roof configuration data as it is calculated. The calculations are done with the scenario
+    classes and the SunroomBuilder class."""
     max_panel_length: Dict[SunroomSide, bool] = field(default_factory=lambda:{
         SunroomSide.A_SIDE: False,
         SunroomSide.B_SIDE: False,

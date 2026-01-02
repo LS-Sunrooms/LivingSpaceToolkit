@@ -6,6 +6,7 @@ from livingspacetoolkit.lib.toolkit_enums import RoofingType
 
 
 class RoofModel:
+    """Used to generate the items in the thickness combo box."""
     def __init__(self, toolkit_state_model: ToolkitStateModel):
         self.toolkit_state_model = toolkit_state_model
 

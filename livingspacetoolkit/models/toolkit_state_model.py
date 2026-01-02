@@ -9,6 +9,8 @@ from livingspacetoolkit.lib import ToolkitLength, ToolkitPitch
 
 @dataclass()
 class ToolkitStateModel:
+    """This model records the user input from the GUI. The input recorded is dependent on the scenario selected. This is
+    also where the sunroom heights and roof pitch is saved from calculations made from each scenario class."""
     sunroom_type: SunroomType = SunroomType.STUDIO
     scenario: Scenario | None = None
     pitch: Dict[SunroomSide, ToolkitPitch] = field(default_factory=lambda:{

@@ -6,6 +6,8 @@ from livingspacetoolkit.config.log_config import logger
 
 
 class ToolkitPitch:
+    """This is the class used for all pitch calculations. It can convert ratios and degrees into radians which is its
+    based unit. The type of pitch (degrees or ratio) and the side of the sunroom is needed."""
     ANGLE_REGEX = re.compile(
         r"""
         ^\s*

@@ -7,6 +7,7 @@ from livingspacetoolkit.utils.helpers import to_nice_number
 
 
 def generate_results(toolkit_state: ToolkitStateModel, sunroom_model: SunroomModel) -> str:
+    """This function is used to generate the results display text."""
     results_text = 'Now listing results.\n'
     results_text += '*===================*\n'
     match toolkit_state.scenario:

@@ -22,7 +22,7 @@ wheels = [
 
 [[package]]
 name = "livingspacetoolkit"
-version = "1.9.5"
+version = "2.0.0"
 source = { editable = "." }
 dependencies = [
     { name = "platformdirs" },

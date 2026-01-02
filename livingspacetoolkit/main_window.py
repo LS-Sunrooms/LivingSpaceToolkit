@@ -9,6 +9,7 @@ from livingspacetoolkit.models.toolkit_state_model import ToolkitStateModel
 
 
 class MainWindow(QMainWindow):
+    """Uses views to assemble main window."""
     def __init__(self):
         super().__init__()
 

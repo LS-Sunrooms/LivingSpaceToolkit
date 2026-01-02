@@ -8,6 +8,7 @@ from livingspacetoolkit.models import ToolkitStateModel, SunroomModel
 
 
 class BaseScenarioClass(ABC):
+    """This is the base class for all scenario calculations. All scenarios must inherit this class."""
     post_width = 3.25  # Business logic. The width of the center post. Used in cathedral calculations.
 
     @abstractmethod
