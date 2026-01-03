@@ -1,7 +1,7 @@
 # nuitka-project: --enable-plugin=pyside6
 # nuitka-project: --mode=onefile
 # nuitka-project: --windows-console-mode=disable
-# nuitka-project: --windows-icon-from-ico=Resource/Livingspace_Sunrooms_icon.ico
+# nuitka-project: --windows-icon-from-ico=livingspacetoolkit/Resource/Livingspace_Sunrooms_icon.ico
 # nuitka-project: --output-dir=output
 # nuitka-project-if: {OS} == "Windows":
 #    nuitka-project: --output-filename=LivingspaceToolkit.exe
